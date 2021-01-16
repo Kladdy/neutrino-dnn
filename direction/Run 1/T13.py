@@ -35,7 +35,7 @@ from generator3 import TrainDataset, ValDataset, n_events_per_file, n_files_trai
 # For arguments when calling from command line (argument 0 is file name)
 import sys
 run_name = sys.argv[1] # run name (first argument)
-learning_rate = sys.argv[2] # learning rate (second argument)
+learning_rate = int(sys.argv[2]) # learning rate (second argument)
 
 filename = os.path.splitext(__file__)[0]
 path = os.path.join('saved_models', filename)
