@@ -19,11 +19,13 @@ def spherical_to_cartesian(zenith, azimuth):
 
 
 def load_file(i_file, norm=norm):
-#     t0 = time.time()
-#     print(f"loading file {i_file}", flush=True)
+    t0 = time.time()
+    print(f"loading file {i_file}", flush=True)
     data = np.load(os.path.join(datapath, f"data_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)[:, :, :, np.newaxis]
     labels_tmp = np.load(os.path.join(datapath, f"labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)
-#     print(f"finished loading file {i_file} in {time.time() - t0}s")
+    print(data)
+    print(labels_tmp)
+    print(f"finished loading file {i_file} in {time.time() - t0}s")
     nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
     nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
     nu_direction = spherical_to_cartesian(nu_zenith, nu_azimuth)
@@ -37,6 +39,6 @@ def load_file(i_file, norm=norm):
     data = data[idx, :, :, :]
     nu_direction = nu_direction[idx]
     data /= norm
-#     print(f"finished processing file {i_file} in {time.time() - t0}s")
+    print(f"finished processing file {i_file} in {time.time() - t0}s")
 
     return data, nu_direction
