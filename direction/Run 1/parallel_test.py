@@ -1,3 +1,2 @@
 import sys
-print(sys.argv[1])
-print(sys.argv[2])
+print(f"{sys.argv[1]} {sys.argv[2]}")
