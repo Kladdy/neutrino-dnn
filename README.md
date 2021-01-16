@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/Kladdy/neutrino-dnn/blob/main/resources/logo1.jpeg?raw=true" alt="drawing" width="500"/>
+</p>
+
 # neutrino-dnn
 Deep-learning applied to neutrino property reconstruction
 
