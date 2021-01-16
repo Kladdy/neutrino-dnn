@@ -1,0 +1,4 @@
+python parallel_test.py 1 A
+python parallel_test.py 2 B
+python parallel_test.py 3 C
+python parallel_test.py 4 D
