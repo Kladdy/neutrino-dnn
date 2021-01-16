@@ -23,8 +23,8 @@ def load_file(i_file, norm=norm):
     print(f"loading file {i_file}", flush=True)
     data = np.load(os.path.join(datapath, f"data_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)[:, :, :, np.newaxis]
     labels_tmp = np.load(os.path.join(datapath, f"labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)
-    print(data)
-    print(labels_tmp)
+    print(data.dtype.names)
+    print(labels_tmp.dtype.names)
     print(f"finished loading file {i_file} in {time.time() - t0}s")
     nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
     nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
