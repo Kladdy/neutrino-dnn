@@ -15,7 +15,7 @@ event_data = data[i_event]
 
 # Plotting
 fig, axs = plt.subplots(5)
-fig.suptitle('Plot of 4 LDPA & 1 dipole')
+fig.suptitle(f'Plot of 4 LDPA & 1 dipole of SouthPole data for event {i_event} in file {i_file}')
 
 for i in range(5):
     axs[i].plot(event_data[i])
