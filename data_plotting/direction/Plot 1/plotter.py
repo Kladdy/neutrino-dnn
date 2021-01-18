@@ -32,4 +32,6 @@ for ax in axs.flat:
 for ax in axs.flat:
     ax.label_outer()
 
+fig.set_size_inches(18.5, 10.5)
+
 plt.savefig(f"plots/plot_file{i_file}_event{i_event}.png")
