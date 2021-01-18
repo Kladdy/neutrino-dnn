@@ -19,7 +19,17 @@ fig.suptitle('Plot of 4 LDPA & 1 dipole')
 
 for i in range(5):
     axs[i].plot(event_data[i])
-    if i != 5:
-        axs[i].set_xticklabels([])
+
+    # Remove x ticks on all except last plot
+    # if i != 4:
+    #     axs[i].set_xticks([])
+    #     axs[i].set_xticklabels([])
+
+for ax in axs.flat:
+    ax.set(xlabel='time (ns)', ylabel='signal (mV)')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+    ax.label_outer()
 
 plt.savefig(f"plots/plot_file{i_file}_event{i_event}.png")
