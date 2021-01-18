@@ -22,13 +22,11 @@ def load_file(i_file, norm=norm):
     t0 = time.time()
     print(f"loading file {i_file}", flush=True)
     data = np.load(os.path.join(datapath, f"data_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)[:, :, :, np.newaxis]
-    labels_tmp = np.load(os.path.join(datapath, f"labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)[:, :, :]
-    print(data.shape)
-    print(labels_tmp.shape)
+    labels_tmp = np.load(os.path.join(datapath, f"labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)
     print(f"finished loading file {i_file} in {round(1000*(time.time() - t0))} ms")
-    nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
-    nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
-    nu_direction = spherical_to_cartesian(nu_zenith, nu_azimuth)
+    # nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
+    # nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
+    # nu_direction = spherical_to_cartesian(nu_zenith, nu_azimuth)
 #     shower_energy_had.reshape(shower_energy_had.shape[0], 1)
 
     # check for nans and remove them
@@ -37,8 +35,9 @@ def load_file(i_file, norm=norm):
     idx = np.all(idx, axis=1)
     idx = np.all(idx, axis=1)
     data = data[idx, :, :, :]
-    nu_direction = nu_direction[idx]
+    # nu_direction = nu_direction[idx]
     data /= norm
     print(f"finished processing file {i_file} in {round(1000*(time.time() - t0))} ms")
 
-    return data, nu_direction
+    # return data, nu_direction
+    return data
