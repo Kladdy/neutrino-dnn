@@ -19,5 +19,7 @@ fig.suptitle('Plot of 4 LDPA & 1 dipole')
 
 for i in range(5):
     axs[i].plot(event_data[i])
+    if i != 5:
+        axs[i].set_xticklabels([])
 
 plt.savefig(f"plots/plot_file{i_file}_event{i_event}.png")
