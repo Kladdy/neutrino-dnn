@@ -23,9 +23,9 @@ def load_file(i_file, norm=norm):
     print(f"loading file {i_file}", flush=True)
     data = np.load(os.path.join(datapath, f"data_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)[:, :, :, np.newaxis]
     labels_tmp = np.load(os.path.join(datapath, f"labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_{i_file:04d}.npy"), allow_pickle=True)
-    print(data.dtype.names)
-    print(labels_tmp.dtype.names)
-    print(f"finished loading file {i_file} in {time.time() - t0}s")
+    print(data.shape)
+    print(labels_tmp.shape)
+    print(f"finished loading file {i_file} in {round(1000*(time.time() - t0))} ms")
     nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
     nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
     nu_direction = spherical_to_cartesian(nu_zenith, nu_azimuth)
@@ -39,6 +39,6 @@ def load_file(i_file, norm=norm):
     data = data[idx, :, :, :]
     nu_direction = nu_direction[idx]
     data /= norm
-    print(f"finished processing file {i_file} in {time.time() - t0}s")
+    print(f"finished processing file {i_file} in {ound(1000*(time.time() - t0))} ms")
 
     return data, nu_direction
