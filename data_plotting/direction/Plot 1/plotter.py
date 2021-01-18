@@ -19,6 +19,7 @@ fig.suptitle('Plot of 4 LDPA & 1 dipole')
 
 for i in range(5):
     axs[i].plot(event_data[i])
+    axs[i].set_xlim([0, 511])
     if i != 4:
         axs[i].set_title(f'LDPA {i+1}')
 
