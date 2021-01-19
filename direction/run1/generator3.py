@@ -22,8 +22,8 @@ batch_size = 64
 
 print(f"training on {n_files_train} files ({n_files_train/n_files*100:.1f}%), validating on {n_files_val} files ({n_files_val/n_files*100:.1f}%), testing on {n_files_test} files ({n_files_test/n_files*100:.1f}%)")
 
-# steps_per_epoch = n_files_train * (n_events_per_file // batch_size)
-steps_per_epoch = n_files_train * (n_events_per_file // batch_size) // 5
+steps_per_epoch = n_files_train * (n_events_per_file // batch_size)
+# steps_per_epoch = n_files_train * (n_events_per_file // batch_size) // 5
 n_batches_per_file = n_events_per_file // batch_size
 print(f"steps_per_epoch {steps_per_epoch}, n_batches_per_file {n_batches_per_file}")
 
