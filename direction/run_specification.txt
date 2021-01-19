@@ -1,7 +1,10 @@
 Run 1:
-In this run, 4 different models are tested with varying levels of learning rates for the Adam optimizer
+In this run, 6 different models are tested with varying levels of learning rates for the Adam optimizer
 The different values for the learning are are 
-    run_1.2: 0.01
-    run_1.3: 0.001
-    run_1.4: 0.0001
-    run_1.5: 0.00001
+    run 1.1: 
+
+
+    python T13.py run_1.2 0.01
+    python T13.py run_1.3 0.001
+    python T13.py run_1.4 0.0001
+    python T13.py run_1.5 0.00001
