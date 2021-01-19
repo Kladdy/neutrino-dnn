@@ -1,4 +1,3 @@
-python T13.py run_1.1 0.1
 python T13.py run_1.2 0.01
 python T13.py run_1.3 0.001
 python T13.py run_1.4 0.0001

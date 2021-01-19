@@ -81,11 +81,11 @@ model.compile(loss='mean_squared_error',
 model.summary()
 # a = 1 / 0
 
-checkpoint = ModelCheckpoint(filepath=os.path.join('saved_models', filename, "model.{run_name}.h5"),
+checkpoint = ModelCheckpoint(filepath=os.path.join('saved_models', filename, f"model.{run_name}.h5"),
                                                     monitor='val_loss', verbose=1,
                                                     save_best_only=True, mode='auto',
                                                     save_weights_only=False)
-csv_logger = CSVLogger(os.path.join('saved_models', filename, "model_history_log_{run_name}.csv"), append=True)
+csv_logger = CSVLogger(os.path.join('saved_models', filename, f"model_history_log_{run_name}.csv"), append=True)
 
 steps_per_epoch = n_files_train // 5 * (n_events_per_file // batch_size)
 n_batches_per_file = n_events_per_file // batch_size
@@ -105,6 +105,6 @@ dataset_val = tf.data.Dataset.range(n_files_val).prefetch(n_batches_per_file * 1
 
 history = model.fit(x=dataset_train, steps_per_epoch=steps_per_epoch, epochs=50,
           validation_data=dataset_val, callbacks=[checkpoint, csv_logger])
-with open(os.path.join('saved_models', filename, 'history_{run_name}.pkl'), 'wb') as file_pi:
+with open(os.path.join('saved_models', filename, f'history_{run_name}.pkl'), 'wb') as file_pi:
     pickle.dump(history.history, file_pi)
 

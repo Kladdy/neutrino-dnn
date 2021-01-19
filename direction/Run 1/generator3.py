@@ -7,7 +7,7 @@ np.set_printoptions(precision=4)
 
 #datapath = "/mnt/md0/data/SouthPole/single_surface_4LPDA_PA_15m_RNOG_fullsim.json/Alvarez2009_had_noise.yaml/G03generate_events_full_surface_sim/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/"
 datapath = "/mnt/ssd2/data/energy_reconstruction/ARIANNA-200_Alvarez2000_3sigma_noise/"
-n_files = 394
+n_files = 200
 # n_files = 10
 n_files_test = 3
 norm = 1e-6
@@ -23,6 +23,7 @@ batch_size = 64
 print(f"training on {n_files_train} files ({n_files_train/n_files*100:.1f}%), validating on {n_files_val} files ({n_files_val/n_files*100:.1f}%), testing on {n_files_test} files ({n_files_test/n_files*100:.1f}%)")
 
 steps_per_epoch = n_files_train * (n_events_per_file // batch_size)
+#steps_per_epoch = n_files_train * (n_events_per_file // batch_size) // 5
 n_batches_per_file = n_events_per_file // batch_size
 print(f"steps_per_epoch {steps_per_epoch}, n_batches_per_file {n_batches_per_file}")
 
