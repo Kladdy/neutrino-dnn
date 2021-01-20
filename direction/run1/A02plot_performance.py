@@ -13,7 +13,7 @@ from NuRadioReco.utilities import units
 import sys
 run = sys.argv[1]
 
-datapath = "/Users/cglaser/analysis/2019deeplearning/regression/data/ARIANNA-200_Alvarez2000_3sigma_noise"
+datapath = "/mnt/ssd2/data/energy_reconstruction/ARIANNA-200_Alvarez2000_3sigma_noise/"
 
 
 def load_file(i_file, norm=1e-6):
@@ -49,7 +49,7 @@ labels_tmp = np.load(os.path.join(datapath, f"labels_01_LPDA_2of4_3sigma_{i_file
 shower_energy_had = np.array(labels_tmp.item()["shower_energy_had"])
 shower_energy_had = np.log10(shower_energy_had + 1)
 
-with open('saved_models/T13/model.26-0.015.h5_predicted.pkl', "br") as fin:
+with open(f'saved_models/T13/model.run{run}.h5_predicted.pkl', "br") as fin:
     nu_direction_predict, nu_direction = pickle.load(fin)
 
 N = 100000
@@ -61,7 +61,7 @@ angle = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i i
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
 fig, ax = php.get_histogram(angle, bins=np.linspace(0, 40, 90),
                             xlabel=r"angular difference nu direction")
-fig.savefig("plots/T13/angular_resolution.png")
+fig.savefig(f"plots/T13/angular_resolution_run{run}.png")
 plt.show()
 
 # dE = predicted_nu_energy - nu_energy_test
@@ -87,7 +87,7 @@ ax.plot(SNR_means, mean, "o")
 ax.set_xlabel("max SNR LPDA")
 ax.set_ylabel("angular resolution")
 fig.tight_layout()
-fig.savefig("plots/T13/mean_maxSNRLPDA.png")
+fig.savefig(f"plots/T13/mean_maxSNRLPDA_run{run}.png")
 plt.show()
 #
 # mean = stats.binned_statistic(max_any / 10., dE, bins=SNR_bins)[0]
