@@ -13,3 +13,6 @@ run1:
         python T13.py run1.3 0.0001
         python T13.py run1.4 0.00005
         python T13.py run1.5 0.00001
+
+run2: 
+    The goal of this run is to clean up and automate as much of the code base as possible
