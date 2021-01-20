@@ -38,6 +38,9 @@ parser.add_argument("run_id", type=str ,help="the id of the run, eg '3.2' for ru
 args = parser.parse_args()
 run_id = args.run_id
 
+# Save the run name
+run_name = f"run{run_id}"
+
 # Make sure saved_models folder exists
 if not os.path.exists(saved_model_dir):
     os.makedirs(saved_model_dir)
