@@ -30,7 +30,7 @@ from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train
 # Values
 saved_model_dir = "saved_models"
 feedback_freq = 20 # Only train on 1/feedback_freq of data per epoch
-webhook = "https://hooks.slack.com/services/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"
+webhook = os.getenv("SLACKWEBHOOK")
 # ------
 
 # Parse arguments
