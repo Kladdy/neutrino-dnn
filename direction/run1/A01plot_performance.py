@@ -8,7 +8,11 @@ from radiotools import helper as hp
 from NuRadioReco.utilities import units
 import pickle
 
-datapath = "/Users/cglaser/analysis/2019deeplearning/regression/data/ARIANNA-200_Alvarez2000_3sigma_noise"
+# System argument: supply like "python A01plot_performance.py 1.5"
+import sys
+run = sys.argv[1]
+
+datapath = "/mnt/ssd2/data/energy_reconstruction/ARIANNA-200_Alvarez2000_3sigma_noise/"
 
 
 def load_file(i_file, norm=1e-6):
@@ -35,12 +39,12 @@ def load_file(i_file, norm=1e-6):
     return data, nu_direction
 
 
-model = keras.models.load_model('saved_models/T13/model.26-0.015.h5')
+model = keras.models.load_model(f'saved_models/T13/model.run{run}.h5')
 
 data, nu_direction = load_file(393)
 nu_direction_predict = model.predict(data)
 
-with open('saved_models/T13/model.26-0.015.h5_predicted.pkl', "bw") as fout:
+with open(f'saved_models/T13/model.run{run}.h5_predicted.pkl', "bw") as fout:
     pickle.dump([nu_direction_predict, nu_direction], fout, protocol=4)
 
 angle = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))])

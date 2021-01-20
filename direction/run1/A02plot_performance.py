@@ -9,6 +9,10 @@ from scipy import stats
 from radiotools import helper as hp
 from NuRadioReco.utilities import units
 
+# System argument: supply like "python A02plot_performance.py 1.5"
+import sys
+run = sys.argv[1]
+
 datapath = "/Users/cglaser/analysis/2019deeplearning/regression/data/ARIANNA-200_Alvarez2000_3sigma_noise"
 
 

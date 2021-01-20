@@ -1,9 +1,12 @@
 import pandas
 import matplotlib.pyplot as plt
 
+# System argument: supply like "python loss_plotter.py 1.5"
+import sys
+run = sys.argv[1]
+
 # Reading data
 path = "/Users/sigge/dl1/mnt/md0/sstjaernholm/neutrino-dnn/direction/run1/saved_models/T13"
-run = "1.5"
 filename = f"model_history_log_run{run}.csv"
 
 df = pandas.read_csv(f'{path}/{filename}')
