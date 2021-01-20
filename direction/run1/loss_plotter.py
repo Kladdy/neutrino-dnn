@@ -1,5 +1,6 @@
 import pandas
 import matplotlib.pyplot as plt
+import numpy as np
 
 # System argument: supply like "python loss_plotter.py 1.5"
 import sys
@@ -15,9 +16,11 @@ epoch = df['epoch']
 loss = df['loss']
 val_loss = df['val_loss']
 
+epoch_min = np.argmin(val_loss)
+
 # Plotting
 fig, axs = plt.plot(epoch, loss, "", epoch, val_loss)
-plt.title(f'Plot of model loss for run{run}')
+plt.title(f'Plot of model loss for run{run} with min at epoch {epoch_min}')
 
 
 plt.xlabel('Epoch')
