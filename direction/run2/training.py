@@ -23,7 +23,7 @@ from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Model
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
-from generator3 import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
+from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
 # -------
 
 # Values
