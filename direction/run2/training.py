@@ -13,6 +13,7 @@ import os
 import numpy as np
 import pickle
 import argparse
+from tf_notification_callback import SlackCallback
 from tensorflow import keras
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Conv1D, Flatten, Dropout
@@ -29,6 +30,7 @@ from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train
 # Values
 saved_model_dir = "saved_models"
 feedback_freq = 20 # Only train on 1/feedback_freq of data per epoch
+webhook = "https://hooks.slack.com/services/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"
 # ------
 
 # Parse arguments
@@ -89,6 +91,7 @@ mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h
                                                     monitor='val_loss', verbose=1,
                                                     save_best_only=True, mode='auto',
                                                     save_weights_only=False)
+sc = SlackCallback(webhookURL=webhook, channel="nn-log", modelName=run_name, loss_metrics=['loss', 'val_loss'], getSummary=False):
 checkpoint = [es, mc]      
 
 # Configuring CSV-logger
