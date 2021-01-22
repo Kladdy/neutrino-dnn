@@ -10,7 +10,7 @@ from scipy import stats
 from radiotools import helper as hp
 from NuRadioReco.utilities import units
 import argparse
-from constants import datapath, data_filename, label_filename
+from constants import datapath, data_filename, label_filename, plots_dir
 # -------
 
 # Parse arguments

@@ -25,10 +25,10 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.utils import Sequence
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
+from constants import saved_model_dir
 # -------
 
 # Values
-saved_model_dir = "saved_models"
 feedback_freq = 20 # Only train on 1/feedback_freq of data per epoch
 webhook = os.getenv("SLACKWEBHOOK")
 # ------
