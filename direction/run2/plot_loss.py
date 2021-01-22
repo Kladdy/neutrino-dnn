@@ -44,4 +44,4 @@ plt.xlabel('epoch')
 plt.legend(["loss", "val_loss"])
 #fig.set_size_inches(12, 10)
 
-plt.savefig(os.path.join(plots_dir, f"plot_loss_run{run}.png"))
+plt.savefig(os.path.join(plots_dir, f"plot_loss_{run_name}.png"))
