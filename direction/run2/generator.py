@@ -1,12 +1,12 @@
+# Imports
 import os
 import numpy as np
 import tensorflow as tf
 import time
+from constants import datapath, data_filename, label_filename
+# -------
 
 np.set_printoptions(precision=4)
-
-#datapath = "/mnt/md0/data/SouthPole/single_surface_4LPDA_PA_15m_RNOG_fullsim.json/Alvarez2009_had_noise.yaml/G03generate_events_full_surface_sim/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/"
-datapath = "/mnt/ssd2/data/energy_reconstruction/ARIANNA-200_Alvarez2000_3sigma_noise/"
 
 n_files = 394
 # n_files = 10
@@ -37,8 +37,8 @@ def spherical_to_cartesian(zenith, azimuth):
 
 def load_file(i_file, norm=norm):
     # Load data
-    data = np.load(os.path.join(datapath, f"data_01_LPDA_2of4_3sigma_{i_file:04d}.npy"), allow_pickle=True)[:, :, :, np.newaxis]
-    labels_tmp = np.load(os.path.join(datapath, f"labels_01_LPDA_2of4_3sigma_{i_file:04d}.npy"), allow_pickle=True)
+    data = np.load(os.path.join(datapath, f"{data_filename}{i_file:04d}.npy"), allow_pickle=True)[:, :, :, np.newaxis]
+    labels_tmp = np.load(os.path.join(datapath, f"{label_filename}{i_file:04d}.npy"), allow_pickle=True)
 
     # Convert to cartesian coordinates
     nu_zenith = np.array(labels_tmp.item()["nu_zenith"])

@@ -4,10 +4,11 @@ import pandas
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
+from constants import run_version
 # -------
 
 # Values
-path = "/mnt/md0/sstjaernholm/neutrino-dnn/direction/run2/saved_models"
+path = f"/mnt/md0/sstjaernholm/neutrino-dnn/direction/{run_version}/saved_models"
 plots_dir = "plots"
 # ------
 
