@@ -11,10 +11,6 @@ path = "/mnt/md0/sstjaernholm/neutrino-dnn/direction/run2/saved_models"
 plots_dir = "plots"
 # ------
 
-# Make sure plots folder exists
-if not os.path.exists(plots_dir):
-    os.makedirs(plots_dir)
-
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot loss function')
 parser.add_argument("run_id", type=str ,help="the id of the run, eg '3.2' for run3.2")
@@ -25,6 +21,12 @@ run_id = args.run_id
 # Save the run name and filename
 run_name = f"run{run_id}"
 filename = f"model_history_log_{run_name}.csv"
+
+print(f"Plotting loss for {run_name}...")
+
+# Make sure plots folder exists
+if not os.path.exists(plots_dir):
+    os.makedirs(plots_dir)
 
 # Reading data
 df = pandas.read_csv(f'{path}/{filename}')
@@ -45,3 +47,4 @@ plt.legend(["loss", "val_loss"])
 #fig.set_size_inches(12, 10)
 
 plt.savefig(os.path.join(plots_dir, f"plot_loss_{run_name}.png"))
+print(f"Saved loss plot for {run_name}!")
