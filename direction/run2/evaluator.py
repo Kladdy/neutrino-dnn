@@ -49,12 +49,12 @@ def load_file(i_file, norm=1e-6):
     return data, nu_direction
 
 
-model = keras.models.load_model(f'saved_models/model.run{run}.h5')
+model = keras.models.load_model(f'saved_models/model.{run_name}.h5')
 
 data, nu_direction = load_file(393)
 nu_direction_predict = model.predict(data)
 
-with open(f'saved_models/model.run{run}.h5_predicted.pkl', "bw") as fout:
+with open(f'saved_models/model.{run_name}.h5_predicted.pkl', "bw") as fout:
     pickle.dump([nu_direction_predict, nu_direction], fout, protocol=4)
 
 angle = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))])
