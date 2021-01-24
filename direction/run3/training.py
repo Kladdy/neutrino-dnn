@@ -92,7 +92,7 @@ model.summary()
 
 # Save the model (for opening in eg Netron)
 #model.save(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.h5')
-plot_model(restored_keras_model, to_file=f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.png')
+plot_model(model, to_file=f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.png')
 
 # Configuring checkpoints
 es = EarlyStopping(monitor="val_loss", patience=5),
