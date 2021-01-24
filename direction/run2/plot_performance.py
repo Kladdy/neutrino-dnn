@@ -80,14 +80,19 @@ nu_direction = nu_direction[:N]
 angle = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
 
 # Calculate Rayleigh fit
-loc, scale = stats.rayleigh.fit(angle)
-xl = np.linspace(angle.min(), angle.max(), 100) # linspace for plotting
+# loc, scale = stats.rayleigh.fit(angle)
+# xl = np.linspace(angle.min(), angle.max(), 100) # linspace for plotting
+
+# Calculate 68 %
+index_at_68 = int(0.68 * N)
+
+angle_68 = np.sort(angle)[index_at_68]
 
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
 fig, ax = php.get_histogram(angle, bins=np.linspace(0, 40, 90),
                             xlabel=r"angular difference nu direction")
-ax.plot(xl, N*stats.rayleigh(scale=scale, loc=loc).pdf(xl))
-plt.title(f"Angular resolution for {run_name} with\nscale={scale} & loc={loc}")
+# ax.plot(xl, N*stats.rayleigh(scale=scale, loc=loc).pdf(xl))
+plt.title(f"Angular resolution for {run_name} with\n68 % at angle of {angle_68:.2f}")
 fig.savefig(f"plots/angular_resolution_{run_name}.png")
 
 plt.show()
