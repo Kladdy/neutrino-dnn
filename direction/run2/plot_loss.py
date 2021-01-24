@@ -48,4 +48,4 @@ plt.legend(["loss", "val_loss"])
 #fig.set_size_inches(12, 10)
 
 plt.savefig(os.path.join(plots_dir, f"plot_loss_{run_name}.png"))
-print(colored(f"Saved loss plot for {run_name}!", "green"))
+print(colored(f"Saved loss plot for {run_name}!", "green", attrs=["bold"]))
