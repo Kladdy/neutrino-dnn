@@ -16,3 +16,13 @@ run1:
 
 run2: 
     The goal of this run is to clean up and automate as much of the code base as possible
+
+run3:
+    This run aims to see what effect the inital Conv2D layers have on the model training.
+    There are 5 different models, each with 1, 2, 3, 4 or 5 inital Conv2D layers.
+    Ran with the following python scripts:
+        python training.py 3.1
+        python training.py 3.2
+        python training.py 3.3
+        python training.py 3.4
+        python training.py 3.5

@@ -54,9 +54,20 @@ if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
 
 model = Sequential()
 model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
-model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
-model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+if run_name == "run3.2": 
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+elif run_name == "run3.3":
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+elif run_name == "run3.4":
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+elif run_name == "run3.5":
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
