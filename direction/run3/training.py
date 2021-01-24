@@ -68,6 +68,12 @@ elif run_name == "run3.5":
     model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
     model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
     model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+elif run_name == "run3.6":
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+    model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))

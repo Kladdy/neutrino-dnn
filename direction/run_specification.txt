@@ -19,10 +19,14 @@ run2:
 
 run3:
     This run aims to see what effect the inital Conv2D layers have on the model training.
-    There are 5 different models, each with 1, 2, 3, 4 or 5 inital Conv2D layers.
+    There are 6 different models, each with 1, 2, 3, 4 or 5 inital Conv2D layers.
     Ran with the following python scripts:
         python training.py 3.1
         python training.py 3.2
         python training.py 3.3
         python training.py 3.4
         python training.py 3.5
+        python training.py 3.6
+
+    conda activate tf-gpu
+    python training.py 3.1
