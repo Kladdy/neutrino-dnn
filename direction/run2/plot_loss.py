@@ -7,6 +7,17 @@ import argparse
 from constants import run_version,  plots_dir
 # -------
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 # Values
 path = f"/mnt/md0/sstjaernholm/neutrino-dnn/direction/{run_version}/saved_models"
 # ------
@@ -22,7 +33,7 @@ run_id = args.run_id
 run_name = f"run{run_id}"
 filename = f"model_history_log_{run_name}.csv"
 
-print(f"Plotting loss for {run_name}...")
+print(f"{bcolors.OKGREEN}Plotting loss for {run_name}...{bcolors.ENDC}")
 
 # Make sure plots folder exists
 if not os.path.exists(plots_dir):
