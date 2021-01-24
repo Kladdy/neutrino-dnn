@@ -91,7 +91,7 @@ model.compile(loss='mean_squared_error',
 model.summary()
 
 # Save the model (for opening in eg Netron)
-model.save(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.h5')
+#model.save(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.h5')
 
 # Configuring checkpoints
 es = EarlyStopping(monitor="val_loss", patience=5),
