@@ -10,6 +10,7 @@ from scipy import stats
 from radiotools import helper as hp
 from NuRadioReco.utilities import units
 import argparse
+from termcolor import colored
 from constants import datapath, data_filename, label_filename, plots_dir
 # -------
 
@@ -24,7 +25,7 @@ run_id = args.run_id
 run_name = f"run{run_id}"
 filename = f"model_history_log_{run_name}.csv"
 
-print(f"Plotting angular resolution for {run_name}...")
+print(colored(f"Plotting angular resolution for {run_name}...", "yellow"))
 
 # Make sure plots folder exists
 if not os.path.exists(plots_dir):
@@ -112,7 +113,8 @@ fig.tight_layout()
 fig.savefig(f"plots/mean_maxSNRLPDA_{run_name}.png")
 #plt.show()
 
-print(f"Saved angular resolution for {run_name}!")
+print(colored(f"Saved angular resolution for {run_name}!", "green", attrs=["bold"]))
+print("")
 
 
 #

@@ -9,6 +9,7 @@ from radiotools import helper as hp
 from NuRadioReco.utilities import units
 import pickle
 import argparse
+from termcolor import colored
 from constants import datapath, data_filename, label_filename
 # -------
 
@@ -23,7 +24,7 @@ run_id = args.run_id
 run_name = f"run{run_id}"
 filename = f"model_history_log_{run_name}.csv"
 
-print(f"Evaluating angular resolution for {run_name}...")
+print(colored, f"Evaluating angular resolution for {run_name}...", "yellow"))
 
 def load_file(i_file, norm=1e-6):
 #     t0 = time.time()
@@ -63,4 +64,5 @@ fig, ax = php.get_histogram(angle / units.deg, bins=np.linspace(0, 40, 90),
                             xlabel=r"angular difference nu direction")
 #plt.show()
 
-print(f"Done evaluating angular resolution for {run_name}!")
+print(colored(f"Done evaluating angular resolution for {run_name}!", "green", attrs=["bold"]))
+print("")
