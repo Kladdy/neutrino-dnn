@@ -23,7 +23,7 @@ run_id = args.run_id
 run_name = f"run{run_id}"
 filename = f"model_history_log_{run_name}.csv"
 
-print(colored(f"Plotting loss for {run_name}..."), "yello")
+print(colored(f"Plotting loss for {run_name}...", "yellow"))
 
 # Make sure plots folder exists
 if not os.path.exists(plots_dir):
