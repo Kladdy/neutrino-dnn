@@ -24,7 +24,7 @@ run_id = args.run_id
 run_name = f"run{run_id}"
 filename = f"model_history_log_{run_name}.csv"
 
-print(colored, f"Evaluating angular resolution for {run_name}...", "yellow"))
+print(colored(f"Evaluating angular resolution for {run_name}...", "yellow"))
 
 def load_file(i_file, norm=1e-6):
 #     t0 = time.time()
