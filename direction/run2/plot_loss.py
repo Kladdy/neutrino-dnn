@@ -49,3 +49,4 @@ plt.legend(["loss", "val_loss"])
 
 plt.savefig(os.path.join(plots_dir, f"plot_loss_{run_name}.png"))
 print(colored(f"Saved loss plot for {run_name}!", "green", attrs=["bold"]))
+print("")
