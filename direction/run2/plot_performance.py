@@ -87,7 +87,7 @@ xl = np.linspace(angle.min(), angle.max(), 100) # linspace for plotting
 fig, ax = php.get_histogram(angle, bins=np.linspace(0, 40, 90),
                             xlabel=r"angular difference nu direction")
 ax.plot(xl, N*stats.rayleigh(scale=scale, loc=loc).pdf(xl))
-plt.title(f"Angular resolution for {run_name} with scale={scale} & loc={loc}")
+plt.title(f"Angular resolution for {run_name} with\nscale={scale} & loc={loc}")
 fig.savefig(f"plots/angular_resolution_{run_name}.png")
 
 plt.show()
