@@ -22,7 +22,7 @@ from tensorflow.keras.layers import AveragePooling2D, AveragePooling1D, Input, F
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Model
-from tensorflow.keras.utils import Sequence
+from tensorflow.keras.utils import Sequence, plot_model
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
 from constants import saved_model_dir
@@ -92,6 +92,7 @@ model.summary()
 
 # Save the model (for opening in eg Netron)
 #model.save(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.h5')
+plot_model(restored_keras_model, to_file=f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.png')
 
 # Configuring checkpoints
 es = EarlyStopping(monitor="val_loss", patience=5),
