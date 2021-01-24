@@ -4,19 +4,9 @@ import pandas
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
+from termcolor import colored
 from constants import run_version,  plots_dir
 # -------
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 # Values
 path = f"/mnt/md0/sstjaernholm/neutrino-dnn/direction/{run_version}/saved_models"
@@ -33,7 +23,7 @@ run_id = args.run_id
 run_name = f"run{run_id}"
 filename = f"model_history_log_{run_name}.csv"
 
-print(f"{bcolors.OKGREEN}Plotting loss for {run_name}...{bcolors.ENDC}")
+print(colored(f"Plotting loss for {run_name}..."), "yello")
 
 # Make sure plots folder exists
 if not os.path.exists(plots_dir):
@@ -58,4 +48,4 @@ plt.legend(["loss", "val_loss"])
 #fig.set_size_inches(12, 10)
 
 plt.savefig(os.path.join(plots_dir, f"plot_loss_{run_name}.png"))
-print(f"Saved loss plot for {run_name}!")
+print(colored(f"Saved loss plot for {run_name}!", "green"))
