@@ -28,4 +28,13 @@ run3:
         python training.py 3.5
 
 run4:
-    This run aims to test how many dense layers should be used after the Conv2D layers
+    This run aims to test how many dense layers should be used after the Conv2D layers.
+    There are 4 different models, each with 1, 2, 3 or 4 dense layers
+    Ran with the following python scripts:
+        python training.py 4.1
+        python training.py 4.2
+        python training.py 4.3
+        python training.py 4.4
+
+        conda activate tf-gpu
+        python training.py 4.1

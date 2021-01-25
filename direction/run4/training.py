@@ -75,19 +75,19 @@ model.add(Flatten())
 if run_name == "run4.1":
     for i in range(1):
         model.add(Dense(5 * 512))
-            model.add(Activation('relu'))
+        model.add(Activation('relu'))
 elif run_name == "run4.2":
     for i in range(2):
         model.add(Dense(5 * 512))
-            model.add(Activation('relu'))
+        model.add(Activation('relu'))
 elif run_name == "run4.3":
     for i in range(3):
         model.add(Dense(5 * 512))
-            model.add(Activation('relu'))
+        model.add(Activation('relu'))
 elif run_name == "run4.4":
     for i in range(4):
         model.add(Dense(5 * 512))
-            model.add(Activation('relu'))
+        model.add(Activation('relu'))
 
 # model.add(Activation('relu'))
 # model.add(Dense(4 * 512))
