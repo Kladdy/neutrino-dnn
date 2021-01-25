@@ -79,6 +79,10 @@ nu_direction = nu_direction[:N]
 
 angle = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
 
+print(colored(f"{angle.size}", "red"))
+print(colored(f"{angle.shape}", "red"))
+print(colored(f"{angle.shape[0]}", "red"))
+
 # Calculate Rayleigh fit
 # loc, scale = stats.rayleigh.fit(angle)
 # xl = np.linspace(angle.min(), angle.max(), 100) # linspace for plotting
