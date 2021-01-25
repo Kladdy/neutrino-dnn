@@ -61,8 +61,8 @@ def load_file(i_file, norm=1e-6):
     return data, nu_direction
 
 
-i_file = 393
-data, nu_direction = load_file(393)
+i_file = 85
+data, nu_direction = load_file(85)
 max_dipole = np.max(np.abs(data[:, :, 4]), axis=1)
 max_LPDA = np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1)
 max_any = np.max(np.max(np.abs(data[:, :, 0:5]), axis=1), axis=1)
