@@ -26,3 +26,6 @@ run3:
         python training.py 3.3
         python training.py 3.4
         python training.py 3.5
+
+run4:
+    This run aims to test how many dense layers should be used after the Conv2D layers

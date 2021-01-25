@@ -57,6 +57,7 @@ model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu
 model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
 model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
 model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
+model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
