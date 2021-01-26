@@ -11,7 +11,7 @@ from radiotools import helper as hp
 from NuRadioReco.utilities import units
 import argparse
 from termcolor import colored
-from constants import datapath, data_filename, label_filename, plots_dir
+from constants import datapath, data_filename, label_filename, plots_dir, test_file_id
 # -------
 
 # Parse arguments
@@ -61,12 +61,11 @@ def load_file(i_file, norm=1e-6):
     return data, nu_direction
 
 
-i_file = 85
-data, nu_direction = load_file(85)
+data, nu_direction = load_file(test_file_id)
 max_dipole = np.max(np.abs(data[:, :, 4]), axis=1)
 max_LPDA = np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1)
 max_any = np.max(np.max(np.abs(data[:, :, 0:5]), axis=1), axis=1)
-labels_tmp = np.load(os.path.join(datapath, f"{label_filename}{i_file:04d}.npy"), allow_pickle=True)
+labels_tmp = np.load(os.path.join(datapath, f"{label_filename}{test_file_id:04d}.npy"), allow_pickle=True)
 shower_energy_had = np.array(labels_tmp.item()["shower_energy_had"])
 shower_energy_had = np.log10(shower_energy_had + 1)
 

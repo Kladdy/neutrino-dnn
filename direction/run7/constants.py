@@ -8,3 +8,5 @@ label_filename = "labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
 
 plots_dir = "plots"
 saved_model_dir = "saved_models"
+
+test_file_id = 72

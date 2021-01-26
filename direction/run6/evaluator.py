@@ -10,7 +10,7 @@ from NuRadioReco.utilities import units
 import pickle
 import argparse
 from termcolor import colored
-from constants import datapath, data_filename, label_filename
+from constants import datapath, data_filename, label_filename, test_file_id
 # -------
 
 # Parse arguments
@@ -52,7 +52,7 @@ def load_file(i_file, norm=1e-6):
 
 model = keras.models.load_model(f'saved_models/model.{run_name}.h5')
 
-data, nu_direction = load_file(85)
+data, nu_direction = load_file(test_file_id)
 nu_direction_predict = model.predict(data)
 
 with open(f'saved_models/model.{run_name}.h5_predicted.pkl', "bw") as fout:
