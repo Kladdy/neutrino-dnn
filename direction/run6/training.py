@@ -53,9 +53,6 @@ if not os.path.exists(saved_model_dir):
 if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
     os.makedirs(f"{saved_model_dir}/{architectures_dir}")
 
-if run_name == "run6.2":
-    model.add(BatchNormalization())
-
 # ----------- Create model -----------
 model = Sequential()
 
