@@ -45,5 +45,29 @@ run5:
         python training.py 5.2
         python training.py 5.3
 
+run6:
+    This run, based on base_v3, aims to test out batch normalization (BN).
+    run6.1 has no BN, run6.2 has BN before activation fcns, run 6.3 has BN after activation fcns
+    run6.4 has BN only between Conv2D and dense layers
+    run6.5 has BN only between each Conv2D layer, after activation function
+    run6.6 has BN only between dense layers, after activation function
+    https://machinelearningmastery.com/how-to-accelerate-learning-of-deep-neural-networks-with-batch-normalization/
+
+        python training.py 6.1
+        python training.py 6.2
+        python training.py 6.3
+        python training.py 6.4
+        python training.py 6.5
+        python training.py 6.6
+
         conda activate tf-gpu
-        python training.py 5.1
+        python training.py 6.X
+
+run7:
+    This run, based on base_v3, aims to test of a "relu" activation function is good 
+    before the final dense output layer. run7.1 does not have it, run7.2 does have it
+        python training.py 7.1
+        python training.py 7.2
+
+        conda activate tf-gpu
+        python training.py 7.X
