@@ -92,7 +92,7 @@ model.add(Activation('relu'))
 model.add(Dense(128))
 # model.add(Dropout(.1))
 
-if run_name == "run7.2"
+if run_name == "run7.2":
     model.add(Activation('relu'))
 
 # Output layer
