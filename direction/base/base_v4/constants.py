@@ -1,3 +1,4 @@
+project_name = "nu-dir-reco"
 run_version = "runBASE4"
 dataset_name = "SouthPole"
 

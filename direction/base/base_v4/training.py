@@ -31,15 +31,15 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.utils import Sequence, plot_model
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
-from constants import saved_model_dir, run_version, dataset_name, datapath, data_filename, label_filename, plots_dir, test_file_id
+from constants import saved_model_dir, run_version, dataset_name, datapath, data_filename, label_filename, plots_dir, test_file_id, project_name
 # -------
 
 # Values
-feedback_freq = 5 # Only train on 1/feedback_freq of data per epoch
+feedback_freq = 50 # Only train on 1/feedback_freq of data per epoch
 webhook = os.getenv("SLACKWEBHOOK")
 architectures_dir = "architectures"
 learning_rate = 0.00005
-epochs = 50
+epochs = 5
 loss_function = "mean_squared_error"
 # ------
 
@@ -62,7 +62,9 @@ if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
     os.makedirs(f"{saved_model_dir}/{architectures_dir}")
 
 # Initialize wandb
-run = wandb.init(project=run_version,
+run = wandb.init(project=project_name,
+                 group=run_version,
+                 tags=[run_name]
                  config={  # and include hyperparameters and metadata
                      "learning_rate": learning_rate,
                      "epochs": epochs,
