@@ -15,8 +15,9 @@ import pickle
 import argparse
 from termcolor import colored
 import time
-from toolbox import load_file
+from toolbox import load_file, find_68_interval
 from radiotools import helper as hp
+
 #from scipy import stats
 from tf_notification_callback import SlackCallback
 import wandb
@@ -183,32 +184,7 @@ os.system(f"python plot_loss.py {run_id}")
 os.system(f"python plot_performance.py {run_id}")
 
 # Calculate 68 % interval and sent to wandb
-data, nu_direction = load_file(test_file_id)
-max_dipole = np.max(np.abs(data[:, :, 4]), axis=1)
-max_LPDA = np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1)
-max_any = np.max(np.max(np.abs(data[:, :, 0:5]), axis=1), axis=1)
-labels_tmp = np.load(os.path.join(datapath, f"{label_filename}{test_file_id:04d}.npy"), allow_pickle=True)
-
-prediction_file = f'saved_models/model.{run_name}.h5_predicted.pkl'
-with open(prediction_file, "br") as fin:
-    nu_direction_predict, nu_direction = pickle.load(fin)
-
-N = 100000
-nu_direction_predict = nu_direction_predict[:N]
-nu_direction = nu_direction[:N]
-
-angle = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
-
-# Redefine N
-N = angle.size
-
-# Calculate Rayleigh fit
-# loc, scale = stats.rayleigh.fit(angle)
-# xl = np.linspace(angle.min(), angle.max(), 100) # linspace for plotting
-
-# Calculate 68 %
-index_at_68 = int(0.68 * N)
-angle_68 = np.sort(angle)[index_at_68]
+angle_68 = find_68_interval
 
 wandb.log({f"68 %% interval": angle_68})
 
