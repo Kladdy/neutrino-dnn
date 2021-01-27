@@ -2,7 +2,6 @@
 import numpy as np
 from radiotools import plthelpers as php
 from matplotlib import pyplot as plt
-from tensorflow import keras
 import os
 import time
 import pickle
