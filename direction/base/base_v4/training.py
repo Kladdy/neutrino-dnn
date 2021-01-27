@@ -64,7 +64,7 @@ if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
 # Initialize wandb
 run = wandb.init(project=project_name,
                  group=run_version,
-                 tags=[run_name]
+                 tags=[run_name],
                  config={  # and include hyperparameters and metadata
                      "learning_rate": learning_rate,
                      "epochs": epochs,
