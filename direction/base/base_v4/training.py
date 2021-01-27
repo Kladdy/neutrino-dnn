@@ -19,6 +19,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Conv1D, Flatten, Dropout
 from tensorflow.keras.layers import Dense, Conv2D, BatchNormalization, Activation
 from tensorflow.keras.layers import AveragePooling2D, AveragePooling1D, Input, Flatten
+from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Model
@@ -74,6 +75,10 @@ model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu
 # model.add(Conv1D(5, 20, strides=1, padding='valid', activation='relu', input_shape=(512,5)))
 # model.add(Conv1D(5, 20, strides=1, padding='valid', activation='relu', input_shape=(512,5)))
 # model.add(Conv1D(5, 20, strides=1, padding='valid', activation='relu', input_shape=(512,5)))
+
+# Batch normalization
+model.add(BatchNormalization())
+
 model.add(Flatten())
 
 # Dense layers
