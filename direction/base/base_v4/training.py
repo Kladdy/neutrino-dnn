@@ -142,7 +142,7 @@ mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h
                                                     save_best_only=True, mode='auto',
                                                     save_weights_only=False)
 sc = SlackCallback(webhookURL=webhook, channel="nn-log", modelName=run_name, loss_metrics=['loss', 'val_loss'], getSummary=True)
-wb = WandbCallback()
+wb = WandbCallback(save_model=False)
 checkpoint = [es, mc, sc, wb]      
 
 # Configuring CSV-logger
