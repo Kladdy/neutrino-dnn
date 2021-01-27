@@ -71,3 +71,13 @@ run7:
 
         conda activate tf-gpu
         python training.py 7.X
+
+
+
+
+
+
+
+
+base_v4:
+    Add progress from run6 and run7, add Weights and Biases support
