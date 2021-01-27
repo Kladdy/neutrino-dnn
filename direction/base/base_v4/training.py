@@ -39,7 +39,7 @@ feedback_freq = 50 # Only train on 1/feedback_freq of data per epoch
 webhook = os.getenv("SLACKWEBHOOK")
 architectures_dir = "architectures"
 learning_rate = 0.00005
-epochs = 5
+epochs = 3
 loss_function = "mean_squared_error"
 # ------
 
@@ -64,7 +64,6 @@ if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
 # Initialize wandb
 run = wandb.init(project=project_name,
                  group=run_version,
-                 tags=[run_name],
                  config={  # and include hyperparameters and metadata
                      "learning_rate": learning_rate,
                      "epochs": epochs,
@@ -73,6 +72,8 @@ run = wandb.init(project=project_name,
                      "architecture": "CNN",
                      "dataset": dataset_name
                  })
+run.name = run_name
+run.save()
 
 # ----------- Create model -----------
 model = Sequential()
@@ -173,7 +174,7 @@ with open(os.path.join(saved_model_dir, f'history_{run_name}.pkl'), 'wb') as fil
     pickle.dump(history.history, file_pi)
 
 # Sleep for a few seconds to free up some resources...
-sleep(5)
+time.sleep(5)
 
 # Plot loss and evaluate
 os.system(f"python plot_loss.py {run_id}")
