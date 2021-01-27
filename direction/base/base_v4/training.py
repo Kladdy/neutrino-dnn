@@ -189,6 +189,7 @@ max_LPDA = np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1)
 max_any = np.max(np.max(np.abs(data[:, :, 0:5]), axis=1), axis=1)
 labels_tmp = np.load(os.path.join(datapath, f"{label_filename}{test_file_id:04d}.npy"), allow_pickle=True)
 
+prediction_file = f'saved_models/model.{run_name}.h5_predicted.pkl'
 with open(prediction_file, "br") as fin:
     nu_direction_predict, nu_direction = pickle.load(fin)
 
