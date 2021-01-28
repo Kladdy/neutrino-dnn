@@ -53,22 +53,22 @@ fig, ax = php.get_histogram(angle_difference_data, bins=np.linspace(0, 40, 90),
 plt.title(f"Angular resolution for {run_name} with\n68 % at angle difference of {angle_68:.2f}")
 fig.savefig(f"{plots_dir}/angular_resolution_{run_name}.png")
 
-# plt.show()
+# # plt.show()
 
-SNR_bins = np.append(np.arange(1, 20, 1), [10000])
-SNR_means = np.arange(1.5, 20.5, 1)
+# SNR_bins = np.append(np.arange(1, 20, 1), [10000])
+# SNR_means = np.arange(1.5, 20.5, 1)
 
-mean = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins)[0]
-std = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins, statistic='std')[0]
-fig, ax = plt.subplots(1, 1)
-# ax.errorbar(SNR_means, mean, yerr=std, fmt="o")
-ax.plot(SNR_means, mean, "o")
-# ax.set_ylim(0, 0.4)
-ax.set_xlabel("max SNR LPDA")
-ax.set_ylabel("angular resolution")
-fig.tight_layout()
-fig.savefig(f"{plots_dir}/mean_maxSNRLPDA_{run_name}.png")
-# plt.show()
+# mean = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins)[0]
+# std = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins, statistic='std')[0]
+# fig, ax = plt.subplots(1, 1)
+# # ax.errorbar(SNR_means, mean, yerr=std, fmt="o")
+# ax.plot(SNR_means, mean, "o")
+# # ax.set_ylim(0, 0.4)
+# ax.set_xlabel("max SNR LPDA")
+# ax.set_ylabel("angular resolution")
+# fig.tight_layout()
+# fig.savefig(f"{plots_dir}/mean_maxSNRLPDA_{run_name}.png")
+# # plt.show()
 
 print(colored(f"Saved angular resolution for {run_name}!", "green", attrs=["bold"]))
 print("")
