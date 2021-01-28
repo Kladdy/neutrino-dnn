@@ -40,7 +40,7 @@ print(colored(f"Evaluating angular resolution for {run_name}...", "yellow"))
 # Load the model
 model = keras.models.load_model(f'saved_models/model.{run_name}.h5')
 
-# Load test file data
+# Load test file data and make predictions
 data, nu_direction = load_file(test_file_id)
 nu_direction_predict = model.predict(data)
 
