@@ -30,21 +30,9 @@ def load_file(i_file, norm=1e-6):
     return data, nu_direction
 
 
-def find_68_interval(run_name):
-    data, nu_direction = load_file(test_file_id)
-
-    prediction_file = f'saved_models/model.{run_name}.h5_predicted.pkl'
-    with open(prediction_file, "br") as fin:
-        nu_direction_predict, nu_direction = pickle.load(fin)
-
-    N = 100000
-    nu_direction_predict = nu_direction_predict[:N]
-    nu_direction = nu_direction[:N]
-
-    angle = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
-
+def calculate_68_interval(angle_difference_data):
     # Redefine N
-    N = angle.size
+    N = angle_difference_data.size
 
     # Calculate Rayleigh fit
     # loc, scale = stats.rayleigh.fit(angle)
@@ -52,6 +40,28 @@ def find_68_interval(run_name):
 
     # Calculate 68 %
     index_at_68 = int(0.68 * N)
-    angle_68 = np.sort(angle)[index_at_68]
+    angle_68 = np.sort(angle_difference_data)[index_at_68]
 
     return angle_68
+
+def get_pred_angle_diff_data(run_name):
+    prediction_file = f'saved_models/model.{run_name}.h5_predicted.pkl'
+    with open(prediction_file, "br") as fin:
+        nu_direction_predict, nu_direction = pickle.load(fin)
+
+    # Only pick first 100000 data
+    # N = 100000
+    # nu_direction_predict = nu_direction_predict[:N]
+    # nu_direction = nu_direction[:N]
+
+    angle_difference_data = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
+
+    return
+
+def find_68_interval(run_name):
+    angle_difference_data = get_pred_angle_diff_data(run_name)
+
+    angle_68 = calculate_68_interval(angle_difference_data)
+
+    return angle_68
+
