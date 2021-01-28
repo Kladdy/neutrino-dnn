@@ -4,6 +4,7 @@ import numpy as np
 from constants import datapath, data_filename, label_filename, test_file_id
 from radiotools import helper as hp
 from NuRadioReco.utilities import units
+import pickle
 # -------
 
 # Loading data and label files
