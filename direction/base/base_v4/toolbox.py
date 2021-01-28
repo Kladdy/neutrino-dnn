@@ -50,13 +50,13 @@ def get_pred_angle_diff_data(run_name):
         nu_direction_predict, nu_direction = pickle.load(fin)
 
     # Only pick first 100000 data
-    N = 100000
-    nu_direction_predict = nu_direction_predict[:N]
-    nu_direction = nu_direction[:N]
+    # N = 100000
+    # nu_direction_predict = nu_direction_predict[:N]
+    # nu_direction = nu_direction[:N]
 
     angle_difference_data = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
 
-    return
+    return angle_difference_data
 
 def find_68_interval(run_name):
     angle_difference_data = get_pred_angle_diff_data(run_name)
