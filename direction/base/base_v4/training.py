@@ -76,7 +76,7 @@ run = wandb.init(project=project_name,
                      "dataset": dataset_name
                  })
 run.name = run_name
-run.save()
+config = wandb.config
 
 # ----------- Create model -----------
 model = Sequential()
@@ -124,8 +124,8 @@ model.add(Dense(128))
 
 # Output layer
 model.add(Dense(3))
-model.compile(loss=loss_function,
-              optimizer=Adam(lr=learning_rate))
+model.compile(loss=config.loss_function,
+              optimizer=Adam(lr=config.learning_rate))
 model.summary()
 # ------------------------------------
 
@@ -169,7 +169,7 @@ dataset_val = tf.data.Dataset.range(n_files_val).prefetch(n_batches_per_file * 1
         deterministic=False)
 
 # Configuring history
-history = model.fit(x=dataset_train, steps_per_epoch=steps_per_epoch, epochs=epochs,
+history = model.fit(x=dataset_train, steps_per_epoch=steps_per_epoch, epochs=config.epochs,
           validation_data=dataset_val, callbacks=[checkpoint, csv_logger])
 
 # Dump history with pickle
@@ -184,9 +184,9 @@ os.system(f"python plot_loss.py {run_id}")
 os.system(f"python plot_performance.py {run_id}")
 
 # Calculate 68 % interval and sent to wandb
-angle_68 = find_68_interval
+angle_68 = find_68_interval(run_name)
 
-wandb.log({f"68 %% interval": angle_68})
+wandb.log({f"68 % interval": angle_68})
 
 run.join()
 
