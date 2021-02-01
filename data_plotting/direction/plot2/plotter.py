@@ -7,7 +7,6 @@ import argparse
 import os
 from termcolor import colored
 from mpl_toolkits.mplot3d import Axes3D
-import numpy as np
 from itertools import product, combinations
 
 # Parse arguments
@@ -89,10 +88,11 @@ class Arrow3D(FancyArrowPatch):
         FancyArrowPatch.draw(self, renderer)
 
 arrow_scale = 1/2
+norm = np.linalg.norm(direction_data)
 
-XX = direction_data[0]*arrow_scale
-YY = direction_data[1]*arrow_scale
-ZZ = direction_data[2]*arrow_scale
+XX = direction_data[0]/norm*arrow_scale
+YY = direction_data[1]/norm*arrow_scale
+ZZ = direction_data[2]/norm*arrow_scale
 
 a = Arrow3D([0, XX], [0, YY], [-1, -1 + ZZ], mutation_scale=20,
             lw=3, arrowstyle="-|>", color="g")
