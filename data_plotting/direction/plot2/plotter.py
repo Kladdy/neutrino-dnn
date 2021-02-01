@@ -60,7 +60,7 @@ plt.close(fig)
 
 # Plot direction sphere
 fig_sphere = plt.figure()
-ax_sphere = fig.gca(projection='3d')
+ax_sphere = fig_sphere.gca(projection='3d')
 # ax.set_aspect(1)
 
 # Draw sphere
