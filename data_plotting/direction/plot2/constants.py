@@ -1,5 +1,5 @@
 project_name = "nu-dir-reco"
-plot_version = "plo2"
+plot_version = "plot2"
 dataset_name = "SouthPole"
 
 #datapath = "/mnt/ssd2/data/energy_reconstruction/ARIANNA-200_Alvarez2000_3sigma_noise/"

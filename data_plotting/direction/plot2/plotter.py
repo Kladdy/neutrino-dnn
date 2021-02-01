@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from toolbox import load_file, plots_dir
+from toolbox import load_file
+from constants import plots_dir
 import sys
 import argparse
 from termcolor import colored
