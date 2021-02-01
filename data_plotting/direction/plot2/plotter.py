@@ -6,6 +6,10 @@ import sys
 import argparse
 import os
 from termcolor import colored
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
+from itertools import product, combinations
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot data from antennas')
@@ -24,10 +28,10 @@ print(colored(f"Plotting antenna signals for event{i_event} in file{i_file}...",
 
 # Loading data
 data, nu_direction = load_file(i_file)
-print(data)
 print(f"Data shape: {data.shape}")
 
 event_data = data[i_event]
+direction_data = nu_direction[i_event]
 
 # Plotting
 fig, axs = plt.subplots(5)
@@ -50,7 +54,67 @@ for ax in axs.flat:
 
 fig.set_size_inches(12, 10)
 
-plt.savefig(f"{plots_dir}/plot_file{i_file}_event{i_event}.png")
+plt.savefig(f"{plots_dir}/signal_file{i_file}_event{i_event}.png")
+
+
+# Plot direction sphere
+fig = plt.figure()
+ax = fig.gca(projection='3d')
+# ax.set_aspect(1)
+
+# Draw sphere
+u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+x = np.cos(u)*np.sin(v)
+y = np.sin(u)*np.sin(v)
+z = np.cos(v)
+ax.plot_wireframe(x, y, z, color="grey", lw=1)
+
+# Draw a point
+ax.scatter([0], [0], [-1], color="g", s=100)
+
+# Draw a vector
+from matplotlib.patches import FancyArrowPatch
+from mpl_toolkits.mplot3d import proj3d
+
+class Arrow3D(FancyArrowPatch):
+    def __init__(self, xs, ys, zs, *args, **kwargs):
+        FancyArrowPatch.__init__(self, (0, 0), (0, 0), *args, **kwargs)
+        self._verts3d = xs, ys, zs
+
+    def draw(self, renderer):
+        xs3d, ys3d, zs3d = self._verts3d
+        xs, ys, zs = proj3d.proj_transform(xs3d, ys3d, zs3d, renderer.M)
+        self.set_positions((xs[0], ys[0]), (xs[1], ys[1]))
+        FancyArrowPatch.draw(self, renderer)
+
+a = Arrow3D([0, 1/2], [0, 1/2], [0-1, -1-1/2], mutation_scale=20,
+            lw=3, arrowstyle="-|>", color="g")
+ax.add_artist(a)
+
+
+# Make axes limits 
+xyzlim = np.array([ax.get_xlim3d(),ax.get_ylim3d(),ax.get_zlim3d()]).T
+XYZlim = [min(xyzlim[0]),max(xyzlim[1])]
+ax.set_xlim3d(XYZlim)
+ax.set_ylim3d(XYZlim)
+ax.set_zlim3d(XYZlim)
+try:
+    ax.set_aspect('equal')
+except NotImplementedError:
+    pass
+
+ax.set_box_aspect((1, 1, 1))
+
+# Set viewing angle
+ax.view_init(-25, -45)
+
+ax.set(xlabel="x", ylabel="y", zlabel="z")
+ax.set_zticklabels([])
+ax.set_yticklabels([])
+ax.set_xticklabels([])
+
+plt.savefig(f"{plots_dir}/direction_file{i_file}_event{i_event}.png")
+# ---------------------
 
 print(colored(f"Done plotting antenna signals for event{i_event} in file{i_file}!", "green", attrs=["bold"]))
 print("")
