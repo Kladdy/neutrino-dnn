@@ -19,6 +19,7 @@ print(colored(f"Plotting antenna signals for event{i_event} in file{i_file}...",
 
 # Loading data
 data = load_file(i_file)
+print(data)
 print(f"Data shape: {data.shape}")
 
 event_data = data[i_event]
