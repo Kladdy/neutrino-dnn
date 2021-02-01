@@ -107,12 +107,12 @@ ax_sphere.set_yticklabels([])
 ax_sphere.set_xticklabels([])
 
 # Hide grid lines
-ax.grid(False)
+ax_sphere.grid(False)
 
 # Hide axes ticks
-ax.set_xticks([])
-ax.set_yticks([])
-#ax.set_zticks([])
+ax_sphere.set_xticks([])
+ax_sphere.set_yticks([])
+ax_sphere.set_zticks([])
 
 plt.savefig(f"{plots_dir}/direction_file{i_file}_event{i_event}.png")
 # ---------------------
