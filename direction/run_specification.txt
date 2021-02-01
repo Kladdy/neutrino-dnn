@@ -97,8 +97,14 @@ run9:
     Base: base_v5
     Aim: Get a baseline for base_v5
 
-
-
+run10: 
+    Base: base_v5
+    Aim: Test amount of 1-stride Conv2D layers before the 2 stride
+    Config:
+        run10.1: 0 layers
+        run10.2: 1 layer
+        run10.3: 2 layers
+        run10.4: 3 layers
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
