@@ -4,6 +4,7 @@ from toolbox import load_file
 from constants import plots_dir
 import sys
 import argparse
+import os
 from termcolor import colored
 
 # Parse arguments
@@ -14,6 +15,10 @@ parser.add_argument("i_event", type=int ,help="the id of the event")
 args = parser.parse_args()
 i_file = args.i_file
 i_event = args.i_event
+
+# Make sure plots folder exists
+if not os.path.exists(plots_dir):
+    os.makedirs(plots_dir)
 
 print(colored(f"Plotting antenna signals for event{i_event} in file{i_file}...", "yellow"))
 
