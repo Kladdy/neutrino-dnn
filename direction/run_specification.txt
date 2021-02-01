@@ -72,7 +72,26 @@ run7:
         conda activate tf-gpu
         python training.py 7.X
 
-
+run8:
+    This run, based on base_v4, aims to test learning rates and loss functions:
+        run8.1:
+            learning_rate = 0.0005
+            loss_function = "mean_squared_error"
+        run8.2:
+            learning_rate = 0.0001
+            loss_function = "mean_squared_error"
+        run8.3:
+            learning_rate = 0.00005
+            loss_function = "mean_squared_error"
+        run8.4:
+            learning_rate = 0.0005
+            loss_function = "mean_absolute_error"
+        run8.5:
+            learning_rate = 0.0001
+            loss_function = "mean_absolute_error"
+        run8.6:
+            learning_rate = 0.00005
+            loss_function = "mean_absolute_error"
 
 
 

@@ -18,7 +18,7 @@ i_event = args.i_event
 print(colored(f"Plotting antenna signals for event{i_event} in file{i_file}...", "yellow"))
 
 # Loading data
-data = load_file(i_file)
+data, nu_direction = load_file(i_file)
 print(data)
 print(f"Data shape: {data.shape}")
 
