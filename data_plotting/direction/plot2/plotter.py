@@ -7,7 +7,6 @@ import argparse
 import os
 from termcolor import colored
 from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
 import numpy as np
 from itertools import product, combinations
 
@@ -56,10 +55,12 @@ fig.set_size_inches(12, 10)
 
 plt.savefig(f"{plots_dir}/signal_file{i_file}_event{i_event}.png")
 
+fig.clear()
+plt.close(fig)
 
 # Plot direction sphere
-fig = plt.figure()
-ax = fig.gca(projection='3d')
+fig_sphere = plt.figure()
+ax_sphere = fig.gca(projection='3d')
 # ax.set_aspect(1)
 
 # Draw sphere
@@ -67,10 +68,10 @@ u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
 x = np.cos(u)*np.sin(v)
 y = np.sin(u)*np.sin(v)
 z = np.cos(v)
-ax.plot_wireframe(x, y, z, color="grey", lw=1)
+ax_sphere.plot_wireframe(x, y, z, color="grey", lw=1)
 
 # Draw a point
-ax.scatter([0], [0], [-1], color="g", s=100)
+ax_sphere.scatter([0], [0], [-1], color="g", s=100)
 
 # Draw a vector
 from matplotlib.patches import FancyArrowPatch
@@ -89,29 +90,29 @@ class Arrow3D(FancyArrowPatch):
 
 a = Arrow3D([0, 1/2], [0, 1/2], [0-1, -1-1/2], mutation_scale=20,
             lw=3, arrowstyle="-|>", color="g")
-ax.add_artist(a)
+ax_sphere.add_artist(a)
 
 
 # Make axes limits 
 xyzlim = np.array([ax.get_xlim3d(),ax.get_ylim3d(),ax.get_zlim3d()]).T
 XYZlim = [min(xyzlim[0]),max(xyzlim[1])]
-ax.set_xlim3d(XYZlim)
-ax.set_ylim3d(XYZlim)
-ax.set_zlim3d(XYZlim)
+ax_sphere.set_xlim3d(XYZlim)
+ax_sphere.set_ylim3d(XYZlim)
+ax_sphere.set_zlim3d(XYZlim)
 try:
-    ax.set_aspect('equal')
+    ax_sphere.set_aspect('equal')
 except NotImplementedError:
     pass
 
-# ax.set_box_aspect((1, 1, 1))
+ax_sphere.set_box_aspect((1, 1, 1))
 
 # Set viewing angle
-ax.view_init(-25, -45)
+ax_sphere.view_init(-25, -45)
 
-ax.set(xlabel="x", ylabel="y", zlabel="z")
-ax.set_zticklabels([])
-ax.set_yticklabels([])
-ax.set_xticklabels([])
+ax_sphere.set(xlabel="x", ylabel="y", zlabel="z")
+ax_sphere.set_zticklabels([])
+ax_sphere.set_yticklabels([])
+ax_sphere.set_xticklabels([])
 
 plt.savefig(f"{plots_dir}/direction_file{i_file}_event{i_event}.png")
 # ---------------------
