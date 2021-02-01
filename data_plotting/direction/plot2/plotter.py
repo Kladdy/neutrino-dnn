@@ -93,18 +93,14 @@ a = Arrow3D([0, 1/2], [0, 1/2], [0-1, -1-1/2], mutation_scale=20,
 ax_sphere.add_artist(a)
 
 
-# Make axes limits 
-xyzlim = np.array([ax_sphere.get_xlim3d(),ax_sphere.get_ylim3d(),ax_sphere.get_zlim3d()]).T
-XYZlim = [min(xyzlim[0]),max(xyzlim[1])]
-ax_sphere.set_xlim3d(XYZlim)
-ax_sphere.set_ylim3d(XYZlim)
-ax_sphere.set_zlim3d(XYZlim)
-try:
-    ax_sphere.set_aspect('equal')
-except NotImplementedError:
-    pass
-
-ax_sphere.set_box_aspect((1, 1, 1))
+# Create cubic bounding box to simulate equal aspect ratio
+max_range = np.array([x.max()-x.min(), y.max()-y.min(), z.max()-z.min()]).max()
+Xb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][0].flatten() + 0.5*(X.max()+X.min())
+Yb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][1].flatten() + 0.5*(Y.max()+Y.min())
+Zb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][2].flatten() + 0.5*(Z.max()+Z.min())
+# Comment or uncomment following both lines to test the fake bounding box:
+for xb, yb, zb in zip(Xb, Yb, Zb):
+   ax.plot([xb], [yb], [zb], 'w')
 
 # Set viewing angle
 ax_sphere.view_init(-25, -45)
