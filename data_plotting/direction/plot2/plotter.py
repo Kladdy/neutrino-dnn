@@ -112,7 +112,7 @@ ax.grid(False)
 # Hide axes ticks
 ax.set_xticks([])
 ax.set_yticks([])
-ax.set_zticks([])
+#ax.set_zticks([])
 
 plt.savefig(f"{plots_dir}/direction_file{i_file}_event{i_event}.png")
 # ---------------------
