@@ -84,14 +84,14 @@ model = Sequential()
 # Initial convolutional layers
 if run_name == "run10.1":
     model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu', input_shape=(5, 512, 1)))
-elif run_name == "run10.1":
+elif run_name == "run10.2":
     model.add(Conv2D(100, (1, 10), strides=(1, 1), padding='valid', activation='relu', input_shape=(5, 512, 1)))
     model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
-elif run_name == "run10.2":
+elif run_name == "run10.3":
     model.add(Conv2D(100, (1, 10), strides=(1, 1), padding='valid', activation='relu', input_shape=(5, 512, 1)))
     model.add(Conv2D(100, (1, 10), strides=(1, 1), padding='valid', activation='relu'))
     model.add(Conv2D(100, (1, 10), strides=(1, 2), padding='valid', activation='relu'))
-elif run_name == "run10.3":
+elif run_name == "run10.4":
     model.add(Conv2D(100, (1, 10), strides=(1, 1), padding='valid', activation='relu', input_shape=(5, 512, 1)))
     model.add(Conv2D(100, (1, 10), strides=(1, 1), padding='valid', activation='relu'))
     model.add(Conv2D(100, (1, 10), strides=(1, 1), padding='valid', activation='relu'))
