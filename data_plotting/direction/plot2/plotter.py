@@ -88,19 +88,15 @@ class Arrow3D(FancyArrowPatch):
         self.set_positions((xs[0], ys[0]), (xs[1], ys[1]))
         FancyArrowPatch.draw(self, renderer)
 
-a = Arrow3D([0, 1/2], [0, 1/2], [0-1, -1-1/2], mutation_scale=20,
+arrow_scale = 1/2
+
+XX = direction_data[0]*arrow_scale
+YY = direction_data[1]*arrow_scale
+ZZ = direction_data[2]*arrow_scale
+
+a = Arrow3D([0, XX], [0, YY], [-1, -1 + ZZ], mutation_scale=20,
             lw=3, arrowstyle="-|>", color="g")
 ax_sphere.add_artist(a)
-
-
-# Create cubic bounding box to simulate equal aspect ratio
-max_range = np.array([x.max()-x.min(), y.max()-y.min(), z.max()-z.min()]).max()
-Xb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][0].flatten() + 0.5*(x.max()+x.min())
-Yb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][1].flatten() + 0.5*(y.max()+y.min())
-Zb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][2].flatten() + 0.5*(z.max()+z.min())
-# Comment or uncomment following both lines to test the fake bounding box:
-for xb, yb, zb in zip(Xb, Yb, Zb):
-   ax_sphere.plot([xb], [yb], [zb], 'w')
 
 # Set viewing angle
 ax_sphere.view_init(-25, -45)
