@@ -61,7 +61,7 @@ plt.close(fig)
 # Plot direction sphere
 fig_sphere = plt.figure()
 ax_sphere = fig_sphere.gca(projection='3d')
-ax_sphere.set_aspect('equal')
+#ax_sphere.set_aspect('equal')
 
 # Draw sphere
 u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
