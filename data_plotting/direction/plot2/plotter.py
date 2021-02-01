@@ -61,7 +61,7 @@ plt.close(fig)
 # Plot direction sphere
 fig_sphere = plt.figure()
 ax_sphere = fig_sphere.gca(projection='3d')
-# ax.set_aspect(1)
+# ax_sphere.set_aspect(1)
 
 # Draw sphere
 u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
@@ -94,7 +94,7 @@ ax_sphere.add_artist(a)
 
 
 # Make axes limits 
-xyzlim = np.array([ax.get_xlim3d(),ax.get_ylim3d(),ax.get_zlim3d()]).T
+xyzlim = np.array([ax_sphere.get_xlim3d(),ax_sphere.get_ylim3d(),ax_sphere.get_zlim3d()]).T
 XYZlim = [min(xyzlim[0]),max(xyzlim[1])]
 ax_sphere.set_xlim3d(XYZlim)
 ax_sphere.set_ylim3d(XYZlim)
