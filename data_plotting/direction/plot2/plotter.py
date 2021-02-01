@@ -61,7 +61,7 @@ plt.close(fig)
 # Plot direction sphere
 fig_sphere = plt.figure()
 ax_sphere = fig_sphere.gca(projection='3d')
-# ax_sphere.set_aspect(1)
+ax_sphere.set_aspect('equal')
 
 # Draw sphere
 u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
@@ -100,7 +100,7 @@ Yb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][1].flatten() + 0.5*(y.max()+y.
 Zb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][2].flatten() + 0.5*(z.max()+z.min())
 # Comment or uncomment following both lines to test the fake bounding box:
 for xb, yb, zb in zip(Xb, Yb, Zb):
-   ax.plot([xb], [yb], [zb], 'w')
+   ax_sphere.plot([xb], [yb], [zb], 'w')
 
 # Set viewing angle
 ax_sphere.view_init(-25, -45)
