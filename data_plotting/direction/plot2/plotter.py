@@ -103,7 +103,7 @@ try:
 except NotImplementedError:
     pass
 
-ax.set_box_aspect((1, 1, 1))
+# ax.set_box_aspect((1, 1, 1))
 
 # Set viewing angle
 ax.view_init(-25, -45)
