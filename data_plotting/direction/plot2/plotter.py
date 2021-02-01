@@ -33,13 +33,13 @@ direction_data = nu_direction[i_event]
 
 # Plotting
 fig, axs = plt.subplots(5)
-fig.suptitle(f'Plot of 4 LDPA & 1 dipole of SouthPole data for event {i_event} in file {i_file}')
+fig.suptitle(f'Plot of 4 LPDA & 1 dipole of SouthPole data for event {i_event} in file {i_file}')
 
 for i in range(5):
     axs[i].plot(event_data[i])
     axs[i].set_xlim([0, 511])
     if i != 4:
-        axs[i].set_title(f'LDPA {i+1}')
+        axs[i].set_title(f'LPDA {i+1}')
 
 axs[4].set_title('Dipole')
 
@@ -63,7 +63,7 @@ ax_sphere = fig_sphere.gca(projection='3d')
 #ax_sphere.set_aspect('equal')
 
 # Draw sphere
-u, v = np.mgrid[0:2*np.pi:20j, 0:np.pi:10j]
+u, v = np.mgrid[0:2*np.pi:40j, 0:np.pi:20j]
 x = np.cos(u)*np.sin(v)
 y = np.sin(u)*np.sin(v)
 z = np.cos(v)
@@ -101,10 +101,18 @@ ax_sphere.add_artist(a)
 # Set viewing angle
 ax_sphere.view_init(-25, -45)
 
-ax_sphere.set(xlabel="x", ylabel="y", zlabel="z")
+#ax_sphere.set(xlabel="x", ylabel="y", zlabel="z")
 ax_sphere.set_zticklabels([])
 ax_sphere.set_yticklabels([])
 ax_sphere.set_xticklabels([])
+
+# Hide grid lines
+ax.grid(False)
+
+# Hide axes ticks
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_zticks([])
 
 plt.savefig(f"{plots_dir}/direction_file{i_file}_event{i_event}.png")
 # ---------------------
