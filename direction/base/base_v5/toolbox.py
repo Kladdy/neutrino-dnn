@@ -36,7 +36,7 @@ def calculate_68_interval(angle_difference_data):
     N = angle_difference_data.size
     weights = np.ones(N)
 
-    angle68 = stats.quantile_1d(angle_difference_data, weights, 0.68)
+    angle_68 = stats.quantile_1d(angle_difference_data, weights, 0.68)
 
     # OLD METHOD -------------------------------
     # Calculate Rayleigh fit
