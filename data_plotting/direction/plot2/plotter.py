@@ -87,7 +87,7 @@ class Arrow3D(FancyArrowPatch):
         self.set_positions((xs[0], ys[0]), (xs[1], ys[1]))
         FancyArrowPatch.draw(self, renderer)
 
-arrow_scale = 2/3
+arrow_scale = 2
 norm = np.linalg.norm(direction_data)
 
 XX = direction_data[0]/norm*arrow_scale
