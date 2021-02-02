@@ -106,6 +106,35 @@ run10:
         run10.3: 2 layers
         run10.4: 3 layers
 
+    sleep 2m && python training.py 10.X
+
+run11: 
+    Base: base_v5
+    Aim: Test changing the last X Conv2D layers with stride 2 to stride 1
+    Config:
+        run11.1: 0 layers
+        run11.2: 1 layer
+        run11.3: 2 layers
+
+run12: 
+    Base: base_v5
+    Aim: Test different filter amounts for Conv2D layers
+    Config:
+        run12.1: 10
+        run12.2: 50
+        run12.3: 100
+        run12.4: 150
+        run12.5: 200
+
+run13: 
+    Base: base_v5
+    Aim: Test performance over amount of files to train on
+    Config:
+        run13.1: 
+        run13.2:
+        run13.3: 
+        run13.4: 
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
