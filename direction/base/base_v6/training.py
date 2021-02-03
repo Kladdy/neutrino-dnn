@@ -32,7 +32,7 @@ from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Model
 from tensorflow.keras.utils import Sequence, plot_model
-from tensorflow.keras.utils.layer_utils import count_params
+import tensorflow.keras.backend as K
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 
 from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
@@ -146,8 +146,8 @@ with open(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.
     json_file.write(model_json)
 
 # Send amount of parameters to wandb
-trainable_params = count_params(model.trainable_weights)
-non_trainable_params = count_params(model.non_trainable_weights)
+trainable_count = np.sum([K.count_params(w) for w in model.trainable_weights])
+non_trainable_count = np.sum([K.count_params(w) for w in model.non_trainable_weights])
 
 wandb.log({f"trainable_params": trainable_count})
 wandb.log({f"non_trainable_params": non_trainable_count})
