@@ -81,6 +81,12 @@ elif run_name == "run13.6":
     loss_function = "huber"
 elif run_name == "run13.7":
     loss_function = "log_cosh"
+elif run_name == "run13.8":
+    loss_function = "log_cosh"
+elif run_name == "run13.9":
+    loss_function = "huber"
+elif run_name == "run13.10":
+    loss_function = "huber"
 
 # Initialize wandb
 run = wandb.init(project=project_name,
@@ -149,9 +155,25 @@ model.add(Dense(128))
 
 # Output layer
 model.add(Dense(3))
-model.compile(loss=config.loss_function,
+
+
+if run_name == "run13.8":
+    model.compile(loss=tf.keras.losses.LogCosh(reduction="auto", name="log_cosh"),
+                optimizer=Adam(lr=config.learning_rate))
+    model.summary()
+elif run_name == "run13.9":
+    model.compile(loss=tf.keras.losses.Huber(delta=1.0, reduction="auto", name="huber_loss"),
               optimizer=Adam(lr=config.learning_rate))
-model.summary()
+    model.summary()
+elif run_name == "run13.10":
+    model.compile(loss=tf.keras.losses.Huber(delta=0.5, reduction="auto", name="huber_loss"),
+              optimizer=Adam(lr=config.learning_rate))
+    model.summary()
+else:
+    model.compile(loss=config.loss_function,
+              optimizer=Adam(lr=config.learning_rate))
+    model.summary()
+
 # ------------------------------------
 
 # Save the model (for opening in eg Netron)
