@@ -166,4 +166,5 @@ base_v5:
 
 base_v6:
     Based on: run12
-    Comments: Additional logging to wand (params count etc) was added
+    Comments: Additional logging to wand (params count etc) was added. 
+              Also, train on 1/3 of data instead of 1/5 of data each epoch

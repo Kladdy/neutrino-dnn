@@ -66,6 +66,22 @@ if not os.path.exists(saved_model_dir):
 if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
     os.makedirs(f"{saved_model_dir}/{architectures_dir}")
 
+# Loss function config (for run13) # REMOVE after run13!
+if run_name == "run13.1":
+    loss_function = "mean_squared_error"
+elif run_name == "run13.2":
+    loss_function = "mean_absolute_error"
+elif run_name == "run13.3":
+    loss_function = "mean_absolute_percentage_error"
+elif run_name == "run13.4":
+    loss_function = "mean_squared_logarithmic_error"
+elif run_name == "run13.5":
+    loss_function = "cosine_similarity"
+elif run_name == "run13.6":
+    loss_function = "huber"
+elif run_name == "run13.7":
+    loss_function = "log_cosh"
+
 # Initialize wandb
 run = wandb.init(project=project_name,
                  group=run_version,
