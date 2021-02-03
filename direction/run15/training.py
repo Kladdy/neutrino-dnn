@@ -86,6 +86,8 @@ conv2D_filter_amount = 100
 
 # Send model params to wandb
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
+wandb.log({f"n_files_train": n_files_train})
+wandb.log({f"n_files_val": n_files_val})
 
 # ----------- Create model -----------
 model = Sequential()
