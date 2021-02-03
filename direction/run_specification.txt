@@ -133,10 +133,14 @@ run13:
         run13.1: mean_squared_error
         run13.2: mean_absolute_error
         run13.3: mean_absolute_percentage_error
-        run13.4: mean_squared_logarithmic_error
+        run13.4: mean_squared_logarithmic_errorcd
         run13.5: cosine_similarity
-        run13.6: huber
-        run13.7: log_cosh
+        run13.6: huber    FAILED
+        run13.7: log_cosh FAILED
+        run13.8: log_cosh
+        run13.9: huber with delta = 1
+        run13.10: huber with delta = 0.5
+        
 
 sleep 1s && python training.py 13.1
 sleep 2m && python training.py 13.2
@@ -155,6 +159,13 @@ run14:
         run14.3: 10
         run14.4: 15
 
+sleep 1s && python training.py 14.1
+sleep 2m && python training.py 14.2
+sleep 4m && python training.py 14.3
+sleep 6m && python training.py 14.4
+sleep 8m && python training.py 14.5
+
+
 run15: 
     Base: base_v6
     Aim: Test performance over amount of files to train on
@@ -162,7 +173,6 @@ run15:
         run15.1: 
         run15.2:
         run15.3: 
-        run15.4: 
 
 
 base_v4:
