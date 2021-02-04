@@ -44,24 +44,20 @@ model = keras.models.load_model(f'saved_models/model.{run_name}.h5')
     # Load first file
 data, nu_direction = load_file(test_file_ids[0])
 
+    # Then load rest of files
 if len(test_file_ids) > 1:
     for test_file_id in test_file_ids:
         if test_file_id != test_file_ids[0]:
             data_tmp, nu_direction_tmp = load_file(test_file_id)
-            print(data_tmp.shape)
-            print(nu_direction_tmp.shape)
+
             data = np.concatenate((data, data_tmp))
             nu_direction = np.concatenate((nu_direction, nu_direction_tmp))
-            print(data.shape)
-            print(nu_direction.shape)
 
+nu_direction_predict = model.predict(data)
 
-# data, nu_direction = load_file(test_file_id)
-# nu_direction_predict = model.predict(data)
-
-# # Save predicted angles
-# with open(f'saved_models/model.{run_name}.h5_predicted.pkl', "bw") as fout:
-#     pickle.dump([nu_direction_predict, nu_direction], fout, protocol=4)
+# Save predicted angles
+with open(f'saved_models/model.{run_name}.h5_predicted.pkl', "bw") as fout:
+    pickle.dump([nu_direction_predict, nu_direction], fout, protocol=4)
 
 print(colored(f"Done evaluating angular resolution for {run_name}!", "green", attrs=["bold"]))
 print("")
