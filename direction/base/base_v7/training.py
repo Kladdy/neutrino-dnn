@@ -83,16 +83,7 @@ config = wandb.config
 
 # Model params
 conv2D_filter_amount = 100
-if run_name == "run14.1":
-    conv2D_filter_size = 3
-elif run_name == "run14.2":
-    conv2D_filter_size = 7
-elif run_name == "run14.3":
-    conv2D_filter_size = 10
-elif run_name == "run14.4":
-    conv2D_filter_size = 15
-elif run_name == "run14.5":
-    conv2D_filter_size = 20
+conv2D_filter_size = 15
 
 # Send model params to wandb
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
