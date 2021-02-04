@@ -204,6 +204,21 @@ sleep 2m && python training.py 17.2
 sleep 4m && python training.py 17.3
 sleep 6m && python training.py 17.4
 
+run18: 
+    Base: base_v7
+    Aim: Test stride length dependence on last Conv2D layer.
+            Same as run17, but with one less Conv2D layer before
+    Config:
+        run17.1: stride length 1
+        run17.2: stride length 2
+        run17.3: stride length 3
+        run17.4: stride length 4
+
+sleep 1s && python training.py 18.1
+sleep 2m && python training.py 18.2
+sleep 4m && python training.py 18.3
+sleep 6m && python training.py 18.4
+
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
