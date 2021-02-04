@@ -50,8 +50,8 @@ if len(test_file_ids) > 1:
             data_tmp, nu_direction_tmp = load_file(test_file_id)
             print(data_tmp.shape)
             print(nu_direction_tmp.shape)
-            data = np.concatenate(data, data_tmp)
-            nu_direction = np.concatenate(nu_direction, nu_direction_tmp)
+            data = np.concatenate((data, data_tmp))
+            nu_direction = np.concatenate((nu_direction, nu_direction_tmp))
             print(data.shape)
             print(nu_direction.shape)
 
