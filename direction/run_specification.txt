@@ -176,7 +176,7 @@ run15:
         run15.3: n_files = 20, n_train = 15, n_val = 3, n_test = 1
         
     
-run16: 
+run16: FAILED! Too big dense layer network...  Maybe reduce?
     Base: base_v7
     Aim: Test stride length dependence
     Config:

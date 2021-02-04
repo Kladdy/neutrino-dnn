@@ -85,13 +85,13 @@ config = wandb.config
 conv2D_filter_amount = 100
 conv2D_filter_size = 15
 
-if run_name == "run16.1":
+if run_name == "run17.1":
     stride_length = 1
-elif run_name == "run16.2":
+elif run_name == "run17.2":
     stride_length = 2
-elif run_name == "run16.3":
+elif run_name == "run17.3":
     stride_length = 3
-elif run_name == "run16.4":
+elif run_name == "run17.4":
     stride_length = 4
 
 # Send model params to wandb
