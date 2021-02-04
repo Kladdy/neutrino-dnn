@@ -41,10 +41,19 @@ print(colored(f"Evaluating angular resolution for {run_name}...", "yellow"))
 model = keras.models.load_model(f'saved_models/model.{run_name}.h5')
 
 # Load test file data and make predictions
-for test_file_id in test_file_ids:
-    data_tmp, nu_direction_tmp = load_file(test_file_id)
-    print(data_tmp.shape)
-    print(nu_direction_tmp.shape)
+    # Load first file
+data, nu_direction = load_file(test_file_ids[0])
+
+if len(test_file_ids) > 1:
+    for test_file_id in test_file_ids:
+        if test_file_id != 0
+            data_tmp, nu_direction_tmp = load_file(test_file_id)
+            print(data_tmp.shape)
+            print(nu_direction_tmp.shape)
+            data = np.concatenate(data, data_tmp)
+            nu_direction = np.concatenate(nu_direction, nu_direction_tmp)
+            print(data.shape)
+            print(nu_direction.shape)
 
 
 # data, nu_direction = load_file(test_file_id)
