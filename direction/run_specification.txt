@@ -171,9 +171,19 @@ run15:
     Base: base_v6
     Aim: Test performance over amount of files to train on
     Config:
-        run15.1: n_files = 20, n_train = 15, n_val = 3, n_test = 1
+        run15.1: n_files = 80, n_train = 60, n_val = 12, n_test = 1 
         run15.2: n_files = 40, n_train = 30, n_val = 6, n_test = 1 
-        run15.3: n_files = 80, n_train = 60, n_val = 12, n_test = 1 
+        run15.3: n_files = 20, n_train = 15, n_val = 3, n_test = 1
+        
+    
+run16: 
+    Base: base_v7
+    Aim: Test stride length dependence
+    Config:
+        run16.1: stride length 1
+        run16.2: stride length 2
+        run16.3: stride length 3
+        run16.4: stride length 4
 
 
 base_v4:
