@@ -46,7 +46,7 @@ data, nu_direction = load_file(test_file_ids[0])
 
 if len(test_file_ids) > 1:
     for test_file_id in test_file_ids:
-        if test_file_id != 0
+        if test_file_id != 0:
             data_tmp, nu_direction_tmp = load_file(test_file_id)
             print(data_tmp.shape)
             print(nu_direction_tmp.shape)
