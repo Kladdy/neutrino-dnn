@@ -219,6 +219,23 @@ sleep 2m && python training.py 18.2
 sleep 4m && python training.py 18.3
 sleep 6m && python training.py 18.4
 
+run19:
+    Base: base_v7
+    Aim: Test some filter size configs
+    Config:
+        
+
+screen -S 19.1 && screen -S 19.2 && screen -S 19.3 && screen -S 19.4 && screen -S 19.5 && screen -S 19.6 && screen -S 19.7 && screen -S 19.8
+sleep 0m && python training.py 19.1
+sleep 2m && python training.py 19.2
+sleep 4m && python training.py 19.3
+sleep 6m && python training.py 19.4
+sleep 8m && python training.py 19.5
+sleep 10m && python training.py 19.6
+sleep 12m && python training.py 19.7
+sleep 14m && python training.py 19.8
+
+
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
