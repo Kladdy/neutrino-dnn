@@ -84,20 +84,22 @@ config = wandb.config
 # Model params
 conv2D_filter_amount = 100
 conv2D_filter_size = 15
+stride_length = 2
 
 # Send model params to wandb
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
 wandb.log({f"conv2D_filter_size": conv2D_filter_size})
+wandb.log({f"stride_length_on_last_Conv2D": stride_length})
 
 # ----------- Create model -----------
 model = Sequential()
 
 # Initial convolutional layers
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 2), padding='valid', activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 2), padding='valid', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 2), padding='valid', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 2), padding='valid', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 2), padding='valid', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu', input_shape=(5, 512, 1)))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
