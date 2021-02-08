@@ -82,7 +82,7 @@ config = wandb.config
 
 
 # Model params
-conv2D_filter_amount = 101
+conv2D_filter_amount = 100
 conv2D_filter_size = 15
 
 # Send model params to wandb
