@@ -37,7 +37,6 @@ from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 
 from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
 from constants import saved_model_dir, run_version, dataset_name, datapath, data_filename, label_filename, plots_dir, project_name
-from custom_loss import angle_difference_loss
 # -------
 
 # Values
@@ -138,11 +137,7 @@ model.add(Dense(128))
 
 # Output layer
 model.add(Dense(3))
-if run_name == "run20.1":
-    model.compile(loss=config.loss_function,
-              optimizer=Adam(lr=config.learning_rate))
-elif run_name == "run20.2":
-    model.compile(loss=angle_difference_loss,
+model.compile(loss=config.loss_function,
               optimizer=Adam(lr=config.learning_rate))
 model.summary()
 # ------------------------------------
