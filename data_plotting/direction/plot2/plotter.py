@@ -31,9 +31,6 @@ print(f"Data shape: {data.shape}")
 event_data = data[i_event]
 direction_data = nu_direction[i_event]
 
-normed_nu_direction = np.array([np.linalg.norm(v) for v in nu_direction])
-print(normed_nu_direction)
-
 # Plotting
 fig, axs = plt.subplots(5)
 fig.suptitle(f'Plot of 4 LPDA & 1 dipole of SouthPole data for event {i_event} in file {i_file}')
