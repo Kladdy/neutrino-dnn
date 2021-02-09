@@ -246,9 +246,15 @@ sleep 2m && python training.py 20.2
 sleep 4m && python training.py 20.3
 sleep 6m && python training.py 20.4
 
-run20:
+run21:
     Base: base_v7
-    Aim: Test channels_first for Conv2D layers
+    Aim: Test channels_first for Conv2D layers and test some pooling
+
+run22:
+    Base: base_v8
+    Aim: Test different FC layer models
+
+
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
@@ -264,3 +270,7 @@ base_v6:
 base_v7:
     Based on: run15
     Comments: Testing on more files (3 files instead of 1)
+
+base_v8:
+    Based on: run19
+    Comments: Nothing really changed
