@@ -31,7 +31,7 @@ print(f"Data shape: {data.shape}")
 event_data = data[i_event]
 direction_data = nu_direction[i_event]
 
-print(np.linalg.norm(direction_data))
+print(np.linalg.norm(nu_direction))
 
 # Plotting
 fig, axs = plt.subplots(5)
