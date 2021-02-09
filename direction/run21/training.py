@@ -27,7 +27,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Conv1D, Flatten, Dropout
 from tensorflow.keras.layers import Dense, Conv2D, BatchNormalization, Activation
 from tensorflow.keras.layers import AveragePooling2D, AveragePooling1D, Input, Flatten
-from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization, MaxPooling2D, AveragePooling2D
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Model
@@ -95,11 +95,32 @@ wandb.log({f"stride_length_on_last_Conv2D": stride_length})
 model = Sequential()
 
 # Initial convolutional layers
-model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', input_shape=(5, 512, 1), data_format='channels_first'))
-model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
-model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
-model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
-model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
+if run_name == "run21.2":
+    model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', input_shape=(5, 512, 1), data_format='channels_first'))
+    model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
+    model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
+    model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
+    model.add(Conv2D(conv2D_filter_amount, (conv2D_filter_size, 1), strides=(stride_length, 1), padding='valid', activation='relu', data_format='channels_first'))
+elif run_name == "run21.3":
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(MaxPooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
+    model.add(MaxPooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
+elif run_name == "run21.4":
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(AveragePooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
+    model.add(AveragePooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
+    model.add(AveragePooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
+    model.add(AveragePooling2D(pool_size=(1, 2), strides=(1,2), padding="valid"))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='same', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
 # model.add(Conv1D(100, 10, strides=1, padding='valid', activation='relu'))
