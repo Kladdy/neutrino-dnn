@@ -236,10 +236,15 @@ sleep 12m && python training.py 19.7
 sleep 14m && python training.py 19.8
 
 
-run19:
+run20:
     Base: base_v7
-    Aim: Try out a new custom loss function, that actually calculates error in angle
+    Aim: Run 4 runs and see if result is super different every time
 
+screen -S 20.1 && screen -S 20.2 && screen -S 20.3 && screen -S 20.4
+sleep 0m && python training.py 20.1
+sleep 2m && python training.py 20.2
+sleep 4m && python training.py 20.3
+sleep 6m && python training.py 20.4
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
