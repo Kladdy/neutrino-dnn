@@ -31,7 +31,7 @@ print(f"Data shape: {data.shape}")
 event_data = data[i_event]
 direction_data = nu_direction[i_event]
 
-normed_nu_direction = array([norm(v) for v in nu_direction])
+normed_nu_direction = np.array([np.linalg.norm(v) for v in nu_direction])
 print(normed_nu_direction)
 
 # Plotting
