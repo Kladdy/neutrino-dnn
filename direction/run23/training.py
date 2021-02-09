@@ -27,7 +27,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Conv1D, Flatten, Dropout
 from tensorflow.keras.layers import Dense, Conv2D, BatchNormalization, Activation
 from tensorflow.keras.layers import AveragePooling2D, AveragePooling1D, Input, Flatten
-from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import BatchNormalization, Lambda
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Model
@@ -126,6 +126,8 @@ model.add(Dense(128))
 
 # Output layer
 model.add(Dense(3))
+model.add(Lambda(lambda x: K.l2_normalize(x,axis=1)))
+
 model.compile(loss=config.loss_function,
               optimizer=Adam(lr=config.learning_rate))
 model.summary()

@@ -54,6 +54,9 @@ def load_file(i_file, norm=norm):
     nu_direction = nu_direction[idx]
     data /= norm
 
+    # Normalize direction
+    nu_direction = np.array([v/np.linalg.norm(v) for v in nu_direction])
+
     return data, nu_direction
 
 

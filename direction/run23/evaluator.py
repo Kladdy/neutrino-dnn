@@ -55,6 +55,11 @@ if len(test_file_ids) > 1:
 
 nu_direction_predict = model.predict(data)
 
+# Print out norms
+print("The following are the norms of prediction!")
+normed_nu_direction = np.array([np.linalg.norm(v) for v in nu_direction_predict])
+print(normed_nu_direction)
+
 # Save predicted angles
 with open(f'saved_models/model.{run_name}.h5_predicted.pkl', "bw") as fout:
     pickle.dump([nu_direction_predict, nu_direction], fout, protocol=4)
