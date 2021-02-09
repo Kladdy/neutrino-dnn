@@ -246,6 +246,10 @@ sleep 2m && python training.py 20.2
 sleep 4m && python training.py 20.3
 sleep 6m && python training.py 20.4
 
+run20:
+    Base: base_v7
+    Aim: Test channels_first for Conv2D layers
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
