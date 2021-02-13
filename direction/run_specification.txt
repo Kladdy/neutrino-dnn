@@ -291,4 +291,4 @@ base_v8:
 
 base_v9:
     Based on: run23
-    Comments: Add normalization to output and change dense layers
+    Comments: Add normalization to output, change dense layers, run over all files each epoch
