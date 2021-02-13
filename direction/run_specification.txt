@@ -270,6 +270,23 @@ run23:
     Base: base_v8
     Aim: Test l2-normalization after last dense layer
 
+run24:
+    Base: base_v9
+    Aim: Run many tries of same model to see spread
+
+sleep 0m && python training.py 24.1
+sleep 2m && python training.py 24.2
+sleep 4m && python training.py 24.3
+sleep 6m && python training.py 24.4
+sleep 8m && python training.py 24.5
+sleep 10m && python training.py 24.6
+sleep 12m && python training.py 24.7
+sleep 14m && python training.py 24.8
+sleep 16m && python training.py 24.9
+sleep 18m && python training.py 24.10
+
+
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
