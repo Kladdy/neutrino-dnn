@@ -274,6 +274,7 @@ run24:
     Base: base_v9
     Aim: Run many tries of same model to see spread
 
+screen -S 24.1 && screen -S 24.2 && screen -S 24.3 && screen -S 24.4 && screen -S 24.5 && screen -S 24.6 && screen -S 24.7 && screen -S 24.8 && screen -S 24.9 && screen -S 24.10
 sleep 0m && python training.py 24.1
 sleep 2m && python training.py 24.2
 sleep 4m && python training.py 24.3
@@ -285,7 +286,20 @@ sleep 14m && python training.py 24.8
 sleep 16m && python training.py 24.9
 sleep 18m && python training.py 24.10
 
+run25:
+    Base: base_v9
+    Aim: Test different dense layers
 
+screen -S 25.1 && screen -S 25.2 && screen -S 25.3 && screen -S 25.4 && screen -S 25.5 && screen -S 25.6 && screen -S 25.7 && screen -S 25.8 && screen -S 25.9
+sleep 0m && python training.py 25.1
+sleep 2m && python training.py 25.2
+sleep 4m && python training.py 25.3
+sleep 6m && python training.py 25.4
+sleep 8m && python training.py 25.5
+sleep 10m && python training.py 25.6
+sleep 12m && python training.py 25.7
+sleep 14m && python training.py 25.8
+sleep 16m && python training.py 25.9
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
