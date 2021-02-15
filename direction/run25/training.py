@@ -40,7 +40,7 @@ from constants import saved_model_dir, run_version, dataset_name, datapath, data
 # -------
 
 # Values
-feedback_freq = 1 # Only train on 1/feedback_freq of data per epoch
+feedback_freq = 3 # Only train on 1/feedback_freq of data per epoch
 webhook = os.getenv("SLACKWEBHOOK")
 architectures_dir = "architectures"
 learning_rate = 0.00005
