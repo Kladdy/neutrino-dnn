@@ -105,7 +105,7 @@ model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stri
 if run_name == "run26.1" or run_name == "run26.2" or run_name == "run26.3":
     model.add(BatchNormalization())
     wandb.log({f"hasBatchNormalization": True})
-else
+else:
     wandb.log({f"hasBatchNormalization": False})
 
 # Flatten prior to dense layers
