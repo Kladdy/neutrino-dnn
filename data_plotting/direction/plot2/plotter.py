@@ -31,13 +31,16 @@ print(f"Data shape: {data.shape}")
 event_data = data[i_event]
 direction_data = nu_direction[i_event]
 
+# Getting x axis (1 step is 0.5 ns)
+x_axis = range(len(event_data[0])/2)
+
 # Plotting
 fig, axs = plt.subplots(5)
 fig.suptitle(f'Plot of 4 LPDA & 1 dipole of SouthPole data for event {i_event} in file {i_file}')
 
 for i in range(5):
-    axs[i].plot(event_data[i])
-    axs[i].set_xlim([0, 511])
+    axs[i].plot(x_axis, event_data[i])
+    axs[i].set_xlim([min(x_axis), max(x_axis)])
     if i != 4:
         axs[i].set_title(f'LPDA {i+1}')
 

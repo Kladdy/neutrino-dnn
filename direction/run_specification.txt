@@ -313,6 +313,21 @@ sleep 6m && python training.py 26.4
 sleep 8m && python training.py 26.5
 sleep 10m && python training.py 26.6
 
+run27:
+    Base: base_v10
+    Aim: Dense layer tests
+
+screen -S 27.1 && screen -S 27.2 && screen -S 27.3 && screen -S 27.4 && screen -S 27.5 && screen -S 27.6 && screen -S 27.7 && screen -S 27.8 && screen -S 27.9
+sleep 0m && python training.py 27.1
+sleep 2m && python training.py 27.2
+sleep 4m && python training.py 27.3
+sleep 6m && python training.py 27.4
+sleep 8m && python training.py 27.5
+sleep 10m && python training.py 27.6
+sleep 12m && python training.py 27.7
+sleep 14m && python training.py 27.8
+sleep 16m && python training.py 27.9
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
