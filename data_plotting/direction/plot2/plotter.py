@@ -32,7 +32,7 @@ event_data = data[i_event]
 direction_data = nu_direction[i_event]
 
 # Getting x axis (1 step is 0.5 ns)
-x_axis = range(len(event_data[0])/2)
+x_axis = range(int(len(event_data[0])/2))
 
 # Plotting
 fig, axs = plt.subplots(5)
