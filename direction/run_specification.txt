@@ -335,3 +335,7 @@ base_v8:
 base_v9:
     Based on: run23
     Comments: Add normalization to output, change dense layers, run over all files each epoch
+
+base_v10:
+    Based on: run26
+    Comments: BatchNormalization was good
