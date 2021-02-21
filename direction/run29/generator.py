@@ -3,6 +3,7 @@ import os
 import numpy as np
 import tensorflow as tf
 import time
+from toolbox import load_file
 from constants import datapath, data_filename, label_filename
 # -------
 
@@ -22,43 +23,6 @@ n_events_per_file = 100000
 batch_size = 64
 
 print(f"training on {n_files_train} files ({n_files_train/n_files*100:.1f}%), validating on {n_files_val} files ({n_files_val/n_files*100:.1f}%), testing on {n_files_test} files ({n_files_test/n_files*100:.1f}%)")
-
-# Convert spherical to cartesian
-def spherical_to_cartesian(zenith, azimuth):
-    sinZenith = np.sin(zenith)
-    x = sinZenith * np.cos(azimuth)
-    y = sinZenith * np.sin(azimuth)
-    z = np.cos(zenith)
-    if hasattr(zenith, '__len__') and hasattr(azimuth, '__len__'):
-        return np.array([x, y, z]).T
-    else:
-        return np.array([x, y, z])
-
-
-def load_file(i_file, norm=norm):
-    # Load data
-    data = np.load(os.path.join(datapath, f"{data_filename}{i_file:04d}.npy"), allow_pickle=True)[:, :, :, np.newaxis]
-    labels_tmp = np.load(os.path.join(datapath, f"{label_filename}{i_file:04d}.npy"), allow_pickle=True)
-
-    # Convert to cartesian coordinates
-    nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
-    nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
-    nu_direction = spherical_to_cartesian(nu_zenith, nu_azimuth)
-
-    # Check for nans and remove them
-    idx = ~(np.isnan(data))
-    idx = np.all(idx, axis=1)
-    idx = np.all(idx, axis=1)
-    idx = np.all(idx, axis=1)
-    data = data[idx, :, :, :]
-    nu_direction = nu_direction[idx]
-    data /= norm
-
-    # Normalize direction
-    nu_direction = np.array([v/np.linalg.norm(v) for v in nu_direction])
-
-    return data, nu_direction
-
 
 class TrainDataset(tf.data.Dataset):
 
