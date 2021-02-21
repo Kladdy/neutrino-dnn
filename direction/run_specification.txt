@@ -7,13 +7,6 @@ run1:
         run1.4: 0.00005  
         run1.5: 0.00001   
 
-    With the following python scripts:
-        python T13.py run1.1 0.001
-        python T13.py run1.2 0.0005
-        python T13.py run1.3 0.0001
-        python T13.py run1.4 0.00005
-        python T13.py run1.5 0.00001
-
 run2: 
     The goal of this run is to clean up and automate as much of the code base as possible
 
@@ -21,29 +14,17 @@ run3:
     This run aims to see what effect the inital Conv2D layers have on the model training.
     There are 5 different models, each with 1, 2, 3, 4 or 5 inital Conv2D layers.
     Ran with the following python scripts:
-        python training.py 3.1
-        python training.py 3.2
-        python training.py 3.3
-        python training.py 3.4
-        python training.py 3.5
 
 run4:
     This run, based on base_v2, aims to test how many dense layers should be used after the Conv2D layers.
     There are 4 different models, each with 1, 2, 3 or 4 dense layers
     Ran with the following python scripts:
-        python training.py 4.1
-        python training.py 4.2
-        python training.py 4.3
-        python training.py 4.4
 
         conda activate tf-gpu
         python training.py 4.1
 
 run5:
     This run, based on base_v2, aims to test if "relu", "tanh" or "elu" function fits the best
-        python training.py 5.1
-        python training.py 5.2
-        python training.py 5.3
 
 run6:
     This run, based on base_v3, aims to test out batch normalization (BN).
@@ -53,21 +34,10 @@ run6:
     run6.6 has BN only between dense layers, after activation function
     https://machinelearningmastery.com/how-to-accelerate-learning-of-deep-neural-networks-with-batch-normalization/
 
-        python training.py 6.1
-        python training.py 6.2
-        python training.py 6.3
-        python training.py 6.4
-        python training.py 6.5
-        python training.py 6.6
-
-        conda activate tf-gpu
-        python training.py 6.X
 
 run7:
     This run, based on base_v3, aims to test of a "relu" activation function is good 
     before the final dense output layer. run7.1 does not have it, run7.2 does have it
-        python training.py 7.1
-        python training.py 7.2
 
         conda activate tf-gpu
         python training.py 7.X
@@ -140,15 +110,6 @@ run13:
         run13.8: log_cosh
         run13.9: huber with delta = 1
         run13.10: huber with delta = 0.5
-        
-
-sleep 1s && python training.py 13.1
-sleep 2m && python training.py 13.2
-sleep 4m && python training.py 13.3
-sleep 6m && python training.py 13.4
-sleep 8m && python training.py 13.5
-sleep 10m && python training.py 13.6
-sleep 12m && python training.py 13.7
 
 run14: 
     Base: base_v6
@@ -159,13 +120,6 @@ run14:
         run14.3: 10
         run14.4: 15
         run14.5: 20 FAILED (layer becomes too small!)
-
-sleep 1s && python training.py 14.1
-sleep 2m && python training.py 14.2
-sleep 4m && python training.py 14.3
-sleep 6m && python training.py 14.4
-sleep 8m && python training.py 14.5
-
 
 run15: 
     Base: base_v6
@@ -185,11 +139,6 @@ run16: FAILED! Too big dense layer network...  Maybe reduce?
         run16.3: stride length 3
         run16.4: stride length 4
 
-sleep 1s && python training.py 16.1
-sleep 2m && python training.py 16.2
-sleep 4m && python training.py 16.3
-sleep 6m && python training.py 16.4
-
 run17: 
     Base: base_v7
     Aim: Test stride length dependence on last Conv2D layer
@@ -198,11 +147,6 @@ run17:
         run17.2: stride length 2
         run17.3: stride length 3
         run17.4: stride length 4
-
-sleep 1s && python training.py 17.1
-sleep 2m && python training.py 17.2
-sleep 4m && python training.py 17.3
-sleep 6m && python training.py 17.4
 
 run18: 
     Base: base_v7
@@ -214,37 +158,14 @@ run18:
         run17.3: stride length 3
         run17.4: stride length 4
 
-sleep 1s && python training.py 18.1
-sleep 2m && python training.py 18.2
-sleep 4m && python training.py 18.3
-sleep 6m && python training.py 18.4
-
 run19:
     Base: base_v7
     Aim: Test some filter size configs
     Config:
-        
-
-screen -S 19.1 && screen -S 19.2 && screen -S 19.3 && screen -S 19.4 && screen -S 19.5 && screen -S 19.6 && screen -S 19.7 && screen -S 19.8
-sleep 0m && python training.py 19.1
-sleep 2m && python training.py 19.2
-sleep 4m && python training.py 19.3
-sleep 6m && python training.py 19.4
-sleep 8m && python training.py 19.5
-sleep 10m && python training.py 19.6
-sleep 12m && python training.py 19.7
-sleep 14m && python training.py 19.8
-
 
 run20:
     Base: base_v7
     Aim: Run 4 runs and see if result is super different every time
-
-screen -S 20.1 && screen -S 20.2 && screen -S 20.3 && screen -S 20.4
-sleep 0m && python training.py 20.1
-sleep 2m && python training.py 20.2
-sleep 4m && python training.py 20.3
-sleep 6m && python training.py 20.4
 
 run21:
     Base: base_v7
@@ -254,18 +175,6 @@ run22:
     Base: base_v8
     Aim: Test different FC layer models
 
-screen -S 22.1 && screen -S 22.2 && screen -S 22.3 && screen -S 22.4 && screen -S 22.5 && screen -S 22.6 && screen -S 22.7 && screen -S 22.8 && screen -S 22.9 && screen -S 22.10
-sleep 0m && python training.py 22.1
-sleep 2m && python training.py 22.2
-sleep 4m && python training.py 22.3
-sleep 6m && python training.py 22.4
-sleep 8m && python training.py 22.5
-sleep 10m && python training.py 22.6
-sleep 12m && python training.py 22.7
-sleep 14m && python training.py 22.8
-sleep 2m && python training.py 22.9
-sleep 4m && python training.py 22.10
-
 run23:
     Base: base_v8
     Aim: Test l2-normalization after last dense layer
@@ -274,59 +183,21 @@ run24:
     Base: base_v9
     Aim: Run many tries of same model to see spread
 
-screen -S 24.1 && screen -S 24.2 && screen -S 24.3 && screen -S 24.4 && screen -S 24.5 && screen -S 24.6 && screen -S 24.7 && screen -S 24.8 && screen -S 24.9 && screen -S 24.10
-sleep 0m && python training.py 24.1
-sleep 2m && python training.py 24.2
-sleep 4m && python training.py 24.3
-sleep 6m && python training.py 24.4
-sleep 8m && python training.py 24.5
-sleep 10m && python training.py 24.6
-sleep 12m && python training.py 24.7
-sleep 14m && python training.py 24.8
-sleep 16m && python training.py 24.9
-sleep 18m && python training.py 24.10
-
 run25:
     Base: base_v9
     Aim: Test different dense layers
-
-screen -S 25.1 && screen -S 25.2 && screen -S 25.3 && screen -S 25.4 && screen -S 25.5 && screen -S 25.6 && screen -S 25.7 && screen -S 25.8 && screen -S 25.9
-sleep 0m && python training.py 25.1
-sleep 2m && python training.py 25.2
-sleep 4m && python training.py 25.3
-sleep 6m && python training.py 25.4
-sleep 8m && python training.py 25.5
-sleep 10m && python training.py 25.6
-sleep 12m && python training.py 25.7
-sleep 14m && python training.py 25.8
-sleep 16m && python training.py 25.9
 
 run26:
     Base: base_v9 + progrss from run25
     Aim: Do 3 runs with BatchNormalization, 3 runs without
 
-screen -S 26.1 && screen -S 26.2 && screen -S 26.3 && screen -S 26.4 && screen -S 26.5 && screen -S 26.6
-sleep 0m && python training.py 26.1
-sleep 2m && python training.py 26.2
-sleep 4m && python training.py 26.3
-sleep 6m && python training.py 26.4
-sleep 8m && python training.py 26.5
-sleep 10m && python training.py 26.6
-
 run27:
     Base: base_v10
     Aim: Dense layer tests
 
-screen -S 27.1 && screen -S 27.2 && screen -S 27.3 && screen -S 27.4 && screen -S 27.5 && screen -S 27.6 && screen -S 27.7 && screen -S 27.8 && screen -S 27.9
-sleep 0m && python training.py 27.1
-sleep 2m && python training.py 27.2
-sleep 4m && python training.py 27.3
-sleep 6m && python training.py 27.4
-sleep 8m && python training.py 27.5
-sleep 10m && python training.py 27.6
-sleep 12m && python training.py 27.7
-sleep 14m && python training.py 27.8
-sleep 16m && python training.py 27.9
+run28:
+    Base: base_v10
+    Aim: Conv2D layer tests
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
