@@ -148,7 +148,7 @@ mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h
                                                     save_best_only=True, mode='auto',
                                                     save_weights_only=False)
 wb = WandbCallback(save_model=False)
-checkpoint = [es, mc, sc, wb]      
+checkpoint = [es, mc , wb]      
 
 # Configuring CSV-logger
 csv_logger = CSVLogger(os.path.join(saved_model_dir, f"model_history_log_{run_name}.csv"), append=True)
