@@ -48,7 +48,7 @@ class TrainDataset(tf.data.Dataset):
         return tf.data.Dataset.from_generator(
             cls._generator,
             output_types=(tf.dtypes.float64, tf.dtypes.float64),
-            output_shapes=((64, 5, 512, 1), (64, 3)),
+            output_shapes=((batch_size, 5, 512, 1), (batch_size, 3)),
             args=(file_id,)
         )
 
@@ -76,7 +76,7 @@ class ValDataset(tf.data.Dataset):
         return tf.data.Dataset.from_generator(
             cls._generator,
             output_types=(tf.dtypes.float64, tf.dtypes.float64),
-            output_shapes=((64, 5, 512, 1), (64, 3)),
+            output_shapes=((batch_size, 5, 512, 1), (batch_size, 3)),
             args=(file_id,)
         )
 
