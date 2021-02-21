@@ -28,6 +28,11 @@ print(colored(f"Plotting antenna signals for event{i_event} in file{i_file}...",
 data, nu_direction = load_file(i_file)
 print(f"Data shape: {data.shape}")
 
+# Print out norms
+print("The following are the norms of the data!")
+normed_nu_direction = np.array([np.linalg.norm(v) for v in nu_direction])
+print(normed_nu_direction)
+
 event_data = data[i_event]
 direction_data = nu_direction[i_event]
 
