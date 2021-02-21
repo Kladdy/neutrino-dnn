@@ -19,7 +19,6 @@ from toolbox import load_file, find_68_interval
 from radiotools import helper as hp
 
 #from scipy import stats
-from tf_notification_callback import SlackCallback
 import wandb
 from wandb.keras import WandbCallback
 from tensorflow import keras
@@ -41,7 +40,6 @@ from constants import saved_model_dir, run_version, dataset_name, datapath, data
 
 # Values
 feedback_freq = 3 # Only train on 1/feedback_freq of data per epoch
-webhook = os.getenv("SLACKWEBHOOK")
 architectures_dir = "architectures"
 learning_rate = 0.00005
 epochs = 100
@@ -57,6 +55,10 @@ run_id = args.run_id
 
 # Save the run name
 run_name = f"run{run_id}"
+
+# Make sure run_name is compatible with run_version
+this_run_version = run_name.split(".")[0]
+assert this_run_version == run_version, f"run_version ({run_version}) does not match the run version for this run ({this_run_version})"
 
 # Make sure saved_models folder exists
 if not os.path.exists(saved_model_dir):
@@ -145,7 +147,6 @@ mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h
                                                     monitor='val_loss', verbose=1,
                                                     save_best_only=True, mode='auto',
                                                     save_weights_only=False)
-sc = SlackCallback(webhookURL=webhook, channel="nn-log", modelName=run_name, loss_metrics=['loss', 'val_loss'], getSummary=True)
 wb = WandbCallback(save_model=False)
 checkpoint = [es, mc, sc, wb]      
 
