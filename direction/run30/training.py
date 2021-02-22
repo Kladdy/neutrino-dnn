@@ -26,7 +26,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Conv1D, Flatten, Dropout
 from tensorflow.keras.layers import Dense, Conv2D, BatchNormalization, Activation
 from tensorflow.keras.layers import AveragePooling2D, AveragePooling1D, Input, Flatten
-from tensorflow.keras.layers import BatchNormalization, Lambda
+from tensorflow.keras.layers import BatchNormalization, Lambda, AveragePooling2D
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
 from tensorflow.keras.models import Model
@@ -127,6 +127,9 @@ elif run_name == "run30.11":
 elif run_name == "run30.12":
     first_conv2D_filter_amount = 256
     padding = "same"
+elif run_name == "run30.13":
+    first_conv2D_filter_amount = 16
+    padding = "same"
 
 
 
@@ -144,20 +147,24 @@ model.add(Conv2D(first_conv2D_filter_amount * 2**2, (1, conv2D_filter_size), str
 model.add(Conv2D(first_conv2D_filter_amount * 2**3, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
 model.add(Conv2D(first_conv2D_filter_amount * 2**4, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
 
-model.add(BatchNormalization())
+if run_name == "run30.13":
+    model.add(AveragePooling2D(pool_size=(1, 2)))
 
-# Flatten prior to dense layers
-model.add(Flatten())
+else:
+    model.add(BatchNormalization())
 
-# Dense layers (fully connected)
-model.add(Dense(5 * 512, activation='relu'))
-model.add(Dense(5 * 512, activation='relu'))
-model.add(Dense(1024, activation='relu'))
-# model.add(Dropout(.2))
-model.add(Dense(256, activation='relu'))
-# model.add(Dropout(.1))
-model.add(Dense(128, activation='relu'))
-# model.add(Dropout(.1))
+    # Flatten prior to dense layers
+    model.add(Flatten())
+
+    # Dense layers (fully connected)
+    model.add(Dense(5 * 512, activation='relu'))
+    model.add(Dense(5 * 512, activation='relu'))
+    model.add(Dense(1024, activation='relu'))
+    # model.add(Dropout(.2))
+    model.add(Dense(256, activation='relu'))
+    # model.add(Dropout(.1))
+    model.add(Dense(128, activation='relu'))
+    # model.add(Dropout(.1))
 
 # Output layer
 model.add(Dense(3))
