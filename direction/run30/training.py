@@ -138,11 +138,11 @@ wandb.log({f"padding": padding})
 model = Sequential()
 
 # Initial convolutional layers
-model.add(Conv2D(first_conv2D_filter_amount * 2^0, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(first_conv2D_filter_amount * 2^1, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
-model.add(Conv2D(first_conv2D_filter_amount * 2^2, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
-model.add(Conv2D(first_conv2D_filter_amount * 2^3, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
-model.add(Conv2D(first_conv2D_filter_amount * 2^4, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2**0, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu', input_shape=(5, 512, 1)))
+model.add(Conv2D(first_conv2D_filter_amount * 2**1, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2**2, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2**3, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2**4, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
 
 model.add(BatchNormalization())
 
