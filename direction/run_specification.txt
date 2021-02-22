@@ -199,6 +199,14 @@ run28:
     Base: base_v10
     Aim: Conv2D layer tests
 
+run29:
+    Base: base_v10
+    Aim: Test batch size
+
+run30: 
+    Base: base_v11
+    Aim: Test https://datascience.stackexchange.com/a/26218
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
@@ -225,3 +233,7 @@ base_v9:
 base_v10:
     Based on: run26
     Comments: BatchNormalization was good
+
+base_v11:
+    Based on: run29
+    Comments: Add min_delta to EarlyStopping
