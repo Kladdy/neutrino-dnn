@@ -149,7 +149,7 @@ model.add(Conv2D(first_conv2D_filter_amount * 2**4, (1, conv2D_filter_size), str
 
 if run_name == "run30.13":
     model.add(AveragePooling2D(pool_size=(1, 2)))
-
+    model.add(Flatten())
 else:
     model.add(BatchNormalization())
 
