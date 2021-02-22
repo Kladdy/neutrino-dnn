@@ -91,18 +91,58 @@ conv2D_filter_size = 15
 stride_length = 2
 
 # Send model params to wandb
-wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
+if run_name == "run30.1":
+    first_conv2D_filter_amount = 8
+    padding = "valid"
+elif run_name == "run30.2":
+    first_conv2D_filter_amount = 16
+    padding = "valid"
+elif run_name == "run30.3":
+    first_conv2D_filter_amount = 32
+    padding = "valid"
+elif run_name == "run30.4":
+    first_conv2D_filter_amount = 64
+    padding = "valid"
+elif run_name == "run30.5":
+    first_conv2D_filter_amount = 128
+    padding = "valid"
+elif run_name == "run30.6":
+    first_conv2D_filter_amount = 256
+    padding = "valid"
+elif run_name == "run30.7":
+    first_conv2D_filter_amount = 8
+    padding = "same"
+elif run_name == "run30.8":
+    first_conv2D_filter_amount = 16
+    padding = "same"
+elif run_name == "run30.9":
+    first_conv2D_filter_amount = 32
+    padding = "same"
+elif run_name == "run30.10":
+    first_conv2D_filter_amount = 64
+    padding = "same"
+elif run_name == "run30.11":
+    first_conv2D_filter_amount = 128
+    padding = "same"
+elif run_name == "run30.12":
+    first_conv2D_filter_amount = 256
+    padding = "same"
+
+
+
+wandb.log({f"first_conv2D_filter_amount": first_conv2D_filter_amount})
 wandb.log({f"conv2D_filter_size": conv2D_filter_size})
+wandb.log({f"padding": padding})
 
 # ----------- Create model -----------
 model = Sequential()
 
 # Initial convolutional layers
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, stride_length), padding='valid', activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2^0, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu', input_shape=(5, 512, 1)))
+model.add(Conv2D(first_conv2D_filter_amount * 2^1, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2^2, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2^3, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
+model.add(Conv2D(first_conv2D_filter_amount * 2^4, (1, conv2D_filter_size), strides=(1, stride_length), padding=padding, activation='relu'))
 
 model.add(BatchNormalization())
 
