@@ -90,9 +90,39 @@ conv2D_filter_amount = 100
 conv2D_filter_size = 15
 stride_length = 2
 
+if run_name == "run31.1":
+    cycle_length=1
+    num_parallel_calls=1
+elif run_name == "run31.2":
+    cycle_length=1
+    num_parallel_calls=2
+elif run_name == "run31.3":
+    cycle_length=1
+    num_parallel_calls=3
+elif run_name == "run31.4":
+    cycle_length=2
+    num_parallel_calls=1
+elif run_name == "run31.5":
+    cycle_length=2
+    num_parallel_calls=2
+elif run_name == "run31.6":
+    cycle_length=2
+    num_parallel_calls=3
+elif run_name == "run31.7":
+    cycle_length=3
+    num_parallel_calls=1
+elif run_name == "run31.8":
+    cycle_length=3
+    num_parallel_calls=2
+elif run_name == "run31.9":
+    cycle_length=3
+    num_parallel_calls=3
+
 # Send model params to wandb
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
 wandb.log({f"conv2D_filter_size": conv2D_filter_size})
+wandb.log({f"cycle_length": cycle_length})
+wandb.log({f"num_parallel_calls": num_parallel_calls})
 
 # ----------- Create model -----------
 model = Sequential()
@@ -162,15 +192,15 @@ print(f"steps_per_epoch {steps_per_epoch}, n_batches_per_file {n_batches_per_fil
 # Configuring training dataset
 dataset_train = tf.data.Dataset.range(n_files_train).prefetch(n_batches_per_file * 10).interleave(
         TrainDataset,
-        cycle_length=2,
-        num_parallel_calls=2,
+        cycle_length=cycle_length,
+        num_parallel_calls=num_parallel_calls,
         deterministic=False).repeat()
 
 # Configuring validation dataset
 dataset_val = tf.data.Dataset.range(n_files_val).prefetch(n_batches_per_file * 10).interleave(
         ValDataset,
-        cycle_length=2,
-        num_parallel_calls=2,
+        cycle_length=cycle_length,
+        num_parallel_calls=num_parallel_calls,
         deterministic=False)
 
 # Configuring history
