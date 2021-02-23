@@ -208,14 +208,6 @@ run30:
     Aim: Test https://datascience.stackexchange.com/a/26218
 
 run31:
-    Base: base_v11
-    Aim: Same as 30 but with 1 less Conv2D layer
-
-run32:
-    Base: base_v11
-    Aim: Same as 30 but with 1 more Conv2D layer
-
-run33:
     Base: ?
     Aim: Test and see if i can load less data into memory, see if it inpacts performance of model training
 
