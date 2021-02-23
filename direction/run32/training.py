@@ -106,6 +106,7 @@ stride_length = 2
 # Send model params to wandb
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
 wandb.log({f"conv2D_filter_size": conv2D_filter_size})
+wandb.log({f"multiplication_to_prefetch": multiplication_to_prefetch})
 
 # ----------- Create model -----------
 model = Sequential()
