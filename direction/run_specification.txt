@@ -208,8 +208,16 @@ run30:
     Aim: Test https://datascience.stackexchange.com/a/26218
 
 run31:
-    Base: ?
+    Base: base_v11
     Aim: Test and see if i can load less data into memory, see if it inpacts performance of model training
+
+run32:
+    Base: base_v11
+    Aim: Test amount of prefetch data
+
+run33:
+    Base: base_v11
+    Aim: Test smaller filter sizes in Conv2D layers
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support

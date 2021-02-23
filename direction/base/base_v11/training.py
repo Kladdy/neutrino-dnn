@@ -142,6 +142,9 @@ non_trainable_count = np.sum([K.count_params(w) for w in model.non_trainable_wei
 wandb.log({f"trainable_params": trainable_count})
 wandb.log({f"non_trainable_params": non_trainable_count})
 
+# Configuring CSV-logger
+csv_logger = CSVLogger(os.path.join(saved_model_dir, f"model_history_log_{run_name}.csv"), append=True)
+
 # Configuring callbacks
 es = EarlyStopping(monitor="val_loss", patience=es_patience, min_delta=es_min_delta),
 mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h5"),
@@ -149,10 +152,7 @@ mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h
                                                     save_best_only=True, mode='auto',
                                                     save_weights_only=False)
 wb = WandbCallback(save_model=False)
-checkpoint = [es, mc , wb]      
-
-# Configuring CSV-logger
-csv_logger = CSVLogger(os.path.join(saved_model_dir, f"model_history_log_{run_name}.csv"), append=True)
+callbacks = [es, mc , wb, csv_logger]      
 
 # Calculating steps per epoch and batches per file
 steps_per_epoch = n_files_train // feedback_freq * (n_events_per_file // batch_size)
@@ -175,7 +175,7 @@ dataset_val = tf.data.Dataset.range(n_files_val).prefetch(n_batches_per_file * 1
 
 # Configuring history
 history = model.fit(x=dataset_train, steps_per_epoch=steps_per_epoch, epochs=config.epochs,
-          validation_data=dataset_val, callbacks=[checkpoint, csv_logger])
+          validation_data=dataset_val, callbacks=callbacks)
 
 # Dump history with pickle
 with open(os.path.join(saved_model_dir, f'history_{run_name}.pkl'), 'wb') as file_pi:
