@@ -90,11 +90,11 @@ conv2D_filter_amount = 100
 conv2D_filter_size = 15
 stride_length = 2
 
-if run_name == "run33.1":
+if run_name == "run33.1" or run_name == "run33.4" or run_name == "run33.7":
     conv2D_filter_size = 15
-elif run_name == "run33.2":
+elif run_name == "run33.2" or run_name == "run33.5" or run_name == "run33.8":
     conv2D_filter_size = 5
-elif run_name == "run33.2":
+elif run_name == "run33.3" or run_name == "run33.6" or run_name == "run33.9":
     conv2D_filter_size = 3
 
 # Send model params to wandb
