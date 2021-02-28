@@ -90,9 +90,6 @@ conv2D_filter_amount = 100
 conv2D_filter_size = 15
 stride_length = 2
 
-# run34 conf
-conv2D_filter_size = 5
-
 # Send model params to wandb
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
 wandb.log({f"conv2D_filter_size": conv2D_filter_size})
