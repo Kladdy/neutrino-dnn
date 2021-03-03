@@ -219,6 +219,22 @@ run33:
     Base: base_v11
     Aim: Test smaller filter sizes in Conv2D layers
 
+run34:
+    Base: base_v11
+    Aim: 
+
+run35:
+    Base: base_v11
+    Aim: 
+
+run36:
+    Base: base_v11
+    Aim: 
+
+run37:
+    Base: N\A
+    Aim: Complete rehaul
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
