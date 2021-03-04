@@ -36,6 +36,13 @@ print(normed_nu_direction)
 event_data = data[i_event]
 direction_data = nu_direction[i_event]
 
+# std tests
+std_all_data = np.std(data)
+print(f"std of all data: {std_all_data}")
+
+std_one_data = np.std(event_data)
+print(f"std of one data: {std_one_data}")
+
 # Getting x axis (1 step is 0.5 ns)
 x_axis_double = range(int(len(event_data[0])))
 x_axis = [float(x)/2 for x in x_axis_double]
