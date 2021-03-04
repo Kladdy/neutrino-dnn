@@ -235,6 +235,14 @@ run37:
     Base: N\A
     Aim: Complete rehaul
 
+run38:
+    Base: run37
+    Aim:
+
+run39:
+    Base: base_v11
+    Aim: Test if normalizing data helps
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
