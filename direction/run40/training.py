@@ -98,62 +98,407 @@ wandb.log({f"conv2D_filter_size": conv2D_filter_size})
 # ----------- Create model -----------
 model = Sequential()
 
-# Conv2D block 1
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+if this_run_id == "1":
+    # Conv2D block 1
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
 
-# MaxPooling to reduce size
-model.add(MaxPooling2D(pool_size=(1, 2)))
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
 
-# Conv2D block 2
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    # Conv2D block 2
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
 
-# MaxPooling to reduce size
-model.add(MaxPooling2D(pool_size=(1, 2)))
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
 
-# Conv2D block 3
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    # Conv2D block 3
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
 
-# MaxPooling to reduce size
-model.add(MaxPooling2D(pool_size=(1, 2)))
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
 
-# Conv2D block 4
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    # Conv2D block 4
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
 
-# MaxPooling to reduce size
-model.add(MaxPooling2D(pool_size=(1, 2)))
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
 
-# Conv2D block 5
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    # Conv2D block 5
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
 
-# MaxPooling to reduce size
-model.add(MaxPooling2D(pool_size=(1, 2)))
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
 
-# Conv2D block 6
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    # Conv2D block 6
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
 
-# MaxPooling to reduce size
-model.add(MaxPooling2D(pool_size=(1, 2)))
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 7
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+elif this_run_id == "2":
+    # Conv2D block 1
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 2
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 3
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 4
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 5
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 6
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 7
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(128, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+elif this_run_id == "3":
+        # Conv2D block 1
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 2
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 3
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 4
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 5
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 6
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+    # Conv2D block 7
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # Stride 2 to reduce layer size
+    model.add(Conv2D(64, (1, 5), strides=(1, 2), padding='same', activation='relu'))
+
+elif this_run_id == "4":
+    # Conv2D block 1
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 2
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 3
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 4
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 5
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 6
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 7
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+elif this_run_id == "5":
+    # Conv2D block 1
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 2
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 3
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 4
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 5
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 6
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 7
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 8
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+elif this_run_id == "6":
+    # Conv2D block 1
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(256, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 2
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(128, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 3
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(64, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 4
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(32, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 5
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(16, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
+    # Conv2D block 6
+    model.add(Conv2D(8, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(8, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(8, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(8, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+
+    # MaxPooling to reduce size
+    model.add(MaxPooling2D(pool_size=(1, 2)))
+
 
 # Batch normalization
 model.add(BatchNormalization())
