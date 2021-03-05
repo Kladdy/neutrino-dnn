@@ -273,3 +273,7 @@ base_v10:
 base_v11:
     Based on: run29
     Comments: Add min_delta to EarlyStopping
+
+base_v12:
+    Based on: run38
+    Comments: Complete Conv2D revamp
