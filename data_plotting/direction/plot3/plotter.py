@@ -24,6 +24,11 @@ bandpass = args.bandpass
 if not os.path.exists(plots_dir):
     os.makedirs(plots_dir)
 
+# Make sure bandpass is valid
+if bandpass not in ["none", "300MHz", "500MHz"]:
+    except ValueError:
+        print(f"'{bandpass}' is not a valid argument for bandpass. Valid values are none, 300MHz, or 500MHz.")
+
 print(colored(f"Plotting antenna signals for event{i_event} in file{i_file}...", "yellow"))
 
 # Loading data
