@@ -277,3 +277,7 @@ base_v11:
 base_v12:
     Based on: run38
     Comments: Complete Conv2D revamp
+
+base_v12:
+    Based on: base_v12 ONLY!
+    Comments: Add logging of reoslution histogram images to wandb
