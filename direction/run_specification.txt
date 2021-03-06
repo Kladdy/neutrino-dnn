@@ -243,6 +243,18 @@ run39:
     Base: base_v11
     Aim: Test if normalizing data helps
 
+run40:
+    Base: base_v12
+    Aim: test some Conv2D things
+
+run41, run42, run43:
+    Base: base_v13 with base_v10 model
+    Aim: Test to see if bandpass filter makes difference
+    Config:
+        run41: No bandpass
+        run42: Bandpass 300 MHz
+        run43: Bandpass 500 MHz
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
