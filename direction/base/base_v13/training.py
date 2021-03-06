@@ -40,10 +40,10 @@ from constants import saved_model_dir, run_version, dataset_name, datapath, data
 # -------
 
 # Values
-feedback_freq = 10 # Only train on 1/feedback_freq of data per epoch
+feedback_freq = 3 # Only train on 1/feedback_freq of data per epoch
 architectures_dir = "architectures"
 learning_rate = 0.00005
-epochs = 1
+epochs = 100
 loss_function = "mean_absolute_error"
 es_patience = 5
 es_min_delta = 0.0001
