@@ -93,7 +93,7 @@ elif this_run_id in ["4", "5", "6"]:
     amount_conv2D_blocks = 7
 
 elif this_run_id in ["7", "8", "9"]:
-    amount_conv2D_blocks = 9
+    amount_conv2D_blocks = 8
 
 
 if this_run_id in ["1", "4", "7"]:
