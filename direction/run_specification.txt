@@ -255,6 +255,10 @@ run41, run42, run43:
         run42: Bandpass 300 MHz
         run43: Bandpass 500 MHz
 
+run44:
+    Base: base_v14
+    Aim: Test amount of Conv2D blocks and filter amount 
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
@@ -290,6 +294,9 @@ base_v12:
     Based on: run38
     Comments: Complete Conv2D revamp
 
-base_v12:
+base_v13:
     Based on: base_v12 ONLY!
     Comments: Add logging of reoslution histogram images to wandb
+
+base_v14:
+    Based on: base_v12 and run40 (run40.1 was best)
