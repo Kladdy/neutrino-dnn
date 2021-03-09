@@ -262,9 +262,15 @@ run44:
 run45:
     Base: base_v14
     Aim: More Conv2D layers per Conv2D block
-run46:
+
+run45:
+    Base: base_v14 but run38.4
+    Aim: Conv2D tests, bigger filter size, fewer layers
+
+run?:
     Base: base_v14 + run44
     Aim: Test Conv2D filter size performance dependence
+
 
 
 

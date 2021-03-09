@@ -37,32 +37,33 @@ es_patience = 5
 es_min_delta = 0.0001
 # ------
 
-amount_conv2d_blocks = 8
-amount_filters = 32
+amount_conv2D_blocks = 7
 
 # Model params
-conv2D_filter_amount = 100
-conv2D_filter_size = 15
-stride_length = 2
+conv2D_filter_amount = 64
+conv2D_filter_size = 7
 
 # ----------- Create model -----------
 model = Sequential()
 
 # Conv2D block 1
-model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
 # MaxPooling to reduce size
 model.add(AveragePooling2D(pool_size=(1, 2)))
 
-for _ in range(amount_conv2d_blocks-1):
+for _ in range(amount_conv2D_blocks-1):
     # Conv2D block
-    model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(amount_filters, (1, 5), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
     # MaxPooling to reduce size
     model.add(AveragePooling2D(pool_size=(1, 2)))
