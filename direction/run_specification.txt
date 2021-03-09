@@ -259,6 +259,16 @@ run44:
     Base: base_v14
     Aim: Test amount of Conv2D blocks and filter amount 
 
+run45:
+    Base: base_v14
+    Aim: More Conv2D layers per Conv2D block
+run46:
+    Base: base_v14 + run44
+    Aim: Test Conv2D filter size performance dependence
+
+
+
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
