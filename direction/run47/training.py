@@ -101,7 +101,7 @@ elif this_run_id in ["5", "6"]:
 if this_run_id in ["1", "3", "5"]:
     conv2D_filter_size = 5
 
-elif this_run_id in ["2", "4", "6ht"]:
+elif this_run_id in ["2", "4", "6"]:
     conv2D_filter_size = 7
     
 # Model params
