@@ -37,11 +37,11 @@ es_patience = 5
 es_min_delta = 0.0001
 # ------
 
-amount_conv2D_blocks = 7
+amount_conv2D_blocks = 4
 
 # Model params
 conv2D_filter_amount = 64
-conv2D_filter_size = 7
+conv2D_filter_size = 5
 
 # ----------- Create model -----------
 model = Sequential()
