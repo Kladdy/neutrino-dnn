@@ -51,22 +51,6 @@ def load_file(i_file, norm=1e-6):
 
     return data, nu_direction
 
-
-# Parse arguments
-parser = argparse.ArgumentParser(description='Plot data from antennas')
-parser.add_argument("i_file", type=int ,help="the id of the file")
-parser.add_argument("i_event", type=int ,help="the id of the event")
-parser.add_argument("bandpass", type=str ,help="which bandpass to use (none, 300MHz, or 500MHz)")
-
-args = parser.parse_args()
-i_file = args.i_file
-i_event = args.i_event
-bandpass = args.bandpass
-
-# Make sure plots folder exists
-if not os.path.exists(plots_dir):
-    os.makedirs(plots_dir)
-
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot resolution as a function of different parameters')
 parser.add_argument("run_id", type=str ,help="the id of the run to be analyzed, eg '3.2' for run3.2")
