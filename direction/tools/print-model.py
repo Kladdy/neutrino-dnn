@@ -37,11 +37,10 @@ es_patience = 5
 es_min_delta = 0.0001
 # ------
 
-amount_conv2D_blocks = 4
-
 # Model params
 conv2D_filter_amount = 64
 conv2D_filter_size = 5
+amount_conv2D_blocks = 6
 
 # ----------- Create model -----------
 model = Sequential()
@@ -75,7 +74,7 @@ model.add(BatchNormalization())
 model.add(Flatten())
 
 # Dense layers (fully connected)
-model.add(Dense(512, activation='relu'))
+model.add(Dense(4096, activation='relu'))
 # model.add(Dropout(.1))
 model.add(Dense(256, activation='relu'))
 # model.add(Dropout(.1))
