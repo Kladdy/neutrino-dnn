@@ -25,7 +25,6 @@ from radiotools import plthelpers as php
 from tensorflow import keras
 from radiotools import helper as hp
 # -------
-import numpy.lib.format
 
 # Loading data and label files and also other properties
 def load_file(i_file, norm=1e-6):
@@ -47,7 +46,7 @@ def load_file(i_file, norm=1e-6):
     nu_direction = nu_direction[idx]
     data /= norm
 
-    print(labels_tmp.items().keys())
+    print(labels_tmp.item().keys())
 
     return data, nu_direction
 
