@@ -27,16 +27,6 @@ from radiotools import helper as hp
 # -------
 import numpy.lib.format
 
-def read_array_header(fobj):
-    version = numpy.lib.format.read_magic(fobj)
-    func_name = 'read_array_header_' + '_'.join(str(v) for v in version)
-    func = getattr(numpy.lib.format, func_name)
-    return func(fobj)
-
-with open(os.path.join(datapath, f'{label_filename}{80:04d}.npy'), 'rb') as fobj:
-    print(read_array_header(fobj))
-
-
 # Loading data and label files and also other properties
 def load_file(i_file, norm=1e-6):
 #     t0 = time.time()
@@ -56,6 +46,8 @@ def load_file(i_file, norm=1e-6):
     data = data[idx, :, :, :]
     nu_direction = nu_direction[idx]
     data /= norm
+
+    print(labels_tmp.items().keys())
 
     return data, nu_direction
 
