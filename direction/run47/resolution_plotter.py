@@ -33,7 +33,7 @@ def read_array_header(fobj):
     func = getattr(numpy.lib.format, func_name)
     return func(fobj)
 
-with open(f'{label_filename}{i_file:04d}.npy', 'rb') as fobj:
+with open(f'{label_filename}{80:04d}.npy', 'rb') as fobj:
     print(read_array_header(fobj))
 
 
