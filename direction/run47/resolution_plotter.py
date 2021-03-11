@@ -11,7 +11,7 @@ for device in physical_devices:
 # Imports
 import matplotlib.pyplot as plt
 import numpy as np
-from constants import plots_dir, saved_model_dir, datapath, data_filename, label_filename, test_file_ids
+from constants import plots_dir, saved_model_dir, datapath, data_filename, label_filename, test_file_ids, run_version
 import sys
 import argparse
 import os
