@@ -3,3 +3,6 @@ plot1:
 
 plot2:
     Improve plotting
+
+plot3:
+    Add bandpass filters
