@@ -47,7 +47,7 @@ def load_file(i_file, norm=1e-6):
     nu_direction = nu_direction[idx]
     data /= norm
 
-    print(labels_tmp.item())
+    print(labels_tmp.dtype.names)
 
     return data, nu_direction
 
