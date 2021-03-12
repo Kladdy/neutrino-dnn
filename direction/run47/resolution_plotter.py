@@ -126,13 +126,14 @@ ax.plot(nu_energy_bins, binned_resolution_nu_energy, "o")
 ax.set_xlabel("nu energy (eV)")
 ax.set_ylabel("angular resolution (°)")
 ax.set_xscale('log')
-fig_energy.tight_layout()
+
 
 # ax = fig_energy.add_subplot(1, 2, 2)
 # ax.plot(nu_energy, angle_difference_data, 'o')
 # ax.set_xscale('log')
 
 plt.title(f"Mean resolution as a function of nu_energy for {run_name}")
+fig_energy.tight_layout()
 fig_energy.savefig(f"{plots_dir}/mean_resolution_nu_energy_{run_name}.png")
 # ___________________________________
 
@@ -150,9 +151,10 @@ ax.plot(nu_azimuth_bins / units.deg, binned_resolution_nu_azimuth, "o")
 # ax.set_ylim(0, 0.4)
 ax.set_xlabel("azimuth (°)")
 ax.set_ylabel("angular resolution (°)")
-fig_azimuth.tight_layout()
+
 
 plt.title(f"Mean resolution as a function of nu_azimuth for {run_name}")
+fig_azimuth.tight_layout()
 fig_azimuth.savefig(f"{plots_dir}/mean_resolution_nu_azimuth_{run_name}.png")
 # ___________________________________
 
@@ -170,9 +172,9 @@ ax.plot(nu_zenith_bins / units.deg, binned_resolution_nu_zenith, "o")
 # ax.set_ylim(0, 0.4)
 ax.set_xlabel("zenith (°)")
 ax.set_ylabel("angular resolution (°)")
-fig_zenith.tight_layout()
 
 plt.title(f"Mean resolution as a function of nu_zenith for {run_name}")
+fig_zenith.tight_layout()
 fig_zenith.savefig(f"{plots_dir}/mean_resolution_nu_zenith_{run_name}.png")
 # ___________________________________
 
