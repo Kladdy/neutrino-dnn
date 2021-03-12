@@ -178,5 +178,29 @@ fig_zenith.tight_layout()
 fig_zenith.savefig(f"{plots_dir}/mean_resolution_nu_zenith_{run_name}.png")
 # ___________________________________
 
+# --------- SNR plotting ---------
+max_LPDA = np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1)
+
+# Create figure
+fig_SNR = plt.figure()
+
+# Calculate binned statistics
+ax = fig_SNR.add_subplot(1, 1, 1)
+
+SNR_means = np.arange(1.5, 20.5, 1)
+SNR_bins = np.append(np.arange(1, 20, 1), [10000])
+
+binned_resolution_SNR_mean = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins)[0]
+
+ax.plot(SNR_means, binned_resolution_SNR_mean, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("SNR")
+ax.set_ylabel("angular resolution (°)")
+
+plt.title(f"Mean resolution as a function of SNR for {run_name}")
+fig_SNR.tight_layout()
+fig_SNR.savefig(f"{plots_dir}/mean_resolution_SNR_{run_name}.png")
+# ___________________________________
+
 print(colored(f"Plotting angular resolution depending on properties for {run_name}!", "green", attrs=["bold"]))
 print("")
