@@ -124,6 +124,7 @@ ax.plot(nu_energy_bins, binned_resolution_nu_energy, "o")
 # ax.set_ylim(0, 0.4)
 ax.set_xlabel("nu energy (eV)")
 ax.set_ylabel("angular resolution (°)")
+ax.set_xscale('log')
 fig.tight_layout()
 
 # ax = fig.add_subplot(1, 2, 2)
