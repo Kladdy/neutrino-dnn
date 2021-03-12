@@ -19,6 +19,7 @@ import os
 import time
 import pickle
 from NuRadioReco.utilities import units
+from scipy import stats
 from termcolor import colored
 from mpl_toolkits.mplot3d import Axes3D
 from itertools import product, combinations
