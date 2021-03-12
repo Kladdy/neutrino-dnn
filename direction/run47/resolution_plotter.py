@@ -143,7 +143,7 @@ fig_azimuth = plt.figure()
 # Calculate binned statistics
 ax = fig_azimuth.add_subplot(1, 1, 1)
 nu_azimuth_bins = np.linspace(0,2*np.pi, 30)
-nu_azimuth_bins_with_one_extra = np.append(np.linspace(0,2*np.pi, 30), 4)
+nu_azimuth_bins_with_one_extra = np.append(np.linspace(0,2*np.pi, 30), 2*np.pi+1)
 binned_resolution_nu_azimuth = stats.binned_statistic(nu_azimuth, angle_difference_data, bins = nu_azimuth_bins_with_one_extra)[0]
 
 ax.plot(nu_azimuth_bins / units.deg, binned_resolution_nu_azimuth, "o")
@@ -163,7 +163,7 @@ fig_zenith = plt.figure()
 # Calculate binned statistics
 ax = fig_zenith.add_subplot(1, 1, 1)
 nu_zenith_bins = np.linspace(0,np.pi, 30)
-nu_zenith_bins_with_one_extra = np.append(np.linspace(0,np.pi, 30), 4)
+nu_zenith_bins_with_one_extra = np.append(np.linspace(0,np.pi, 30), np.pi+1)
 binned_resolution_nu_zenith = stats.binned_statistic(nu_zenith, angle_difference_data, bins = nu_zenith_bins_with_one_extra)[0]
 
 ax.plot(nu_zenith_bins / units.deg, binned_resolution_nu_zenith, "o")
