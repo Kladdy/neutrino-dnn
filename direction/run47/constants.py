@@ -12,5 +12,4 @@ plots_dir = "plots"
 saved_model_dir = "saved_models"
 
 # This must be a list of ids (even if only testing on 1 file)
-#test_file_ids = [80, 81, 82]
-test_file_ids = [80]
+test_file_ids = [80, 81, 82]

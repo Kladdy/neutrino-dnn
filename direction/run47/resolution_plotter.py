@@ -105,10 +105,9 @@ if len(test_file_ids) > 1:
             nu_flavor = np.concatenate((nu_flavor, nu_flavor_tmp))
             shower_energy = np.concatenate((shower_energy, shower_energy_tmp))
 
-nu_direction_predict = model.predict(data)
 
-angle_difference_data = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
-
+# Get angle difference data
+angle_difference_data = get_pred_angle_diff_data(run_name)
 
 
 fig, axs = plt.subplots(1, 1)
