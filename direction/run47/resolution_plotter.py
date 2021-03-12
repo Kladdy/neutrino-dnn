@@ -111,5 +111,12 @@ angle_difference_data = np.array([hp.get_angle(nu_direction_predict[i], nu_direc
 
 
 
+fig, axs = plt.subplots(1, 1)
+
+# We can set the number of bins with the `bins` kwarg
+plt.plot(nu_energy, angle_difference_data)
+plt.title(f"Resolution as a function of nu_energy for {run_name}")
+fig.savefig(f"{plots_dir}/resolution_nu_energy_{run_name}.png")
+
 print(colored(f"Plotting angular resolution depending on properties for {run_name}!", "green", attrs=["bold"]))
 print("")
