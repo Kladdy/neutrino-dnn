@@ -111,24 +111,26 @@ if len(test_file_ids) > 1:
 # Get angle difference data
 angle_difference_data = get_pred_angle_diff_data(run_name)
 
-
+# Create figure
 fig = plt.figure()
+
 # Calculate binned statistics
-ax = fig.add_subplot(1, 2, 1)
+ax = fig.add_subplot(1, 1, 1)
 nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
-binned_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins)
-print(binned_nu_energy)
-print(binned_nu_energy[0])
+binned_resolution_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins)[0]
 
+ax.plot(nu_energy_bins, binned_resolution_nu_energy, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("nu energy (eV)")
+ax.set_ylabel("angular resolution (°)")
+fig.tight_layout()
 
-ax = fig.add_subplot(1, 2, 2)
+# ax = fig.add_subplot(1, 2, 2)
+# ax.plot(nu_energy, angle_difference_data, 'o')
+# ax.set_xscale('log')
 
-# We can set the number of bins with the `bins` kwarg
-ax.plot(nu_energy, angle_difference_data, 'o')
-ax.set_xscale('log')
-
-plt.title(f"Resolution as a function of nu_energy for {run_name}")
-fig.savefig(f"{plots_dir}/resolution_nu_energy_{run_name}.png")
+plt.title(f"Mean resolution as a function of nu_energy for {run_name}")
+fig.savefig(f"{plots_dir}/mean_resolution_nu_energy_{run_name}.png")
 
 print(colored(f"Plotting angular resolution depending on properties for {run_name}!", "green", attrs=["bold"]))
 print("")
