@@ -111,11 +111,12 @@ if len(test_file_ids) > 1:
 # Get angle difference data
 angle_difference_data = get_pred_angle_diff_data(run_name)
 
+# --------- Energy plotting ---------
 # Create figure
-fig = plt.figure()
+fig_energy = plt.figure()
 
 # Calculate binned statistics
-ax = fig.add_subplot(1, 1, 1)
+ax = fig_energy.add_subplot(1, 1, 1)
 nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
 nu_energy_bins_with_one_extra = np.append(np.logspace(np.log10(1e17),np.log10(1e19), 30), [1e20])
 binned_resolution_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra)[0]
@@ -125,14 +126,55 @@ ax.plot(nu_energy_bins, binned_resolution_nu_energy, "o")
 ax.set_xlabel("nu energy (eV)")
 ax.set_ylabel("angular resolution (°)")
 ax.set_xscale('log')
-fig.tight_layout()
+fig_energy.tight_layout()
 
-# ax = fig.add_subplot(1, 2, 2)
+# ax = fig_energy.add_subplot(1, 2, 2)
 # ax.plot(nu_energy, angle_difference_data, 'o')
 # ax.set_xscale('log')
 
 plt.title(f"Mean resolution as a function of nu_energy for {run_name}")
-fig.savefig(f"{plots_dir}/mean_resolution_nu_energy_{run_name}.png")
+fig_energy.savefig(f"{plots_dir}/mean_resolution_nu_energy_{run_name}.png")
+# ___________________________________
+
+# --------- Azimuth plotting ---------
+# Create figure
+fig_azimuth = plt.figure()
+
+# Calculate binned statistics
+ax = fig_azimuth.add_subplot(1, 1, 1)
+nu_azimuth_bins = np.linspace(0,np.pi, 30)
+nu_azimuth_bins_with_one_extra = np.append(np.linspace(0,np.pi, 30), 4)
+binned_resolution_nu_azimuth = stats.binned_statistic(nu_azimuth, angle_difference_data, bins = nu_azimuth_bins_with_one_extra)[0]
+
+ax.plot(nu_azimuth_bins / units.deg, binned_resolution_nu_azimuth, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("azimuth (°)")
+ax.set_ylabel("angular resolution (°)")
+fig_azimuth.tight_layout()
+
+plt.title(f"Mean resolution as a function of nu_azimuth for {run_name}")
+fig_azimuth.savefig(f"{plots_dir}/mean_resolution_nu_azimuth_{run_name}.png")
+# ___________________________________
+
+# --------- Zenith plotting ---------
+# Create figure
+fig_zenith = plt.figure()
+
+# Calculate binned statistics
+ax = fig_zenith.add_subplot(1, 1, 1)
+nu_zenith_bins = np.linspace(0,2*np.pi, 30)
+nu_zenith_bins_with_one_extra = np.append(np.linspace(0,np.pi, 30), 4)
+binned_resolution_nu_zenith = stats.binned_statistic(nu_zenith, angle_difference_data, bins = nu_zenith_bins_with_one_extra)[0]
+
+ax.plot(nu_zenith_bins / units.deg, binned_resolution_nu_zenith, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("zenith (°)")
+ax.set_ylabel("angular resolution (°)")
+fig_zenith.tight_layout()
+
+plt.title(f"Mean resolution as a function of nu_zenith for {run_name}")
+fig_zenith.savefig(f"{plots_dir}/mean_resolution_nu_zenith_{run_name}.png")
+# ___________________________________
 
 print(colored(f"Plotting angular resolution depending on properties for {run_name}!", "green", attrs=["bold"]))
 print("")
