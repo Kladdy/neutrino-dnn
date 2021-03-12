@@ -110,11 +110,15 @@ if len(test_file_ids) > 1:
 # Get angle difference data
 angle_difference_data = get_pred_angle_diff_data(run_name)
 
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
 
-fig, axs = plt.subplots(1, 1)
+
 
 # We can set the number of bins with the `bins` kwarg
-plt.plot(nu_energy, angle_difference_data, 'o')
+ax.plot(nu_energy, angle_difference_data, 'o')
+ax.set_xscale('log')
+
 plt.title(f"Resolution as a function of nu_energy for {run_name}")
 fig.savefig(f"{plots_dir}/resolution_nu_energy_{run_name}.png")
 
