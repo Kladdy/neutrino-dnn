@@ -110,10 +110,17 @@ if len(test_file_ids) > 1:
 # Get angle difference data
 angle_difference_data = get_pred_angle_diff_data(run_name)
 
+
 fig = plt.figure()
-ax = fig.add_subplot(1, 1, 1)
+# Calculate binned statistics
+ax = fig.add_subplot(1, 2, 1)
+nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
+binned_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins)
+print(binned_nu_energy)
+print(binned_nu_energy[0])
 
 
+ax = fig.add_subplot(1, 2, 2)
 
 # We can set the number of bins with the `bins` kwarg
 ax.plot(nu_energy, angle_difference_data, 'o')
