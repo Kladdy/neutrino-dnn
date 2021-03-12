@@ -187,8 +187,8 @@ fig_SNR = plt.figure()
 # Calculate binned statistics
 ax = fig_SNR.add_subplot(1, 1, 1)
 
-SNR_means = np.arange(1.5, 20.5, 1)
-SNR_bins = np.append(np.arange(1, 20, 1), [10000])
+SNR_means = np.arange(0.5, 40.5, 2)
+SNR_bins = np.append(np.arange(0, 40, 2), [10000])
 
 binned_resolution_SNR_mean = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins)[0]
 
