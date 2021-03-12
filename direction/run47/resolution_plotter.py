@@ -117,7 +117,8 @@ fig = plt.figure()
 # Calculate binned statistics
 ax = fig.add_subplot(1, 1, 1)
 nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
-binned_resolution_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins)[0]
+nu_energy_bins_with_one_extra = np.append(np.logspace(np.log10(1e17),np.log10(1e19), 30), [1e20])
+binned_resolution_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra)[0]
 
 ax.plot(nu_energy_bins, binned_resolution_nu_energy, "o")
 # ax.set_ylim(0, 0.4)
