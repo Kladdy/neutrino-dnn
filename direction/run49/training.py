@@ -86,6 +86,36 @@ run = wandb.init(project=project_name,
 run.name = run_name
 config = wandb.config
     
+
+if this_run_id == "1":
+    amount_Conv2D_first_block = 5
+    amount_Conv2D_rest_blocks = 3
+elif this_run_id == "2":
+    amount_Conv2D_first_block = 5
+    amount_Conv2D_rest_blocks = 4
+elif this_run_id == "3":
+    amount_Conv2D_first_block = 5
+    amount_Conv2D_rest_blocks = 5
+elif this_run_id == "4":
+    amount_Conv2D_first_block = 7
+    amount_Conv2D_rest_blocks = 3
+elif this_run_id == "5":
+    amount_Conv2D_first_block = 7
+    amount_Conv2D_rest_blocks = 4
+elif this_run_id == "6":
+    amount_Conv2D_first_block = 7
+    amount_Conv2D_rest_blocks = 5
+elif this_run_id == "7":
+    amount_Conv2D_first_block = 9
+    amount_Conv2D_rest_blocks = 3
+elif this_run_id == "8":
+    amount_Conv2D_first_block = 9
+    amount_Conv2D_rest_blocks = 4
+elif this_run_id == "9":
+    amount_Conv2D_first_block = 9
+    amount_Conv2D_rest_blocks = 5
+
+
 # Model params
 conv2D_filter_amount = 64
 conv2D_filter_size = 5
@@ -95,28 +125,24 @@ amount_conv2D_blocks = 6
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
 wandb.log({f"conv2D_filter_size": conv2D_filter_size})
 wandb.log({f"amount_conv2D_blocks": amount_conv2D_blocks})
+wandb.log({f"amount_Conv2D_first_block": amount_Conv2D_first_block})
+wandb.log({f"amount_Conv2D_rest_blocks": amount_Conv2D_rest_blocks})
 
 # ----------- Create model -----------
 model = Sequential()
 
 # Conv2D block 1
 model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+for _ in range(amount_Conv2D_first_block-1):
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
 # MaxPooling to reduce size
 model.add(AveragePooling2D(pool_size=(1, 2)))
 
 for _ in range(amount_conv2D_blocks-1):
     # Conv2D block
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+    for _ in range(amount_Conv2D_rest_blocks):
+        model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
     # MaxPooling to reduce size
     model.add(AveragePooling2D(pool_size=(1, 2)))

@@ -1,5 +1,5 @@
 project_name = "nu-dir-reco"
-run_version = "runbase_v15"
+run_version = "run49"
 dataset_name = "SouthPole"
 
 #datapath = "/mnt/ssd2/data/energy_reconstruction/ARIANNA-200_Alvarez2000_3sigma_noise/"
