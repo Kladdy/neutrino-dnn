@@ -59,191 +59,191 @@ run_id = args.run_id
 # Save the run name
 run_name = f"run{run_id}"
 
-# # Make sure run_name is compatible with run_version
-# this_run_version = run_name.split(".")[0]
-# this_run_id = run_name.split(".")[1]
-# assert this_run_version == run_version, f"run_version ({run_version}) does not match the run version for this run ({this_run_version})"
+# Make sure run_name is compatible with run_version
+this_run_version = run_name.split(".")[0]
+this_run_id = run_name.split(".")[1]
+assert this_run_version == run_version, f"run_version ({run_version}) does not match the run version for this run ({this_run_version})"
 
-# # Make sure saved_models folder exists
-# if not os.path.exists(saved_model_dir):
-#     os.makedirs(saved_model_dir)
+# Make sure saved_models folder exists
+if not os.path.exists(saved_model_dir):
+    os.makedirs(saved_model_dir)
 
-# # Make sure architectures folder exists
-# if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
-#     os.makedirs(f"{saved_model_dir}/{architectures_dir}")
+# Make sure architectures folder exists
+if not os.path.exists(f"{saved_model_dir}/{architectures_dir}"):
+    os.makedirs(f"{saved_model_dir}/{architectures_dir}")
 
-# # Initialize wandb
-# run = wandb.init(project=project_name,
-#                  group=run_version,
-#                  config={  # and include hyperparameters and metadata
-#                      "learning_rate": learning_rate,
-#                      "epochs": epochs,
-#                      "batch_size": batch_size,
-#                      "loss_function": loss_function,
-#                      "architecture": "CNN",
-#                      "dataset": dataset_name
-#                  })
-# run.name = run_name
-# config = wandb.config
+# Initialize wandb
+run = wandb.init(project=project_name,
+                 group=run_version,
+                 config={  # and include hyperparameters and metadata
+                     "learning_rate": learning_rate,
+                     "epochs": epochs,
+                     "batch_size": batch_size,
+                     "loss_function": loss_function,
+                     "architecture": "CNN",
+                     "dataset": dataset_name
+                 })
+run.name = run_name
+config = wandb.config
     
 
-# if this_run_id == "1":
-#     amount_Conv2D_first_block = 5
-#     amount_Conv2D_rest_blocks = 3
-# elif this_run_id == "2":
-#     amount_Conv2D_first_block = 5
-#     amount_Conv2D_rest_blocks = 4
-# elif this_run_id == "3":
-#     amount_Conv2D_first_block = 5
-#     amount_Conv2D_rest_blocks = 5
-# elif this_run_id == "4":
-#     amount_Conv2D_first_block = 7
-#     amount_Conv2D_rest_blocks = 3
-# elif this_run_id == "5":
-#     amount_Conv2D_first_block = 7
-#     amount_Conv2D_rest_blocks = 4
-# elif this_run_id == "6":
-#     amount_Conv2D_first_block = 7
-#     amount_Conv2D_rest_blocks = 5
-# elif this_run_id == "7":
-#     amount_Conv2D_first_block = 9
-#     amount_Conv2D_rest_blocks = 3
-# elif this_run_id == "8":
-#     amount_Conv2D_first_block = 9
-#     amount_Conv2D_rest_blocks = 4
-# elif this_run_id == "9":
-#     amount_Conv2D_first_block = 9
-#     amount_Conv2D_rest_blocks = 5
+if this_run_id == "1":
+    amount_Conv2D_first_block = 5
+    amount_Conv2D_rest_blocks = 3
+elif this_run_id == "2":
+    amount_Conv2D_first_block = 5
+    amount_Conv2D_rest_blocks = 4
+elif this_run_id == "3":
+    amount_Conv2D_first_block = 5
+    amount_Conv2D_rest_blocks = 5
+elif this_run_id == "4":
+    amount_Conv2D_first_block = 7
+    amount_Conv2D_rest_blocks = 3
+elif this_run_id == "5":
+    amount_Conv2D_first_block = 7
+    amount_Conv2D_rest_blocks = 4
+elif this_run_id == "6":
+    amount_Conv2D_first_block = 7
+    amount_Conv2D_rest_blocks = 5
+elif this_run_id == "7":
+    amount_Conv2D_first_block = 9
+    amount_Conv2D_rest_blocks = 3
+elif this_run_id == "8":
+    amount_Conv2D_first_block = 9
+    amount_Conv2D_rest_blocks = 4
+elif this_run_id == "9":
+    amount_Conv2D_first_block = 9
+    amount_Conv2D_rest_blocks = 5
 
 
-# # Model params
-# conv2D_filter_amount = 64
-# conv2D_filter_size = 5
-# amount_conv2D_blocks = 6
+# Model params
+conv2D_filter_amount = 64
+conv2D_filter_size = 5
+amount_conv2D_blocks = 6
 
-# # Send model params to wandb
-# wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
-# wandb.log({f"conv2D_filter_size": conv2D_filter_size})
-# wandb.log({f"amount_conv2D_blocks": amount_conv2D_blocks})
-# wandb.log({f"amount_Conv2D_first_block": amount_Conv2D_first_block})
-# wandb.log({f"amount_Conv2D_rest_blocks": amount_Conv2D_rest_blocks})
+# Send model params to wandb
+wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
+wandb.log({f"conv2D_filter_size": conv2D_filter_size})
+wandb.log({f"amount_conv2D_blocks": amount_conv2D_blocks})
+wandb.log({f"amount_Conv2D_first_block": amount_Conv2D_first_block})
+wandb.log({f"amount_Conv2D_rest_blocks": amount_Conv2D_rest_blocks})
 
-# # ----------- Create model -----------
-# model = Sequential()
+# ----------- Create model -----------
+model = Sequential()
 
-# # Conv2D block 1
-# model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
-# for _ in range(amount_Conv2D_first_block-1):
-#     model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+# Conv2D block 1
+model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
+for _ in range(amount_Conv2D_first_block-1):
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
-# # MaxPooling to reduce size
-# model.add(AveragePooling2D(pool_size=(1, 2)))
+# MaxPooling to reduce size
+model.add(AveragePooling2D(pool_size=(1, 2)))
 
-# for _ in range(amount_conv2D_blocks-1):
-#     # Conv2D block
-#     for _ in range(amount_Conv2D_rest_blocks):
-#         model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+for _ in range(amount_conv2D_blocks-1):
+    # Conv2D block
+    for _ in range(amount_Conv2D_rest_blocks):
+        model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
-#     # MaxPooling to reduce size
-#     model.add(AveragePooling2D(pool_size=(1, 2)))
+    # MaxPooling to reduce size
+    model.add(AveragePooling2D(pool_size=(1, 2)))
 
-# # Batch normalization
-# model.add(BatchNormalization())
+# Batch normalization
+model.add(BatchNormalization())
 
-# # Flatten prior to dense layers
-# model.add(Flatten())
+# Flatten prior to dense layers
+model.add(Flatten())
 
-# # Dense layers (fully ´connected)
-# model.add(Dense(1024, activation='relu'))
-# model.add(Dense(1024, activation='relu'))
-# model.add(Dense(512, activation='relu'))
-# model.add(Dense(256, activation='relu'))
-# model.add(Dense(128, activation='relu'))
+# Dense layers (fully ´connected)
+model.add(Dense(1024, activation='relu'))
+model.add(Dense(1024, activation='relu'))
+model.add(Dense(512, activation='relu'))
+model.add(Dense(256, activation='relu'))
+model.add(Dense(128, activation='relu'))
   
-# # model.add(Dense(512, activation='relu'))
-# # # model.add(Dropout(.1))
-# # model.add(Dense(256, activation='relu'))
-# # # model.add(Dropout(.1))
-# # model.add(Dense(128, activation='relu'))
-# # # model.add(Dropout(.1))
+# model.add(Dense(512, activation='relu'))
+# # model.add(Dropout(.1))
+# model.add(Dense(256, activation='relu'))
+# # model.add(Dropout(.1))
+# model.add(Dense(128, activation='relu'))
+# # model.add(Dropout(.1))
 
-# # Output layer
-# model.add(Dense(3))
-# model.add(Lambda(lambda x: K.l2_normalize(x,axis=1)))
+# Output layer
+model.add(Dense(3))
+model.add(Lambda(lambda x: K.l2_normalize(x,axis=1)))
 
-# model.compile(loss=config.loss_function,
-#               optimizer=Adam(lr=config.learning_rate))
-# model.summary()
-# # ------------------------------------
+model.compile(loss=config.loss_function,
+              optimizer=Adam(lr=config.learning_rate))
+model.summary()
+# ------------------------------------
 
-# # Save the model (for opening in eg Netron)
-# #model.save(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.h5')
-# plot_model(model, to_file=f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.png', show_shapes=True)
-# model_json = model.to_json()
-# with open(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.json', "w") as json_file:
-#     json_file.write(model_json)
+# Save the model (for opening in eg Netron)
+#model.save(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.h5')
+plot_model(model, to_file=f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.png', show_shapes=True)
+model_json = model.to_json()
+with open(f'{saved_model_dir}/{architectures_dir}/model_architecture_{run_name}.json', "w") as json_file:
+    json_file.write(model_json)
 
-# # Send amount of parameters to wandb
-# trainable_count = np.sum([K.count_params(w) for w in model.trainable_weights])
-# non_trainable_count = np.sum([K.count_params(w) for w in model.non_trainable_weights])
+# Send amount of parameters to wandb
+trainable_count = np.sum([K.count_params(w) for w in model.trainable_weights])
+non_trainable_count = np.sum([K.count_params(w) for w in model.non_trainable_weights])
 
-# wandb.log({f"trainable_params": trainable_count})
-# wandb.log({f"non_trainable_params": non_trainable_count})
+wandb.log({f"trainable_params": trainable_count})
+wandb.log({f"non_trainable_params": non_trainable_count})
 
-# # Configuring CSV-logger
-# csv_logger = CSVLogger(os.path.join(saved_model_dir, f"model_history_log_{run_name}.csv"), append=True)
+# Configuring CSV-logger
+csv_logger = CSVLogger(os.path.join(saved_model_dir, f"model_history_log_{run_name}.csv"), append=True)
 
-# # Configuring callbacks
-# es = EarlyStopping(monitor="val_loss", patience=es_patience, min_delta=es_min_delta),
-# mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h5"),
-#                                                     monitor='val_loss', verbose=1,
-#                                                     save_best_only=True, mode='auto',
-#                                                     save_weights_only=False)
-# wb = WandbCallback(save_model=False)
-# callbacks = [es, mc , wb, csv_logger]      
+# Configuring callbacks
+es = EarlyStopping(monitor="val_loss", patience=es_patience, min_delta=es_min_delta),
+mc = ModelCheckpoint(filepath=os.path.join(saved_model_dir, f"model.{run_name}.h5"),
+                                                    monitor='val_loss', verbose=1,
+                                                    save_best_only=True, mode='auto',
+                                                    save_weights_only=False)
+wb = WandbCallback(save_model=False)
+callbacks = [es, mc , wb, csv_logger]      
 
-# # Calculating steps per epoch and batches per file
-# steps_per_epoch = n_files_train // feedback_freq * (n_events_per_file // batch_size)
-# n_batches_per_file = n_events_per_file // batch_size
-# print(f"steps_per_epoch {steps_per_epoch}, n_batches_per_file {n_batches_per_file}")
+# Calculating steps per epoch and batches per file
+steps_per_epoch = n_files_train // feedback_freq * (n_events_per_file // batch_size)
+n_batches_per_file = n_events_per_file // batch_size
+print(f"steps_per_epoch {steps_per_epoch}, n_batches_per_file {n_batches_per_file}")
 
-# # Configuring training dataset
-# dataset_train = tf.data.Dataset.range(n_files_train).prefetch(n_batches_per_file * 10).interleave(
-#         TrainDataset,
-#         cycle_length=2,
-#         num_parallel_calls=2,
-#         deterministic=False).repeat()
+# Configuring training dataset
+dataset_train = tf.data.Dataset.range(n_files_train).prefetch(n_batches_per_file * 10).interleave(
+        TrainDataset,
+        cycle_length=2,
+        num_parallel_calls=2,
+        deterministic=False).repeat()
 
-# # Configuring validation dataset
-# dataset_val = tf.data.Dataset.range(n_files_val).prefetch(n_batches_per_file * 10).interleave(
-#         ValDataset,
-#         cycle_length=2,
-#         num_parallel_calls=2,
-#         deterministic=False)
+# Configuring validation dataset
+dataset_val = tf.data.Dataset.range(n_files_val).prefetch(n_batches_per_file * 10).interleave(
+        ValDataset,
+        cycle_length=2,
+        num_parallel_calls=2,
+        deterministic=False)
 
-# # Configuring history
-# history = model.fit(x=dataset_train, steps_per_epoch=steps_per_epoch, epochs=config.epochs,
-#           validation_data=dataset_val, callbacks=callbacks)
+# Configuring history
+history = model.fit(x=dataset_train, steps_per_epoch=steps_per_epoch, epochs=config.epochs,
+          validation_data=dataset_val, callbacks=callbacks)
 
-# # Dump history with pickle
-# with open(os.path.join(saved_model_dir, f'history_{run_name}.pkl'), 'wb') as file_pi:
-#     pickle.dump(history.history, file_pi)
+# Dump history with pickle
+with open(os.path.join(saved_model_dir, f'history_{run_name}.pkl'), 'wb') as file_pi:
+    pickle.dump(history.history, file_pi)
 
-# # Sleep for a few seconds to free up some resources...
-# time.sleep(5)
+# Sleep for a few seconds to free up some resources...
+time.sleep(5)
 
-# # Plot loss and evaluate
-# os.system(f"python plot_loss.py {run_id}")
-# os.system(f"python plot_performance.py {run_id}")
+# Plot loss and evaluate
+os.system(f"python plot_loss.py {run_id}")
+os.system(f"python plot_performance.py {run_id}")
 
-# # Calculate 68 % interval and sent to wandb
-# angle_68 = find_68_interval(run_name)
+# Calculate 68 % interval and sent to wandb
+angle_68 = find_68_interval(run_name)
 
-# wandb.log({f"68 % interval": angle_68})
+wandb.log({f"68 % interval": angle_68})
 
-# # Send angular resolution image to wandb
-# ang_res_image = Image.open(f"{plots_dir}/angular_resolution_{run_name}.png")
-# wandb.log({"angular_resolution": [wandb.Image(ang_res_image, caption=f"Angular resolution for {run_name}")]})
+# Send angular resolution image to wandb
+ang_res_image = Image.open(f"{plots_dir}/angular_resolution_{run_name}.png")
+wandb.log({"angular_resolution": [wandb.Image(ang_res_image, caption=f"Angular resolution for {run_name}")]})
 
 # Plot resolution as a function of SNR, energy and azimuth and send to wandb
 os.system(f"python resolution_plotter.py {run_id}")
