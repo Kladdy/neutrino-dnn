@@ -280,6 +280,14 @@ run49:
     Base: base_v15
     Aim: Conv2D tests, see how many layers per block
 
+run50:
+    Base: base_v16 (but unfinished, took 49.2 as best)
+    Aim: Test bandpass
+        run50.1 and run50.2: No bandpass
+        run50.3 and run50.4: Bandpass 300 MHz
+        run50.5 and run50.6: Bandpass 500 MHz
+
+
 run?:
     Base: base_v14 + run44
     Aim: Test Conv2D filter size performance dependence
@@ -332,3 +340,6 @@ base_v14:
 
 base_v15:
     Based on: run48 (and added resolution_plotter.py and sending the plots to wandb)
+
+base_v16:
+    Based on: run49 (but not sure yet if 49.2 or 49.3 is best...)
