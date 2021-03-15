@@ -263,9 +263,14 @@ run45:
     Base: base_v14
     Aim: More Conv2D layers per Conv2D block
 
-run45:
+run46:
     Base: base_v14 but run38.4
     Aim: Conv2D tests, bigger filter size, fewer layers
+
+run47:
+    Base: ?
+    Aim: Filte size and amount of Conv2D blocks? This run sucked, 46 was better.
+
 
 run48:
     Base: base_v14?
