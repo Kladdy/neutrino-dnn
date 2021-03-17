@@ -79,6 +79,7 @@ if this_run_id == "1":
     optimizer = "Adam"
     run_optimizer = Adam(lr=learning_rate)
 elif this_run_id == "2":
+    learning_rate = 0.01
     optimizer = "SGD"
     run_optimizer = SGD(lr=learning_rate)
 elif this_run_id == "3":
