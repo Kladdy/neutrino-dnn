@@ -287,6 +287,12 @@ run50:
         run50.3 and run50.4: Bandpass 300 MHz
         run50.5 and run50.6: Bandpass 500 MHz
 
+Try different optimizers!! The great optimizer test
+
+run51:
+    Base: ??
+    Aim: The great optimizer test <3 
+
 
 run?:
     Base: base_v14 + run44
