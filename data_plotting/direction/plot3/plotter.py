@@ -59,7 +59,7 @@ for i in range(5):
 axs[4].set_title('Dipole')
 
 for ax in axs.flat:
-    ax.set(xlabel='time (ns)', ylabel=f'signal (uV)')
+    ax.set(xlabel='time (ns)', ylabel=f'signal (μV)')
 
 # Hide x labels and tick labels for top plots and y ticks for right plots.
 for ax in axs.flat:
