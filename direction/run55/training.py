@@ -111,6 +111,7 @@ wandb.log({f"conv2D_filter_size": conv2D_filter_size})
 wandb.log({f"amount_conv2D_blocks": amount_conv2D_blocks})
 wandb.log({f"amount_Conv2D_first_block": amount_Conv2D_first_block})
 wandb.log({f"amount_Conv2D_rest_blocks": amount_Conv2D_rest_blocks})
+wandb.log({f"feedback_freq": feedback_freq})
 
 # ----------- Create model -----------
 model = Sequential()
