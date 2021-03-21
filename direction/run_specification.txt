@@ -293,10 +293,19 @@ run51:
     Base: ??
     Aim: The great optimizer test <3 
 
+run52:
+    base: base_v16
+    Aim: Conv2D tests, see how many layers per block
 
-run?:
-    Base: base_v14 + run44
-    Aim: Test Conv2D filter size performance dependence
+
+run53:
+    Base: base_v16
+    Aim: Test how amount of files trained on affects performance
+
+
+run54:
+    base: base_v16 + data from run52
+    Aim: Conv2D tests, see how many layers per block
 
 
 
