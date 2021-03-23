@@ -87,31 +87,12 @@ run.name = run_name
 config = wandb.config
     
 
-if this_run_id == "1":
-    amount_Conv2D_first_block = 3
-    amount_Conv2D_rest_blocks = 3
-elif this_run_id == "2":
-    amount_Conv2D_first_block = 3
-    amount_Conv2D_rest_blocks = 2
-elif this_run_id == "3":
-    amount_Conv2D_first_block = 3
-    amount_Conv2D_rest_blocks = 1
-elif this_run_id == "4":
-    amount_Conv2D_first_block = 4
-    amount_Conv2D_rest_blocks = 3
-elif this_run_id == "5":
-    amount_Conv2D_first_block = 4
-    amount_Conv2D_rest_blocks = 2
-elif this_run_id == "6":
-    amount_Conv2D_first_block = 4
-    amount_Conv2D_rest_blocks = 1
-
-
-
 # Model params
 conv2D_filter_amount = 64
 conv2D_filter_size = 5
 amount_conv2D_blocks = 6
+amount_Conv2D_first_block = 3
+amount_Conv2D_rest_blocks = 3
 
 # Send model params to wandb
 wandb.log({f"conv2D_filter_amount": conv2D_filter_amount})
