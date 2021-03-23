@@ -307,8 +307,17 @@ run54:
     base: base_v16 + data from run52
     Aim: Conv2D tests, see how many layers per block
 
+run55:
+    base: base_v16 + data from run52
+    Aim: feedback_freq test
+
+run56: 
+    base: base_v17
+    Aim: Test amount of Conv2D layers and blocks
 
 
+runFINAL:
+    add 500 Mhz bandpass filter, train for files freq = 1 to train very long time?
 
 
 base_v4:
@@ -358,3 +367,6 @@ base_v15:
 
 base_v16:
     Based on: run49 (but not sure yet if 49.2 or 49.3 is best...)
+
+base_v17:
+    Based on: run54
