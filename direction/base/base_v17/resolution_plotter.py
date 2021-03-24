@@ -144,6 +144,25 @@ fig_energy.tight_layout()
 fig_energy.savefig(f"{plots_dir}/mean_resolution_nu_energy_{run_name}.png")
 # ___________________________________
 
+# --------- Energy count plotting ---------
+# Create figure
+fig_energy_count = plt.figure()
+
+# Calculate binned statistics
+ax = fig_energy_count.add_subplot(1, 1, 1)
+binned_resolution_nu_energy_count = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic = "count")[0]
+
+ax.plot(nu_energy_bins, binned_resolution_nu_energy_count, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("true nu energy (eV)")
+ax.set_ylabel("count")
+ax.set_xscale('log')
+
+plt.title(f"Count of events inside bins as a function of nu_energy for {run_name}")
+fig_energy_count.tight_layout()
+fig_energy_count.savefig(f"{plots_dir}/mean_resolution_nu_energy_count_{run_name}.png")
+# ___________________________________
+
 # --------- Azimuth plotting ---------
 # Create figure
 fig_azimuth = plt.figure()
@@ -165,6 +184,27 @@ fig_azimuth.tight_layout()
 fig_azimuth.savefig(f"{plots_dir}/mean_resolution_nu_azimuth_{run_name}.png")
 # ___________________________________
 
+# --------- Azimuth count plotting ---------
+# Create figure
+fig_azimuth_count = plt.figure()
+
+# Calculate binned statistics
+ax = fig_azimuth_count.add_subplot(1, 1, 1)
+
+binned_resolution_nu_azimuth_count = stats.binned_statistic(nu_azimuth, angle_difference_data, bins = nu_azimuth_bins_with_one_extra, statistic = "count")[0]
+
+ax.plot(nu_azimuth_bins / units.deg, binned_resolution_nu_azimuth_count, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("true neutrino direction azimuth angle (°)")
+ax.set_ylabel("count")
+
+
+plt.title(f"Count of events inside bins as a function of nu_azimuth for {run_name}")
+fig_azimuth_count.tight_layout()
+fig_azimuth_count.savefig(f"{plots_dir}/mean_resolution_nu_azimuth_count_{run_name}.png")
+# ___________________________________
+
+
 # --------- Zenith plotting ---------
 # Create figure
 fig_zenith = plt.figure()
@@ -183,6 +223,24 @@ ax.set_ylabel("angular resolution (°)")
 plt.title(f"Mean resolution as a function of nu_zenith for {run_name}")
 fig_zenith.tight_layout()
 fig_zenith.savefig(f"{plots_dir}/mean_resolution_nu_zenith_{run_name}.png")
+# ___________________________________
+
+# --------- Zenith count plotting ---------
+# Create figure
+fig_zenith_count = plt.figure()
+
+# Calculate binned statistics
+ax = fig_zenith_count.add_subplot(1, 1, 1)
+binned_resolution_nu_zenith_count = stats.binned_statistic(nu_zenith, angle_difference_data, bins = nu_zenith_bins_with_one_extra, statistic = "count")[0]
+
+ax.plot(nu_zenith_bins / units.deg, binned_resolution_nu_zenith_count, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("true neutrino direction zenith angle (°)")
+ax.set_ylabel("count")
+
+plt.title(f"Count of events inside bins as a function of nu_zenith for {run_name}")
+fig_zenith_count.tight_layout()
+fig_zenith_count.savefig(f"{plots_dir}/mean_resolution_nu_zenith_count_{run_name}.png")
 # ___________________________________
 
 # --------- SNR plotting ---------
@@ -207,6 +265,25 @@ ax.set_ylabel("angular resolution (°)")
 plt.title(f"Mean resolution as a function of SNR for {run_name}")
 fig_SNR.tight_layout()
 fig_SNR.savefig(f"{plots_dir}/mean_resolution_SNR_{run_name}.png")
+# ___________________________________
+
+# --------- SNR count plotting ---------
+# Create figure
+fig_SNR_count = plt.figure()
+
+# Calculate binned statistics
+ax = fig_SNR_count.add_subplot(1, 1, 1)
+
+binned_resolution_SNR_mean_count = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins, statistic = "count")[0]
+
+ax.plot(SNR_means, binned_resolution_SNR_mean_count, "o")
+# ax.set_ylim(0, 0.4)
+ax.set_xlabel("SNR")
+ax.set_ylabel("count")
+
+plt.title(f"Count of events inside bins as a function of SNR for {run_name}")
+fig_SNR_count.tight_layout()
+fig_SNR_count.savefig(f"{plots_dir}/mean_resolution_SNR_count_{run_name}.png")
 # ___________________________________
 
 print(colored(f"Plotting angular resolution depending on properties for {run_name}!", "green", attrs=["bold"]))
