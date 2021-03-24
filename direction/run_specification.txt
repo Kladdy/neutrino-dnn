@@ -315,6 +315,12 @@ run56:
     base: base_v17
     Aim: Test amount of Conv2D layers and blocks
 
+run57:
+    base: base_v17
+    Aim: Test pooling size of 4
+
+run58:
+    base: base_v17 (COPY FROM FILES AS THEY ARE CHANGED!)
 
 runFINAL:
     add 500 Mhz bandpass filter, train for files freq = 1 to train very long time?
