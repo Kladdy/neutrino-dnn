@@ -130,7 +130,7 @@ binned_resolution_nu_energy = stats.binned_statistic(nu_energy, angle_difference
 
 ax.plot(nu_energy_bins, binned_resolution_nu_energy, "o")
 # ax.set_ylim(0, 0.4)
-ax.set_xlabel("nu energy (eV)")
+ax.set_xlabel("true nu energy (eV)")
 ax.set_ylabel("angular resolution (°)")
 ax.set_xscale('log')
 
@@ -156,7 +156,7 @@ binned_resolution_nu_azimuth = stats.binned_statistic(nu_azimuth, angle_differen
 
 ax.plot(nu_azimuth_bins / units.deg, binned_resolution_nu_azimuth, "o")
 # ax.set_ylim(0, 0.4)
-ax.set_xlabel("azimuth (°)")
+ax.set_xlabel("true neutrino direction azimuth angle (°)")
 ax.set_ylabel("angular resolution (°)")
 
 
@@ -177,7 +177,7 @@ binned_resolution_nu_zenith = stats.binned_statistic(nu_zenith, angle_difference
 
 ax.plot(nu_zenith_bins / units.deg, binned_resolution_nu_zenith, "o")
 # ax.set_ylim(0, 0.4)
-ax.set_xlabel("zenith (°)")
+ax.set_xlabel("true neutrino direction zenith angle (°)")
 ax.set_ylabel("angular resolution (°)")
 
 plt.title(f"Mean resolution as a function of nu_zenith for {run_name}")
