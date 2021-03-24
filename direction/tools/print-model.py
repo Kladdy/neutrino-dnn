@@ -40,32 +40,30 @@ es_min_delta = 0.0001
 # Model params
 conv2D_filter_amount = 64
 conv2D_filter_size = 5
-amount_conv2D_blocks = 6
+pooling_size = 4
+amount_Conv2D_blocks = 4
+amount_Conv2D_layers_per_block = 4 
+
 
 # ----------- Create model -----------
 model = Sequential()
 
 # Conv2D block 1
 model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu', input_shape=(5, 512, 1)))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+
+for _ in range(amount_Conv2D_layers_per_block-1):
+    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
 # MaxPooling to reduce size
-model.add(AveragePooling2D(pool_size=(1, 2)))
+model.add(AveragePooling2D(pool_size=(1, pooling_size)))
 
-for _ in range(amount_conv2D_blocks-1):
+for i in range(amount_Conv2D_blocks-1):
     # Conv2D block
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
-    model.add(Conv2D(conv2D_filter_amount, (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
+    for _ in range(amount_Conv2D_layers_per_block):
+        model.add(Conv2D(conv2D_filter_amount*2**(i+1), (1, conv2D_filter_size), strides=(1, 1), padding='same', activation='relu'))
 
     # MaxPooling to reduce size
-    model.add(AveragePooling2D(pool_size=(1, 2)))
+    model.add(AveragePooling2D(pool_size=(1, pooling_size)))
 
 # Batch normalization
 model.add(BatchNormalization())
