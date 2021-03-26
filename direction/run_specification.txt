@@ -320,10 +320,14 @@ run57:
     Aim: Test pooling size of 4
 
 run58:
-    base: base_v17 (COPY FROM FILES AS THEY ARE CHANGED!)
+    base: base_v18 
+    Aim:
+
+
+
 
 runFINAL:
-    add 500 Mhz bandpass filter, train for files freq = 1 to train very long time?
+    train for files freq = 1 to train very long time?
 
 
 base_v4:
@@ -376,3 +380,6 @@ base_v16:
 
 base_v17:
     Based on: run54
+
+base_v18:
+    Based on: run57
