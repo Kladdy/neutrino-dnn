@@ -323,11 +323,19 @@ run58:
     base: base_v18 
     Aim: COnv2d tests
 
+runF1:
+    base: run57 results run57.8
+    Aim: Run of feedback_freq = 1 for final run. 
+
+runF2:
+    base: runF1
+    Aim: Test training on ARZ2020 hadronic data
+
+runF3:
+    base: runF1
+    Aim: Test training on ARZ2020 electromagnetic data
 
 
-
-runFINAL:
-    train for files freq = 1 to train very long time?
 
 
 base_v4:
