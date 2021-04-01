@@ -38,12 +38,11 @@ es_min_delta = 0.0001
 # ------
 
 # Model params
-conv2D_filter_amount = 64
 conv2D_filter_size = 5
 pooling_size = 4
+amount_Conv2D_layers_per_block = 3 
 amount_Conv2D_blocks = 4
-amount_Conv2D_layers_per_block = 4 
-
+conv2D_filter_amount = 32
 
 # ----------- Create model -----------
 model = Sequential()
