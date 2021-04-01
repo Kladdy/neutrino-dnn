@@ -285,3 +285,6 @@ fabric.properties
 # run1 plots
 direction/run1/plots/
 direction/tools/copy_file
+
+# analysis models
+direction/analysis/models
