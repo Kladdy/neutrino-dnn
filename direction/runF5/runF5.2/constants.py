@@ -1,5 +1,5 @@
 project_name = "nu-dir-reco"
-run_version = "runF2"
+run_version = "runF5"
 dataset_name = "SouthPole"
 
 # F1
