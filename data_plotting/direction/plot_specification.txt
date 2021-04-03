@@ -6,3 +6,6 @@ plot2:
 
 plot3:
     Add bandpass filters
+
+plot4:
+    Same as plot3 but local plotting
