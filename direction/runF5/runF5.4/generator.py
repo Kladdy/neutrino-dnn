@@ -9,12 +9,12 @@ from constants import datapath, data_filename, label_filename
 
 np.set_printoptions(precision=4)
 
-n_files = 82
+n_files = 50
 # n_files = 10
 n_files_test = 3
 norm = 1e-6
 # n_files_val = int(0.1 * n_files)
-n_files_val = 10
+n_files_val = 6
 n_files_train = n_files - n_files_val - n_files_test
 list_of_file_ids_train = np.arange(n_files_train, dtype=np.int)
 list_of_file_ids_val = np.arange(n_files_train, n_files_train + n_files_val, dtype=np.int)

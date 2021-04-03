@@ -11,7 +11,7 @@ run_version = args.run_version
 runs = args.runs
 time_offset = args.time_offset
 
-run_training_strings = [f"cd runF4.{run+1} && sleep {2*run + time_offset}m && python training.py {run_version}.{run+1}" for run in range(runs)]
+run_training_strings = [f"cd runF5.{run+1} && sleep {2*run + time_offset}m && python training.py {run_version}.{run+1}" for run in range(runs)]
 
 for run_string in run_training_strings: 
     print(run_string)

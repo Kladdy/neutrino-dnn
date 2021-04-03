@@ -340,6 +340,13 @@ runF4:
     Aim: Replicate run53 but with 9 runs. constant amount of validation files.
     EarlyStopping es_delta was set to 0.0001 and only did feedback_freq = 1/3
 
+runF5:
+    Base: runF1
+    Aim: Train on noiseless data, evaluate on noisy data, and other way around (2x2 matrix as in systematic unbcertanities case)
+
+runF6:
+    Base: runF1 + runF5
+    Aim: Take model that was trained on noiseless data, then train it again on noisy, see perfromance
 
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support

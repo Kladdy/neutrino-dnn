@@ -26,7 +26,7 @@ dataset_name = "SouthPole"
 # data_filename = "data_emhad_emhad_1-3_had_1_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
 # label_filename = "labels_emhad_emhad_1-3_had_1_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
 
-# F5.4 noisy
+# F5.4 noisyless
 test_file_ids = [47, 48, 49]
 datapath = "/mnt/md0/data/SouthPole/single_surface_4LPDA_PA_15m_RNOG_fullsim.json/ARZ2020_emhad_noise.yaml/G03generate_events_full_surface_sim/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/noiseless/"
 data_filename = "data_emhad_emhad_1-3_had_1_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
