@@ -101,7 +101,7 @@ wandb.log({f"amount_Conv2D_blocks": amount_Conv2D_blocks})
 wandb.log({f"amount_Conv2D_layers_per_block": amount_Conv2D_layers_per_block})
 
 # ----------- Create model -----------
-model = load_model(f"{saved_model_dir}/model.runF5.2.h5")
+model = load_model(f"{saved_model_dir}/model.runF5.4.h5")
 model.summary()
 # ------------------------------------
 
