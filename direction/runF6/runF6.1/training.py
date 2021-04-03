@@ -30,8 +30,8 @@ from tensorflow.keras.layers import AveragePooling2D, AveragePooling1D, Input, F
 from tensorflow.keras.layers import BatchNormalization, Lambda, MaxPooling2D
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.regularizers import l2
-from tensorflow.keras.models import Model
-from tensorflow.keras.utils import Sequence, plot_model, load_model
+from tensorflow.keras.models import Model, load_model
+from tensorflow.keras.utils import Sequence, plot_model
 import tensorflow.keras.backend as K
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 
