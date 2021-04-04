@@ -348,6 +348,10 @@ runF6:
     Base: runF1 + runF5
     Aim: Take model that was trained on noiseless data, then train it again on noisy, see perfromance
 
+runF7:
+    base: runF1
+    Aim: Code cleanup (use datasets)
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 
