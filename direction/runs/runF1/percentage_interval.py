@@ -127,7 +127,7 @@ ax = fig_energy.add_subplot(1, 1, 1)
 nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
 nu_energy_bins_with_one_extra = np.append(np.logspace(np.log10(1e17),np.log10(1e19), 30), [1e20])
 
-binned_resolution_nu_energy = np.empty(len(percentage_intervals), 30)
+binned_resolution_nu_energy = np.empty((len(percentage_intervals), 30))
 
 for i in range(len(percentage_intervals)):
     percentage = float(f"0.{percentage_intervals[i]}")
@@ -138,7 +138,7 @@ for i in range(len(percentage_intervals)):
     binned_resolution_nu_energy[i, :] = tmp_binned_stat
 
 for i in range(len(percentage_intervals)):
-    ax.plot(nu_energy_bins, binned_resolution_nu_energy[i], "o", label=f'{percentage_intervals[i]} %')
+    ax.plot(nu_energy_bins, binned_resolution_nu_energy[i,:], "o", label=f'{percentage_intervals[i]} %')
     
 # ax.set_ylim(0, 0.4)
 ax.set_xlabel("true nu energy (eV)")
