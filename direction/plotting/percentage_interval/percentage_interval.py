@@ -45,7 +45,7 @@ def load_file(i_file, norm=1e-6):
     print(f"finished loading file {i_file} in {time.time() - t0}s")
     nu_zenith_data = np.array(labels_tmp.item()["nu_zenith"])
     nu_azimuth_data = np.array(labels_tmp.item()["nu_azimuth"])
-    nu_direction_data = hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
+    nu_direction_data = hp.spherical_to_cartesian(nu_zenith_data, nu_azimuth_data)
 
     nu_energy_data = np.array(labels_tmp.item()["nu_energy"])
     nu_flavor_data = np.array(labels_tmp.item()["nu_flavor"])

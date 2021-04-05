@@ -2,7 +2,14 @@ import datasets
 
 project_name = "nu-dir-reco"
 
-# Data set setup
+# Dataset setup
+# Call Dataset(dataset_name, em, noise) with
+#     dataset_name:
+#         Alvares (only had + noise) / ARZ
+#     em:
+#         True / False (default)
+#     noise:
+#         True (default) / False
 dataset_name = "Alvarez"
 dataset_em = False
 dataset_noise = True
