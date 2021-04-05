@@ -134,7 +134,6 @@ for i in range(len(percentage_intervals)):
     print(f"Binning percentage {percentage}...")
     partial_func = functools.partial(calculate_percentage_interval, percentage=percentage)
     tmp_binned_stat = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic=partial_func)[0].tolist()
-    print(tmp_binned_stat.shape)
     binned_resolution_nu_energy[i, :] = tmp_binned_stat
 
 for i in range(len(percentage_intervals)):
