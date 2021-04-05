@@ -127,22 +127,24 @@ ax = fig_energy.add_subplot(1, 1, 1)
 nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
 nu_energy_bins_with_one_extra = np.append(np.logspace(np.log10(1e17),np.log10(1e19), 30), [1e20])
 
+binned_resolution_nu_energy = np.zeros(len(percentage_intervals))
+
 for i in range(len(percentage_intervals)):
     percentage = float(f"0.{percentage_intervals[i]}")
     print(f"Doing for percentage {percentage}")
     print("Shape nu_energy: ", nu_energy.shape)
     print("Shape angle_diff_data: ", angle_difference_data.shape)
     partial_func = functools.partial(calculate_percentage_interval, percentage=percentage)
-    binned_resolution_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic=partial_func)[0]
-    print(len(binned_resolution_nu_energy))
-    print(type(binned_resolution_nu_energy))
+    binned_resolution_nu_energy[i] = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic=partial_func)[0]
 
-
-ax.plot(nu_energy_bins, binned_resolution_nu_energy, "o")
+for i in range(len(percentage_intervals)):
+    ax.plot(nu_energy_bins, binned_resolution_nu_energy[i], "o", label=f'{percentage_intervals[i]} %')
+    
 # ax.set_ylim(0, 0.4)
 ax.set_xlabel("true nu energy (eV)")
 ax.set_ylabel("angular resolution (°)")
 ax.set_xscale('log')
+ax.legend()
 
 # ax = fig_energy.add_subplot(1, 2, 2)
 # ax.plot(nu_energy, angle_difference_data, 'o')
