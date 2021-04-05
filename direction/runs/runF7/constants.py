@@ -7,7 +7,7 @@ dataset_name = "SouthPole"
 # Dataset setup
 # Call Dataset(dataset_name, em, noise) with
 #     dataset_name:
-#         Alvares (only had + noise) / ARZ
+#         ALVAREZ (only had + noise) / ARZ
 #     em:
 #         True / False (default)
 #     noise:
