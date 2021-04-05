@@ -71,17 +71,17 @@ def load_file(i_file, norm=1e-6):
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot resolution as a function of different parameters')
 parser.add_argument("run_id", type=str ,help="the id of the run to be analyzed, eg '3.2' for run3.2")
-parser.add_argument("percentage_intervals", type=str, help="the percentage intervals, comma-separated, (20,50,68,80)")
+parser.add_argument("percentage_intervals_str", type=str, help="the percentage intervals, comma-separated, (20,50,68,80)")
 
 args = parser.parse_args()
 run_id = args.run_id
-percentage_intervals = args.percentage_intervals
+percentage_intervals_str = args.percentage_intervals_str
 
 # Save the run name
 run_name = f"run{run_id}"
 
 # Parse percentage intervals
-percentage_intervals = percentage_intervals.split(',')
+percentage_intervals = percentage_intervals_str.split(',')
 
 print(colored(f"Plotting percentage plots for {run_name}...", "yellow"))
 
@@ -151,7 +151,7 @@ ax.legend()
 
 plt.title(f"Mean resolution as a function of nu_energy for {run_name}")
 fig_energy.tight_layout()
-fig_energy.savefig(f"{plots_dir}/mean_resolution_nu_energy_{run_name}.png")
+fig_energy.savefig(f"{plots_dir}/mean_resolution_nu_energy_{run_name}_intervals{percentage_intervals_str}.png")
 # ___________________________________
 
 print(colored(f"Done plotting percentage plots for {run_name}!", "green", attrs=["bold"]))
