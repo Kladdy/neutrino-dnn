@@ -130,6 +130,7 @@ nu_energy_bins_with_one_extra = np.append(np.logspace(np.log10(1e17),np.log10(1e
 
 for i in len(percentage_intervals):
     percentage = float(f"0.{percentage_intervals[i]}")
+    print(f"Doing for percentage {percentage}")
     partial_func = functools.partial(calculate_percentage_interval, percentage=percentage)
     binned_resolution_nu_energy = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic=partial_func)[0]
     print(len(binned_resolution_nu_energy))
