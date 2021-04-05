@@ -127,13 +127,15 @@ ax = fig_energy.add_subplot(1, 1, 1)
 nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
 nu_energy_bins_with_one_extra = np.append(np.logspace(np.log10(1e17),np.log10(1e19), 30), [1e20])
 
-binned_resolution_nu_energy = np.zeros(len(percentage_intervals))
+binned_resolution_nu_energy = np.empty(len(percentage_intervals), 30)
 
 for i in range(len(percentage_intervals)):
     percentage = float(f"0.{percentage_intervals[i]}")
     print(f"Binning percentage {percentage}...")
     partial_func = functools.partial(calculate_percentage_interval, percentage=percentage)
-    binned_resolution_nu_energy[i] = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic=partial_func)[0].tolist()
+    tmp_binned_stat = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic=partial_func)[0].tolist()
+    print(tmp_binned_stat.shape)
+    binned_resolution_nu_energy[i, :] = tmp_binned_stat
 
 for i in range(len(percentage_intervals)):
     ax.plot(nu_energy_bins, binned_resolution_nu_energy[i], "o", label=f'{percentage_intervals[i]} %')
