@@ -14,9 +14,9 @@ class Dataset:
     def __init__(self, dataset_name, em=False, noise=True):
         if dataset_name.upper() == "ALVAREZ":
             if em:
-                raise ValueError("'Alvarez' dataset does not have em=True")
+                raise ValueError("'ALVAREZ' dataset does not have em=True")
             if not noise:
-                raise ValueError("'Alvarez' dataset does not have noise=False")
+                raise ValueError("'ALVAREZ' dataset does not have noise=False")
 
             self.test_file_ids = [80, 81, 82]
             self.datapath = f"{BASE_PATH}/Alvarez2009_had_noise.yaml/G03generate_events_full_surface_sim/v2/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/"
@@ -45,4 +45,4 @@ class Dataset:
                 self.n_files = 41
                 self.n_files_val = 5
         else:
-            raise ValueError(f"dataset_name ({dataset_name.upper()}) must be either 'Alvarez' or 'ARZ'")
+            raise ValueError(f"dataset_name ({dataset_name.upper()}) must be either 'ALVAREZ' or 'ARZ'")
