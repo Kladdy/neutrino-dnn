@@ -131,9 +131,7 @@ binned_resolution_nu_energy = np.zeros(len(percentage_intervals))
 
 for i in range(len(percentage_intervals)):
     percentage = float(f"0.{percentage_intervals[i]}")
-    print(f"Doing for percentage {percentage}")
-    print("Shape nu_energy: ", nu_energy.shape)
-    print("Shape angle_diff_data: ", angle_difference_data.shape)
+    print(f"Binning percentage {percentage}...")
     partial_func = functools.partial(calculate_percentage_interval, percentage=percentage)
     binned_resolution_nu_energy[i] = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic=partial_func)[0]
 
