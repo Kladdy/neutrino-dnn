@@ -18,8 +18,7 @@ class Dataset:
             if not noise:
                 raise ValueError("'Alvarez' dataset does not have noise=False")
 
-            #self.test_file_ids = [80, 81, 82]
-            self.test_file_ids = [80] #TODO REMOVE THIS! (test on all)
+            self.test_file_ids = [80, 81, 82]
             self.datapath = f"{BASE_PATH}/Alvarez2009_had_noise.yaml/G03generate_events_full_surface_sim/v2/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/"
             self.data_filename = "data_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
             self.label_filename = "labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
