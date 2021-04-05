@@ -128,7 +128,7 @@ nu_energy_bins = np.logspace(np.log10(1e17),np.log10(1e19), 30)
 nu_energy_bins_with_one_extra = np.append(np.logspace(np.log10(1e17),np.log10(1e19), 30), [1e20])
 
 
-for i in len(percentage_intervals):
+for i in range(len(percentage_intervals)):
     percentage = float(f"0.{percentage_intervals[i]}")
     print(f"Doing for percentage {percentage}")
     partial_func = functools.partial(calculate_percentage_interval, percentage=percentage)
