@@ -1,11 +1,11 @@
 """
-    Call using datasets(dataset_name, em, noise) with
+    Call using Dataset(dataset_name, em, noise) with
     dataset_name:
         Alvares (only had + noise) / ARZ
     em:
-        true / false (default)
+        True / False (default)
     noise:
-        true (default) / false
+        True (default) / False
 """
 
 BASE_PATH = "/mnt/md0/data/SouthPole/single_surface_4LPDA_PA_15m_RNOG_fullsim.json"

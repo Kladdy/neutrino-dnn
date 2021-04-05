@@ -35,8 +35,8 @@ from tensorflow.keras.utils import Sequence, plot_model
 import tensorflow.keras.backend as K
 from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger
 
-from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, n_files_val, batch_size
-from constants import saved_model_dir, run_version, dataset_name, datapath, data_filename, label_filename, plots_dir, project_name
+from generator import TrainDataset, ValDataset, n_events_per_file, n_files_train, batch_size
+from constants import saved_model_dir, run_version, dataset_name, datapath, data_filename, label_filename, plots_dir, project_name, n_files_val
 # -------
 
 # Values
