@@ -65,12 +65,12 @@ if len(test_file_ids) > 1:
 times_mean = []
 times_std = []
 
-batch_sizes = np.logspace(np.log10(100), np.log10(1000), num=5, dtype=int)
+batch_sizes = np.logspace(np.log10(100), np.log10(100000), num=50, dtype=int)
 
 for batch_size in batch_sizes:
     times = []
 
-    N = min(100, int(np.floor(99000/batch_size)))
+    N = min(100, int(np.floor(99000*len(test_file_ids)/batch_size)))
 
     # Make pedictions and time it
     for i in range(N):
