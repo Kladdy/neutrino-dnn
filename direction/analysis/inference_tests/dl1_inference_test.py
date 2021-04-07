@@ -36,7 +36,7 @@ i_files = args.i_files
 run_name = f"run{run_id}"
 
 # Split file ids
-test_file_ids = i_files.split(separator=",")
+test_file_ids = i_files.split(sep=",")
 
 # Make sure saved_models folder exists
 if not os.path.exists(plots_dir):
