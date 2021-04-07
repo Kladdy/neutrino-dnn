@@ -52,7 +52,7 @@ data, nu_direction = load_file(i_file)
 times_mean = []
 times_std = []
 
-batch_sizes = np.logspace(np.log10(10), np.log10(10000), dtype=int)
+batch_sizes = np.logspace(np.log10(1), np.log10(10000), dtype=int)
 
 for batch_size in batch_sizes:
     times = []
