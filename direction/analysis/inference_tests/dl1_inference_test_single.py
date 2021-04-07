@@ -87,8 +87,8 @@ print(times_std)
 
 fig, ax = plt.subplots(1,1)
 
-ax.set_xscale("log", nonpositive='clip')
-ax.set_yscale("log", nonpositive='clip')
+ax.set_xscale("log")
+ax.set_yscale("log")
 ax.set(title='Test')
 ax.errorbar(batch_sizes, times_mean, yerr=times_std)
 
