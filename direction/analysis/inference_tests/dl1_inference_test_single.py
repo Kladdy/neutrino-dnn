@@ -52,7 +52,7 @@ data, nu_direction = load_file(i_file)
 times_mean = []
 times_std = []
 
-batch_sizes = np.logspace(np.log10(10), np.log10(10000), dtype=int)
+batch_sizes = np.logspace(np.log10(10), np.log10(1000), num=20, dtype=int)
 
 for batch_size in batch_sizes:
     times = []
@@ -85,9 +85,15 @@ for batch_size in batch_sizes:
 print(times_mean)
 print(times_std)
 
-plt.semilogx(batch_sizes, times_mean, yerr=times_std)
-plt.xlabel("Batch size")
-plt.ylabel("Time")
+fig, ax = plt.subplots(1,1)
+
+ax.set_xscale("log", nonpositive='clip')
+ax.set_yscale("log", nonpositive='clip')
+ax.set(title='Test')
+ax.errorbar(batch_sizes, times_mean, yerr=times_std)
+
+# plt.xlabel("Batch size")
+# plt.ylabel("Time")
 plt.savefig(f"{plots_dir}/model_{run_name}_file_{i_file}_inference_test.png")
 
 cprint("Inference test for dl1 done!", "green")
