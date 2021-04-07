@@ -11,6 +11,8 @@ for device in physical_devices:
 # Imports
 import argparse
 import os
+import time
+import numpy as np
 from toolbox import load_file
 from termcolor import cprint
 from tensorflow.keras.models import load_model
@@ -43,9 +45,21 @@ model = load_model(f'{models_dir}/model.{run_name}.h5')
 
 data, nu_direction = load_file(i_file)
 
+# Create list of amount of events to do inference on each prediction
+amount_of_events_per_pred = np.logspace(np.log10(10**0), np.log(90000), 30)
+times = []
+
 # Make pedictions and time it
-print(data.shape)
-#nu_direction_predict = model.predict(data)¨
+for i in range(len(amount_of_events_per_pred)):
+    t0 = time.time()
+
+    nu_direction_predict = model.predict(data[amount_of_events_per_pred[i],:,:,:])
+
+    t = time.time() - t0
+    times.append(t)
+
+print(amount_of_events_per_pred)
+print(times)
 
 cprint("Inference test for dl1 done!", "green")
 
