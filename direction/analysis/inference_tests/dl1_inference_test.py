@@ -52,9 +52,13 @@ times = []
 
 # Make pedictions and time it
 for i in range(len(amount_of_events_per_pred)):
+    data_tmp = data[1:amount_of_events_per_pred[i],:,:,:]
+
+    print(data_tmp)
+
     t0 = time.time()
 
-    nu_direction_predict = model.predict(data[1:amount_of_events_per_pred[i],:,:,:])
+    nu_direction_predict = model.predict(data_tmp)
 
     t = time.time() - t0
     times.append(t)
