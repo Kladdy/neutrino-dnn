@@ -62,14 +62,14 @@ if len(test_file_ids) > 1:
             nu_direction = np.concatenate((nu_direction, nu_direction_tmp))
 
 
-# Create list of amount of events to do inference on each prediction
-amount_of_events_per_pred = np.logspace(np.log10(10**2), np.log10(290000), 20, dtype=int)
+# Amount of times to do 1-inferences:
+N = 100
 times = []
 
 # Make pedictions and time it
-for i in range(len(amount_of_events_per_pred)):
-    print(f"On step {i}/{len(amount_of_events_per_pred)}...")
-    data_tmp = data[0:amount_of_events_per_pred[i],:,:,:]
+for i in range(N):
+    print(f"On step {i}/{len(N)}...")
+    data_tmp = data[i,:,:,:]
 
     t0 = time.time()
 
@@ -78,11 +78,9 @@ for i in range(len(amount_of_events_per_pred)):
     t = time.time() - t0
     times.append(t)
 
-print(amount_of_events_per_pred)
 print(times)
 
-plt.semilogx(amount_of_events_per_pred, times)
-plt.savefig(f"{plots_dir}/model_{run_name}_file_{i_files}_inference_test.png")
+
 
 cprint("Inference test for dl1 done!", "green")
 
