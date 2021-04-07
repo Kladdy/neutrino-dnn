@@ -66,7 +66,7 @@ print(amount_of_events_per_pred)
 print(times)
 
 plt.semilogx(amount_of_events_per_pred, times)
-plt.savefig(f"model_{run_name}_file_{}_inference_test.png")
+plt.savefig(f"model_{run_name}_file_{i_file}_inference_test.png")
 
 cprint("Inference test for dl1 done!", "green")
 
