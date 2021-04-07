@@ -68,7 +68,7 @@ times = []
 
 # Make pedictions and time it
 for i in range(N):
-    print(f"On step {i}/{len(N)}...")
+    print(f"On step {i}/{N}...")
     data_tmp = data[i,:,:,:]
 
     t0 = time.time()
