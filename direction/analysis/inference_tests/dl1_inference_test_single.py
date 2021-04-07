@@ -65,7 +65,7 @@ if len(test_file_ids) > 1:
 times_mean = []
 times_std = []
 
-batch_sizes = np.logspace(np.log10(100), np.log10(100000), num=50, dtype=int)
+batch_sizes = np.logspace(np.log10(10), np.log10(100000), num=50, dtype=int)
 
 for batch_size in batch_sizes:
     times = []
