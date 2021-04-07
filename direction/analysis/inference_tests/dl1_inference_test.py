@@ -47,17 +47,17 @@ model = load_model(f'{models_dir}/model.{run_name}.h5')
 data, nu_direction = load_file(i_file)
 
 # Create list of amount of events to do inference on each prediction
-amount_of_events_per_pred = np.logspace(np.log10(10**0), np.log10(90000), 30, dtype=int)
-print(amount_of_events_per_pred)
+amount_of_events_per_pred = np.logspace(np.log10(10**0), np.log10(90000), 10, dtype=int)
 times = []
 
 # Make pedictions and time it
 for i in range(len(amount_of_events_per_pred)):
     print(f"On step {i}/{len(amount_of_events_per_pred)}...")
+    data_tmp = data[0:amount_of_events_per_pred[i],:,:,:]
 
     t0 = time.time()
 
-    nu_direction_predict = model.predict(data[0:amount_of_events_per_pred[i],:,:,:])
+    nu_direction_predict = model.predict(data_tmp)
 
     t = time.time() - t0
     times.append(t)
@@ -66,7 +66,7 @@ print(amount_of_events_per_pred)
 print(times)
 
 plt.semilogx(amount_of_events_per_pred, times)
-plt.savefig(f"model_{run_name}_file_{i_file}_inference_test.png")
+plt.savefig(f"{plots_dir}/model_{run_name}_file_{i_file}_inference_test.png")
 
 cprint("Inference test for dl1 done!", "green")
 
