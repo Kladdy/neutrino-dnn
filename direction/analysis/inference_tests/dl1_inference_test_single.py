@@ -26,18 +26,14 @@ plots_dir = "plots"
 # Parse arguments
 parser = argparse.ArgumentParser(description='Test inference speed on dl1 machine')
 parser.add_argument("run_id", type=str, help="the id of the run, eg '3.2' for run3.2")
-parser.add_argument("i_files", type=str, help="the ids of files to do inference on")
+parser.add_argument("i_file", type=int, help="the id of file to do inference on")
 
 args = parser.parse_args()
 run_id = args.run_id
-i_files = args.i_files
+i_file = args.i_file
 
 # Save the run name
 run_name = f"run{run_id}"
-
-# Split file ids
-test_file_ids = i_files.split(sep=",")
-test_file_ids = [int(s) for s in test_file_ids]
 
 # Make sure saved_models folder exists
 if not os.path.exists(plots_dir):
@@ -50,17 +46,7 @@ model = load_model(f'{models_dir}/model.{run_name}.h5')
 
 # Load test file data and make predictions
     # Load first file
-data, nu_direction = load_file(test_file_ids[0])
-
-    # Then load rest of files
-if len(test_file_ids) > 1:
-    for test_file_id in test_file_ids:
-        if test_file_id != test_file_ids[0]:
-            data_tmp, nu_direction_tmp = load_file(test_file_id)
-
-            data = np.concatenate((data, data_tmp))
-            nu_direction = np.concatenate((nu_direction, nu_direction_tmp))
-
+data, nu_direction = load_file(i_file)
 
 # Amount of times to do 1-inferences:
 N = 100
@@ -70,6 +56,7 @@ times = []
 for i in range(N):
     print(f"On step {i}/{N}...")
     data_tmp = data[i,:,:,:]
+    print(data_tmp.shape)
 
     t0 = time.time()
 
@@ -79,8 +66,7 @@ for i in range(N):
     times.append(t)
 
 print(times)
-
-
+print(np.mean(times))
 
 cprint("Inference test for dl1 done!", "green")
 
