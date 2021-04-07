@@ -26,14 +26,17 @@ plots_dir = "plots"
 # Parse arguments
 parser = argparse.ArgumentParser(description='Test inference speed on dl1 machine')
 parser.add_argument("run_id", type=str, help="the id of the run, eg '3.2' for run3.2")
-parser.add_argument("i_file", type=int, help="the id file to do inference on")
+parser.add_argument("i_files", type=str, help="the ids of files to do inference on")
 
 args = parser.parse_args()
 run_id = args.run_id
-i_file = args.i_file
+i_files = args.i_files
 
 # Save the run name
 run_name = f"run{run_id}"
+
+# Split file ids
+test_file_ids = i_files.split(separator=",")
 
 # Make sure saved_models folder exists
 if not os.path.exists(plots_dir):
@@ -44,10 +47,22 @@ cprint("Starting inference test for dl1...", "yellow")
 # Load model
 model = load_model(f'{models_dir}/model.{run_name}.h5')
 
-data, nu_direction = load_file(i_file)
+# Load test file data and make predictions
+    # Load first file
+data, nu_direction = load_file(test_file_ids[0])
+
+    # Then load rest of files
+if len(test_file_ids) > 1:
+    for test_file_id in test_file_ids:
+        if test_file_id != test_file_ids[0]:
+            data_tmp, nu_direction_tmp = load_file(test_file_id)
+
+            data = np.concatenate((data, data_tmp))
+            nu_direction = np.concatenate((nu_direction, nu_direction_tmp))
+
 
 # Create list of amount of events to do inference on each prediction
-amount_of_events_per_pred = np.logspace(np.log10(10**0), np.log10(90000), 10, dtype=int)
+amount_of_events_per_pred = np.logspace(np.log10(10**2), np.log10(290000), 20, dtype=int)
 times = []
 
 # Make pedictions and time it
