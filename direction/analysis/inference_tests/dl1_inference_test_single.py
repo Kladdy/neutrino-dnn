@@ -57,7 +57,7 @@ batch_sizes = np.logspace(np.log10(1), np.log10(10000), dtype=int)
 for batch_size in batch_sizes:
     times = []
 
-    N = np.floor(99000/batch_size)
+    N = np.floor(99000/batch_size, dtype=int)
 
     # Make pedictions and time it
     for i in range(N):
