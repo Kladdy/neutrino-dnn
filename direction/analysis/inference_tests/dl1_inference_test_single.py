@@ -52,7 +52,7 @@ data, nu_direction = load_file(i_file)
 times_mean = []
 times_std = []
 
-batch_sizes = np.logspace(np.log10(10), np.log10(1000), num=20, dtype=int)
+batch_sizes = np.logspace(np.log10(100), np.log10(5000), num=30, dtype=int)
 
 for batch_size in batch_sizes:
     times = []
@@ -89,9 +89,12 @@ fig, ax = plt.subplots(1,1)
 
 ax.set_xscale("log")
 ax.set_yscale("log")
-ax.set(title='Test')
-ax.errorbar(batch_sizes, times_mean, yerr=times_std)
 
+ax.errorbar(batch_sizes, times_mean, fmt="o", yerr=times_std)
+
+ax.set(title='Time per inference over events per inference')
+ax.set(xlabel="Events per inference")
+ax.set(ylabel="Time per inference")
 # plt.xlabel("Batch size")
 # plt.ylabel("Time")
 plt.savefig(f"{plots_dir}/model_{run_name}_file_{i_file}_inference_test.png")
