@@ -46,6 +46,7 @@ ax.errorbar(batch_sizes, times_mean, fmt="o", color="mediumorchid", yerr=times_s
 ax.set(title='Time per inference over events per inference')
 ax.set(xlabel="Events per inference")
 ax.set(ylabel="Time per inference (s)")
+plt.tight_layout()
 # plt.xlabel("Batch size")
 # plt.ylabel("Time")
 plt.savefig(f"{plots_dir}/model_{run_name}_file_{i_files}_inference_plot.png")
