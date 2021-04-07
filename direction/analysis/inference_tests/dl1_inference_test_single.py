@@ -56,7 +56,7 @@ times = []
 for i in range(N):
     print(f"On step {i}/{N}...")
     data_tmp = data[i,:,:,:]
-    data_tmp = [np.newaxis, :, :, :]
+    data_tmp = data_tmp[np.newaxis, :, :, :]
     print(data_tmp.shape)
 
     t0 = time.time()
