@@ -57,11 +57,11 @@ batch_sizes = np.logspace(np.log10(10), np.log10(10000), dtype=int)
 for batch_size in batch_sizes:
     times = []
 
-    N = np.floor(99000/batch_size)
+    N = min(100, int(np.floor(99000/batch_size)))
 
     # Make pedictions and time it
-    for i in range(int(N)):
-        print(f"On step {i}/{int(N)}...")
+    for i in range(N):
+        print(f"On step {i}/{N}...")
         data_tmp = data[(i)*batch_size+1:(i+1)*batch_size, :, :, :]
         #data_tmp = data_tmp[np.newaxis, :, :, :]
         print(data_tmp.shape)
