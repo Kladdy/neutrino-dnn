@@ -12,7 +12,7 @@ for device in physical_devices:
 import matplotlib.pyplot as plt
 import numpy as np
 from constants import plots_dir, saved_model_dir, datapath, data_filename, label_filename, test_file_ids, run_version
-from toolbox import get_pred_angle_diff_data
+from toolbox import get_pred_angle_diff_data, load_file_all_properties
 import sys
 import argparse
 import os
@@ -27,45 +27,6 @@ from radiotools import plthelpers as php
 from tensorflow import keras
 from radiotools import helper as hp
 # -------
-
-# Loading data and label files and also other properties
-def load_file(i_file, norm=1e-6):
-    t0 = time.time()
-    print(f"loading file {i_file}", flush=True)
-
-    # Load 500 MHz filter
-    filt = np.load("bandpass_filters/500MHz_filter.npy")
-
-    data = np.load(os.path.join(datapath, f"{data_filename}{i_file:04d}.npy"), allow_pickle=True)
-    data = np.fft.irfft(np.fft.rfft(data, axis=-1) * filt, axis=-1)
-    data = data[:, :, :, np.newaxis]
-    
-    labels_tmp = np.load(os.path.join(datapath, f"{label_filename}{i_file:04d}.npy"), allow_pickle=True)
-    print(f"finished loading file {i_file} in {time.time() - t0}s")
-    nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
-    nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
-    nu_direction = hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
-
-    nu_energy = np.array(labels_tmp.item()["nu_energy"])
-    nu_flavor = np.array(labels_tmp.item()["nu_flavor"])
-    shower_energy = np.array(labels_tmp.item()["shower_energy"])
-
-    # check for nans and remove them
-    idx = ~(np.isnan(data))
-    idx = np.all(idx, axis=1)
-    idx = np.all(idx, axis=1)
-    idx = np.all(idx, axis=1)
-    data = data[idx, :, :, :]
-    data /= norm
-
-    nu_zenith = nu_zenith[idx]
-    nu_azimuth = nu_azimuth[idx]
-    nu_direction = nu_direction[idx]
-    nu_energy = nu_energy[idx]
-    nu_flavor = nu_flavor[idx]
-    shower_energy = shower_energy[idx]
-
-    return data, nu_direction, nu_zenith, nu_azimuth, nu_energy, nu_flavor, shower_energy
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot resolution as a function of different parameters')
@@ -98,13 +59,13 @@ model = keras.models.load_model(f'{saved_model_dir}/model.{run_name}.h5')
 
 # Load test file data and make predictions
     # Load first file
-data, nu_direction, nu_zenith, nu_azimuth, nu_energy, nu_flavor, shower_energy = load_file(test_file_ids[0])
+data, nu_direction, nu_zenith, nu_azimuth, nu_energy, nu_flavor, shower_energy = load_file_all_properties(test_file_ids[0])
 
     # Then load rest of files
 if len(test_file_ids) > 1:
     for test_file_id in test_file_ids:
         if test_file_id != test_file_ids[0]:
-            data_tmp, nu_direction_tmp, nu_zenith_tmp, nu_azimuth_tmp, nu_energy_tmp, nu_flavor_tmp, shower_energy_tmp = load_file(test_file_id)
+            data_tmp, nu_direction_tmp, nu_zenith_tmp, nu_azimuth_tmp, nu_energy_tmp, nu_flavor_tmp, shower_energy_tmp = load_file_all_properties(test_file_id)
 
             data = np.concatenate((data, data_tmp))
             nu_direction = np.concatenate((nu_direction, nu_direction_tmp))

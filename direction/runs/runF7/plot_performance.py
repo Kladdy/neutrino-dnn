@@ -8,7 +8,7 @@ import pickle
 from scipy import stats
 from radiotools import helper as hp
 from NuRadioReco.utilities import units
-from toolbox import load_file, calculate_68_interval, get_pred_angle_diff_data
+from toolbox import load_file, calculate_percentage_interval, get_pred_angle_diff_data
 import argparse
 from termcolor import colored
 from constants import datapath, data_filename, label_filename, plots_dir
@@ -44,7 +44,7 @@ angle_difference_data = get_pred_angle_diff_data(run_name)
 N = angle_difference_data.size
 
 # Calculate 68 %
-angle_68 = calculate_68_interval(angle_difference_data)
+angle_68 = calculate_percentage_interval(angle_difference_data, 0.68)
 
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
 fig, ax = php.get_histogram(angle_difference_data, bins=np.linspace(0, 40, 90),
