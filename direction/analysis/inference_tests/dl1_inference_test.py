@@ -46,7 +46,7 @@ model = load_model(f'{models_dir}/model.{run_name}.h5')
 data, nu_direction = load_file(i_file)
 
 # Create list of amount of events to do inference on each prediction
-amount_of_events_per_pred = np.logspace(np.log10(10**0), np.log(90000), 30, dtype=int)
+amount_of_events_per_pred = np.logspace(np.log10(10**0), np.log10(90000), 30, dtype=int)
 print(amount_of_events_per_pred)
 times = []
 
