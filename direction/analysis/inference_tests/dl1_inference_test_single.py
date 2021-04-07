@@ -49,27 +49,41 @@ model = load_model(f'{models_dir}/model.{run_name}.h5')
 data, nu_direction = load_file(i_file)
 
 # Amount of times to do 1-inferences:
-N = 100
-times = []
+times_mean = []
+times_std = []
 
-size_inf = 1000
+batch_sizes = np.logspace(np.log10(1), np.log10(10000), dtype=int)
 
-# Make pedictions and time it
-for i in range(N):
-    print(f"On step {i}/{N}...")
-    data_tmp = data[(i)*size_inf+1:(i+1)*size_inf,:,:,:]
-    #data_tmp = data_tmp[np.newaxis, :, :, :]
-    print(data_tmp.shape)
+for batch_size in batch_sizes:
+    times = []
 
-    t0 = time.time()
+    N = np.floor(99000/batch_size)
 
-    nu_direction_predict = model.predict(data_tmp)
+    # Make pedictions and time it
+    for i in range(N):
+        print(f"On step {i}/{N}...")
+        data_tmp = data[(i)*batch_size+1:(i+1)*batch_size, :, :, :]
+        #data_tmp = data_tmp[np.newaxis, :, :, :]
+        print(data_tmp.shape)
 
-    t = time.time() - t0
-    times.append(t)
+        t0 = time.time()
 
-print(times)
-print(np.mean(times))
+        nu_direction_predict = model.predict(data_tmp)
+
+        t = time.time() - t0
+        if i != 0:
+            times.append(t)
+
+    print(times)
+
+    mean = np.mean(times)
+    std = np.std(times)
+
+    times_mean.append(mean)
+    times_std.append(std)
+
+print(times_mean)
+print(times_std)
 
 cprint("Inference test for dl1 done!", "green")
 
