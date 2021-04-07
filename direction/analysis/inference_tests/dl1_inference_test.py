@@ -13,6 +13,7 @@ import argparse
 import os
 import time
 import numpy as np
+from matplotlib import pyplot as plt
 from toolbox import load_file
 from termcolor import cprint
 from tensorflow.keras.models import load_model
@@ -52,19 +53,20 @@ times = []
 
 # Make pedictions and time it
 for i in range(len(amount_of_events_per_pred)):
-    data_tmp = data[0:amount_of_events_per_pred[i],:,:,:]
-
-    print(data_tmp)
+    print(f"On step {i}/{len(amount_of_events_per_pred)}...")
 
     t0 = time.time()
 
-    nu_direction_predict = model.predict(data_tmp)
+    nu_direction_predict = model.predict(data[0:amount_of_events_per_pred[i],:,:,:])
 
     t = time.time() - t0
     times.append(t)
 
 print(amount_of_events_per_pred)
 print(times)
+
+plt.semilogx(amount_of_events_per_pred, times)
+plt.savefig(f"model_{run_name}_file_{}_inference_test.png")
 
 cprint("Inference test for dl1 done!", "green")
 
