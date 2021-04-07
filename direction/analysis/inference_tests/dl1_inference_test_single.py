@@ -52,10 +52,12 @@ data, nu_direction = load_file(i_file)
 N = 100
 times = []
 
+size_inf = 1000
+
 # Make pedictions and time it
 for i in range(N):
     print(f"On step {i}/{N}...")
-    data_tmp = data[i,:,:,:]
+    data_tmp = data[(i)*size_inf+1:(i+1)*size_inf,:,:,:]
     data_tmp = data_tmp[np.newaxis, :, :, :]
     print(data_tmp.shape)
 
