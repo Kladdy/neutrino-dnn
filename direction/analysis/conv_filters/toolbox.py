@@ -1,6 +1,7 @@
 # Imports
 import os
 import pickle
+import time
 import numpy as np
 from radiotools import helper as hp
 from radiotools import stats
@@ -14,8 +15,8 @@ def load_file(i_file, norm=1e-6):
     # Load 500 MHz filter
     filt = np.load("/Users/sigge/Dropbox/Universitetet/Kurser/Kandidatarbete/Analysis/neutrino-dnn/direction/analysis/bandpass_filters/500MHz_filter.npy")
 
-#     t0 = time.time()
-#     print(f"loading file {i_file}", flush=True)
+    t0 = time.time()
+    print(f"loading file {i_file}", flush=True)
     data = np.load(os.path.join(datapath, f"{data_filename}{i_file:04d}.npy"), allow_pickle=True)
     data = np.fft.irfft(np.fft.rfft(data, axis=-1) * filt, axis=-1)
     data = data[:, :, :, np.newaxis]

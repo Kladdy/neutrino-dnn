@@ -1,6 +1,7 @@
 # Imports
 from matplotlib import pyplot
-from models import F1F2F3_models
+import numpy as np
+import F1F2F3_models
 
 
 def get_and_normalize_layer(layer):
@@ -10,25 +11,54 @@ def get_and_normalize_layer(layer):
     f_min, f_max = filters.min(), filters.max()
     filters = (filters - f_min) / (f_max - f_min)
 
-    return filters
+    return filters, biases
+
+def find_highest_biases(biases):
+    # Find the filters with highest weight
+    ind = np.argpartition(biases, -n_filters_to_show)[-n_filters_to_show:]
+
+    # Sort the list
+    ind = ind[np.argsort(biases[ind])]
+
+    # Flip list to have maximum index first
+    ind_flipped = ind[::-1]
+
+    return ind_flipped
+    
 
 def plot_first_n_filters(layer, n_filters, plot_column_index, layer_name, block_name):
-    filters = get_and_normalize_layer(layer)
-    
-    for i in range(n_filters):
+    filters, biases = get_and_normalize_layer(layer)
+
+    ind_flipped = find_highest_biases(biases)
+
+    print(biases[ind_flipped])
+
+    # Counter for the plots
+    j = 0
+    # Loop over the n_filters_to_show filters with highest bias
+    for i in ind_flipped:
         # get the filter
         f = filters[:, :, :, i]
 
         # specify subplot and turn of axis
-        ax = pyplot.subplot(n_filters, plot_column_amount, i*plot_column_amount+plot_column_index)
+        ax = pyplot.subplot(n_filters_to_show, plot_column_amount, j*plot_column_amount+plot_column_index, label=f"{block_name}, {layer_name}")
         ax.set_xticks([])
         ax.set_yticks([])
-        if i == 0:
+        if j == 0:
             ax.set_title(layer_name, fontsize=8)
         # plot filter channel in grayscale
         
-        pyplot.imshow(f[:, :, 0], cmap='gray')
+        pyplot.imshow(f[:, :, 0], cmap='gray', aspect='equal')
 
+        j += 1
+
+    # pyplot.subplots_adjust(left=0.1,
+    #                 bottom=0.1, 
+    #                 right=0.9, 
+    #                 top=0.9, 
+    #                 wspace=0.4, 
+    #                 hspace=0.4)
+    pyplot.subplots_adjust(hspace=2)
     pyplot.suptitle(block_name)
 
 # Variables
@@ -44,6 +74,8 @@ model.load_weights(f'/Users/sigge/Dropbox/Universitetet/Kurser/Kandidatarbete/An
 amount_of_blocks = 4
 amount_of_layers_per_block = 3
 plot_column_amount = amount_of_layers_per_block
+
+n_filters_to_show = 5
 
 for block in range(amount_of_blocks):
     block_name = f"Block_{block}"
