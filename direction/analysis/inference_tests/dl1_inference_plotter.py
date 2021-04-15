@@ -41,15 +41,15 @@ fig, ax = plt.subplots(1,1)
 ax.set_xscale("log")
 ax.set_yscale("log")
 
-ax.errorbar(batch_sizes, times_mean, fmt="o", color="mediumorchid", yerr=times_std)
+ax.plot(batch_sizes, times_mean, "*", color="mediumorchid")
 
-ax.set(title='Time per inference over events per inference')
-ax.set(xlabel="Events per inference")
-ax.set(ylabel="Time per inference (s)")
+ax.set(title='Amount of time for one inference as a function of events per inference')
+ax.set(xlabel=r"Events per inference $N_{events, inf}$")
+ax.set(ylabel=r"Time per inference t_{inf} (s)")
 plt.tight_layout()
 # plt.xlabel("Batch size")
 # plt.ylabel("Time")
-plt.savefig(f"{plots_dir}/model_{run_name}_file_{i_files}_inference_plot.png")
+plt.savefig(f"{plots_dir}/model_{run_name}_file_{i_files}_inference_plot.eps", format="eps")
 
 cprint("Inference test for dl1 done!", "green")
 
