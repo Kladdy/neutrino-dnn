@@ -67,7 +67,7 @@ for i in range(len(n_threads_list)):
     popt, pcov = curve_fit(func, batch_sizes, times_mean)
 
     ax.plot(x_logspace, func(x_logspace, *popt), color=threads_colors_fit[i],
-        label=r'fit: $k=%5.3f$, $m=%5.3f$' % tuple(popt))
+        label=r'fit: $k=$%5.3f, $m=$%5.3f' % tuple(popt))
 
     
     # plt.xlabel("Batch size")
