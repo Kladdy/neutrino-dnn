@@ -94,7 +94,7 @@ def load_one_file(i_file, i_event, norm=1e-6):
     return data, nu_direction
 
 
-def realize_noise(data, nu_direction):
+def realize_noise(data, nu_direction, n_noise_iterations):
     print("Realizing noise...")
     num_samples = data.shape[0]
     ids = np.arange(num_samples, dtype=np.int)
@@ -145,20 +145,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Plot data from antennas')
     parser.add_argument("i_file", type=int ,help="the id of the file")
     parser.add_argument("i_event", type=int ,help="the id of the event")
+    parser.add_argument("n_noise_iterations", type=int ,help="amount of noise relizations")
 
     args = parser.parse_args()
     i_file = args.i_file
     i_event = args.i_event
+    n_noise_iterations = args.n_noise_iterations
 
     from matplotlib import pyplot as plt
     print("Starting to generate noise realizations...")
 
-    # Only load a single file! This cannot be changed
-    n = 1
-
     data, nu_direction = load_one_file(i_file, i_event)
 
-    noise_realized_data, noise_realized_direction = realize_noise(data, nu_direction)
+    noise_realized_data, noise_realized_direction = realize_noise(data, nu_direction, n_noise_iterations)
 
     # Make sure plots folder exists
     if not os.path.exists(f"plots/file_{i_file}_event_{i_event}"):
