@@ -99,9 +99,9 @@ elif run_name == "runF3.1":
 plot_title = f"Skymap for dataset {emission_model}, 2D histogram, {n_noise_iterations} noise realizations"
 file_name = f"plots/skymap_2dhistogram_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}.png"
 xlabel = r"$\theta (°)$"
-xlabel = r"$\phi (°)$"
+ylabel = r"$\phi (°)$"
 
-plthelpers.get_histogram2d(theta_pred_deg_list, phi_pred_deg_list, fname=file_name, title=plot_title)
+plthelpers.get_histogram2d(theta_pred_deg_list, phi_pred_deg_list, fname=file_name, title=plot_title, xlabel=xlabel, ylabel=ylabel)
 
 # if eps:
 #     plt.savefig(f"plots/skymap_2dhistogram_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}.eps", format="eps")

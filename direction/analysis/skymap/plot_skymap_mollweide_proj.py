@@ -51,7 +51,8 @@ parser.add_argument("i_file", type=int ,help="the id of the file")
 parser.add_argument("i_event", type=int ,help="the id of the event")
 parser.add_argument("n_noise_iterations", type=int ,help="amount of noise relizations")
 parser.add_argument("nside", type=int ,help="nside for plotting")
-parser.add_argument("eps", type=bool ,help="save plot as eps?")
+parser.add_argument('--eps', dest='eps', action='store_true')
+parser.set_defaults(feature=False)
 
 args = parser.parse_args()
 run_id = args.run_id
@@ -79,22 +80,22 @@ theta_truth_deg, phi_truth_deg = angle_to_spherical_rad(cartesian_truth)
 # Plot predicted angles
 n_noise_iterations = nu_direction_predict.shape[0]
 
-theta_pred_deg_list = np.zeros(n_noise_iterations)
-phi_pred_deg_list = np.zeros(n_noise_iterations)
+theta_pred_rad_list = np.zeros(n_noise_iterations)
+phi_pred_rad_list = np.zeros(n_noise_iterations)
 
 for i in range(n_noise_iterations):
     cartesian_pred = nu_direction_predict[i]
-    theta_pred_deg, phi_pred_deg = angle_to_spherical_rad(cartesian_pred)
+    theta_pred_rad, phi_pred_rad = angle_to_spherical_rad(cartesian_pred)
 
     # Append to list of angles
-    theta_pred_deg_list[i] = theta_pred_deg
-    phi_pred_deg_list[i] = phi_pred_deg
+    theta_pred_rad_list[i] = theta_pred_rad
+    phi_pred_rad_list[i] = phi_pred_rad
 
 # healpy plotting:
 npix = healpy.nside2npix(nside)
 
 # convert to HEALPix indices
-indices = healpy.ang2pix(nside, theta_pred_deg_list, phi_pred_deg_list)
+indices = healpy.ang2pix(nside, theta_pred_rad_list, phi_pred_rad_list)
 
 idx, counts = np.unique(indices, return_counts=True)
 
@@ -113,10 +114,12 @@ plot_title = f"Skymap for dataset {emission_model}, Mollweide projection, {n_noi
 #healpy.mollview(np.log10(hpx_map+1))
 healpy.mollview(hpx_map, cmap="cividis", title=plot_title, xsize=3200)
 
+print(eps)
+
 if eps:
-    plt.savefig(f"plots/skymap_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.eps", format="eps")
+    plt.savefig(f"plots/skymap_mollweide_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.eps", format="eps")
 else:  
-    plt.savefig(f"plots/skymap_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.png")
+    plt.savefig(f"plots/skymap_mollweide_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.png")
 #plt.savefig("static/moll_nside32_nest.png", dpi=DPI)
 
 print(colored(f"Done plotting skymap (Mollweide projection) for {run_name}!", "green", attrs=["bold"]))
