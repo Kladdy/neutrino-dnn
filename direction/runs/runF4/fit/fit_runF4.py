@@ -19,9 +19,9 @@ plt.plot(x_fit * 10**5, func(x_fit, *popt), '-', color="mediumorchid",
          label=r'fit $ f_1: a=%5.2f, b=%5.2f, c=%5.2f$' % tuple(popt))
 
 plt.xlabel(r'$N_{events}$')
-plt.ylabel(r'$I_{68}$ (°)')
+plt.ylabel(r'$\sigma_{68}$ (°)')
 plt.title("68 % interval as a function of amount of events used for training")
 plt.xlim([11.1 * 10**5, 73.6 * 10**5])
 plt.legend()
-plt.savefig('plots/F4_I68_overNevents.eps', format='eps')
+plt.savefig('plots/F4_sigma68_overNevents.eps', format='eps')
 # plt.show()

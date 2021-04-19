@@ -3,12 +3,13 @@ import numpy as np
 import pickle
 #from tensorflow import keras
 import time
-#from toolbox import load_file
+from toolbox import get_histogram2d
 from constants import datapath, n_files, n_files_val, dataset, dataset_name, dataset_em
 import datasets
 import argparse
 from radiotools import helper as hp
-from radiotools import stats, plthelpers
+from radiotools import stats
+#from radiotools import plthelpers
 from NuRadioReco.utilities import units
 from matplotlib import pyplot as plt
 from termcolor import colored
@@ -96,12 +97,15 @@ elif run_name == "runF2.1":
 elif run_name == "runF3.1":
     emission_model = "ARZ2020 (had. + EM)"
 
-plot_title = f"Skymap for dataset {emission_model}, 2D histogram, {n_noise_iterations} noise realizations"
+plot_title = f"Skymap for dataset {emission_model}, 2D histogram,\n{n_noise_iterations} noise realizations"
 file_name = f"plots/skymap_2dhistogram_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}.png"
 xlabel = r"$\theta (°)$"
 ylabel = r"$\phi (°)$"
 
-plthelpers.get_histogram2d(theta_pred_deg_list, phi_pred_deg_list, fname=file_name, title=plot_title, xlabel=xlabel, ylabel=ylabel)
+fig, ax, im = get_histogram2d(theta_pred_deg_list, phi_pred_deg_list, fname=file_name, title=plot_title, xlabel=xlabel, ylabel=ylabel, bins=40)
+
+fig.savefig(file_name)
+#plt.close(fig)
 
 # if eps:
 #     plt.savefig(f"plots/skymap_2dhistogram_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}.eps", format="eps")
@@ -109,7 +113,7 @@ plthelpers.get_histogram2d(theta_pred_deg_list, phi_pred_deg_list, fname=file_na
 #     plt.savefig()
 #plt.savefig("static/moll_nside32_nest.png", dpi=DPI)
 
-print(colored(f"Done plotting skymap (M2d histogram) for {run_name}!", "green", attrs=["bold"]))
+print(colored(f"Done plotting skymap (2d histogram) for {run_name}!", "green", attrs=["bold"]))
 print("")
 
 
