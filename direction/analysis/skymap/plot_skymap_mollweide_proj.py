@@ -51,7 +51,7 @@ parser.add_argument("i_file", type=int ,help="the id of the file")
 parser.add_argument("i_event", type=int ,help="the id of the event")
 parser.add_argument("n_noise_iterations", type=int ,help="amount of noise relizations")
 parser.add_argument("nside", type=int ,help="nside for plotting")
-parser.add_argument('--eps', dest='eps', action='store_true')
+parser.add_argument('--eps', dest='eps', action='store_true', help="flag to image as .eps instead of .png")
 parser.set_defaults(feature=False)
 
 args = parser.parse_args()
@@ -109,6 +109,7 @@ idx, counts = np.unique(indices, return_counts=True)
 hpx_map = np.zeros(npix, dtype=int)
 hpx_map[idx] = counts
 
+# Find the emission model name based on which run we are doing
 if run_name == "runF1.1":
     emission_model = "Alvarez2009 (had.)"
 elif run_name == "runF2.1":
@@ -116,6 +117,7 @@ elif run_name == "runF2.1":
 elif run_name == "runF3.1":
     emission_model = "ARZ2020 (had. + EM)"
 
+# Plot the Mollweide projection
 plot_title = f"Skymap for dataset {emission_model}, Mollweide projection, {n_noise_iterations} noise realizations"
 #healpy.mollview(np.log10(hpx_map+1))
 healpy.mollview(hpx_map, cmap="cividis", title=plot_title, xsize=3200)
