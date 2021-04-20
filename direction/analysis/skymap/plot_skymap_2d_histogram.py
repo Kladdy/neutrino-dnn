@@ -30,21 +30,6 @@ def get_pred_angle_diff_data():
 
     return nu_direction_predict, nu_direction, angle_difference_data
 
-def angle_to_spherical_rad(nu_direction):
-    x = nu_direction[0]
-    y = nu_direction[1]
-    z = nu_direction[2]
-    nu_direction_spherical = hp.cartesian_to_spherical(x,y,z)
-    theta_deg = nu_direction_spherical[0]
-    phi_deg = nu_direction_spherical[1]
-
-    return theta_deg, phi_deg
-
-def angle_to_spherical_deg(nu_direction):
-    theta_rad, phi_rad = angle_to_spherical_rad(nu_direction)
-
-    return theta_rad / units.deg, phi_rad / units.deg
-
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot data from antennas')
 parser.add_argument("run_id", type=str ,help="the id of the run, eg '3.2' for run3.2")
@@ -52,7 +37,7 @@ parser.add_argument("i_file", type=int ,help="the id of the file")
 parser.add_argument("i_event", type=int ,help="the id of the event")
 parser.add_argument("n_noise_iterations", type=int ,help="amount of noise relizations")
 parser.add_argument('--eps', dest='eps', action='store_true')
-parser.set_defaults(feature=False)
+parser.set_defaults(eps=False)
 
 args = parser.parse_args()
 run_id = args.run_id
@@ -77,24 +62,24 @@ print("Loading data...")
 #data, nu_direction = load_one_file(i_file, i_event)
 nu_direction_predict, nu_direction, angle_difference_data = get_pred_angle_diff_data()
 
-# Plot true angles
+# Get true angles
 cartesian_truth = nu_direction[0]
-theta_truth_deg, phi_truth_deg = angle_to_spherical_rad(cartesian_truth)
+theta_truth_deg, phi_truth_deg = hp.cartesian_to_spherical(*cartesian_truth)
 
 
-# Plot predicted angles
+# Get predicted angles
 n_noise_iterations = nu_direction_predict.shape[0]
 
-theta_pred_deg_list = np.zeros(n_noise_iterations)
-phi_pred_deg_list = np.zeros(n_noise_iterations)
+theta_pred_rad_array = np.zeros(n_noise_iterations)
+phi_pred_rad_array = np.zeros(n_noise_iterations)
 
 for i in range(n_noise_iterations):
     cartesian_pred = nu_direction_predict[i]
-    theta_pred_deg, phi_pred_deg = angle_to_spherical_deg(cartesian_pred)
+    theta_pred_rad, phi_pred_rad = hp.cartesian_to_spherical(*cartesian_pred)
 
-    # Append to list of angles
-    theta_pred_deg_list[i] = theta_pred_deg
-    phi_pred_deg_list[i] = phi_pred_deg
+    # Append to array of angles
+    theta_pred_rad_array[i] = theta_pred_rad
+    phi_pred_rad_array[i] = phi_pred_rad
 
 if run_name == "runF1.1":
     emission_model = "Alvarez2009 (had.)"
@@ -108,9 +93,14 @@ file_name = f"plots/skymap_2dhistogram_{run_name}_file_{i_file}_event_{i_event}_
 xlabel = r"$\theta (°)$"
 ylabel = r"$\phi (°)$"
 
-fig, ax, im = get_histogram2d(theta_pred_deg_list, phi_pred_deg_list, fname=file_name, title=plot_title, xlabel=xlabel, ylabel=ylabel, bins=40)
+
+fig, ax, im = get_histogram2d(theta_pred_rad_array / units.deg, phi_pred_rad_array / units.deg, fname=file_name, title=plot_title, xlabel=xlabel, ylabel=ylabel, bins=40)
+#fig, ax, im = get_histogram2d(phi_pred_rad_array / units.deg, theta_pred_rad_array / units.deg, fname=file_name, title=plot_title, xlabel=xlabel, ylabel=ylabel, bins=40)
 
 fig.savefig(file_name)
+
+print("theta_pred_rad_array:", theta_pred_rad_array)
+print("phi_pred_rad_array:", phi_pred_rad_array)
 #plt.close(fig)
 
 # if eps:

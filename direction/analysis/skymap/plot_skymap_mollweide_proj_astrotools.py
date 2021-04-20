@@ -14,6 +14,7 @@ from matplotlib import pyplot as plt
 from termcolor import colored
 from generate_noise_realizations import load_one_file, realize_noise
 import healpy
+from astrotools import skymap
 
 def get_pred_angle_diff_data():
     prediction_file = f'plots/model.{run_name}.h5_predicted_file_{i_file}_{i_event}_{n_noise_iterations}.pkl'
@@ -86,8 +87,8 @@ for i in range(n_noise_iterations):
 # healpy plotting:
 npix = healpy.nside2npix(nside)
 
-# convert to HEALPix indices
-indices = healpy.ang2pix(nside, theta_pred_rad_array, phi_pred_rad_array)
+# convert to HEALPix indices (-phi to flip the phi so pos on right)
+indices = healpy.ang2pix(nside, theta_pred_rad_array, -phi_pred_rad_array)
 
 idx, counts = np.unique(indices, return_counts=True)
 
@@ -104,17 +105,22 @@ elif run_name == "runF3.1":
     emission_model = "ARZ2020 (had. + EM)"
 
 # Plot the Mollweide projection
-plot_title = f"Skymap for dataset {emission_model}, Mollweide projection, {n_noise_iterations} noise realizations"
+plot_title = f"Skymap for dataset {emission_model}, Mollweide projection,\n{n_noise_iterations} noise realizations\n"
+
+skymap.heatmap(hpx_map, cmap="magma", label="")
+
+plt.title(plot_title, fontsize=20)
+
 #healpy.mollview(np.log10(hpx_map+1))
-healpy.mollview(hpx_map, cmap="cividis", title=plot_title, xsize=3200, flip="geo")
-healpy.graticule()
+#healpy.mollview(hpx_map, cmap="cividis", title=plot_title, xsize=3200, flip="geo")
+#healpy.graticule()
 
 print(f"Do save as eps: {eps}")
 
 if eps:
-    plt.savefig(f"plots/skymap_mollweide_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.eps", format="eps")
+    plt.savefig(f"plots/skymap_mollweide_astrotools_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.eps", format="eps")
 else:  
-    plt.savefig(f"plots/skymap_mollweide_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.png")
+    plt.savefig(f"plots/skymap_mollweide_astrotools_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.png")
 #plt.savefig("static/moll_nside32_nest.png", dpi=DPI)
 
 print("theta_pred_rad_array:", theta_pred_rad_array)
@@ -123,6 +129,22 @@ print("phi_pred_rad_array:", phi_pred_rad_array)
 
 print("theta_pred_rad_array (deg):", theta_pred_rad_array /units.deg)
 print("phi_pred_rad_array (deg):", phi_pred_rad_array /units.deg)
+
+# # Plot skypatch
+# ax = plt.gca()
+# print(ax.collections[0])
+# print(type(ax.collections[0]))
+
+# mappable = ax.collections[0]
+
+# patch = skymap.PlotSkyPatch(lon_roi=np.deg2rad(30), lat_roi=np.deg2rad(0), r_roi=0.8, title='My SkyPatch')
+
+# patch.mark_roi()
+# patch.plot_grid()
+# patch.colorbar(mappable)
+# patch.savefig(f"plots/skymap_mollweide_astrotools_skypatch_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.png")
+# #skymap.PlotSkyPatch
+
 
 print(colored(f"Done plotting skymap (Mollweide projection) for {run_name}!", "green", attrs=["bold"]))
 print("")

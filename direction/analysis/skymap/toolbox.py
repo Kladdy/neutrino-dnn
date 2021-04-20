@@ -121,3 +121,22 @@ def get_histogram2d(x=None, y=None, z=None,
     ax.set_title(title)
 
     return fig, ax, im
+
+def calculate_percentage_interval(angle_difference_data, percentage=0.68):
+    # Redefine N
+    N = angle_difference_data.size
+    weights = np.ones(N)
+
+    angle = stats.quantile_1d(angle_difference_data, weights, percentage)
+
+    # OLD METHOD -------------------------------
+    # Calculate Rayleigh fit
+    # loc, scale = stats.rayleigh.fit(angle)
+    # xl = np.linspace(angle.min(), angle.max(), 100) # linspace for plotting
+
+    # Calculate 68 %
+    #index_at_68 = int(0.68 * N)
+    #angle_68 = np.sort(angle_difference_data)[index_at_68]
+    # ------------------------------------------
+
+    return angle
