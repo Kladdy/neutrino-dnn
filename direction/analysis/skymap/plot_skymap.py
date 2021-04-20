@@ -46,6 +46,12 @@ run_name = f"run{run_id}"
 
 print(colored(f"Starting skymap plotting for {run_name}, file {i_file}, event {i_event}...", "yellow"))
 
+# Make sure predicted file exists, otherwise run evaluator
+prediction_file = f'plots/model.{run_name}.h5_predicted_file_{i_file}_{i_event}_{n_noise_iterations}.pkl'
+if not os.path.isfile(prediction_file):
+    print("Prediction file does not exist, running evaluator...")
+    os.system(f"python evaluate_skymap.py {run_id} {i_file} {i_event} {n_noise_iterations}")
+
 # Load data
 print("Loading data...")
 #data, nu_direction = load_one_file(i_file, i_event)
