@@ -71,9 +71,23 @@ angle_68 = calculate_percentage_interval(angle_difference_data, 0.68)
 
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
 fig, ax = php.get_histogram(angle_difference_data, bins=np.linspace(0, 40, 90),
-                            xlabel=r"angular difference $\Delta \Psi$ (°)")
+                            xlabel=r"Space angle difference $\Delta \Psi$ (°)", stats=False,
+                            ylabel="Events", kwargs={'color':"lightsteelblue", 'ec':"k"})
+ #                           ylabel="Events", kwargs={'color':"steelblue", 'ec':"steelblue"})
 # ax.plot(xl, N*stats.rayleigh(scale=scale, loc=loc).pdf(xl))
-plt.title(f"Angular resolution for {run_name} with\n68 % at angle difference of {angle_68:.2f}")
+
+if run_name == "runF1.1":
+    emission_model = "Alvarez2009 (had.)"
+elif run_name == "runF2.1":
+    emission_model = "ARZ2020 (had.)"
+elif run_name == "runF3.1":
+    emission_model = "ARZ2020 (had. + EM)"
+
+plt.title(f"Angular resolution for dataset {emission_model},\nNoise realized, {n_noise_iterations} iterations")
+
+sigma_68_text = "_{68}"
+# Plot 68 % line
+plt.axvline(x=angle_68, ls="--", label=fr"$\sigma{sigma_68_text}=${angle_68:.2f}", color="forestgreen" )
 
 # OLD FIT METHOD
 # if fit: 
@@ -101,8 +115,8 @@ if fit:
     xdata = [patch.get_x() for patch in p]
     ydata = [patch.get_height() for patch in p]
 
-    print(xdata)
-    print(ydata)
+    #print(xdata)
+    #print(ydata)
 
     # line = ax.lines[0]
     # xdata = line.get_xdata()
@@ -110,13 +124,13 @@ if fit:
 
     popt, pcov = curve_fit(f, xdata, ydata, p0=[700, 5])
 
-    print("testing plotting...")
-    plt.plot(xdata, ydata, label="test")
+    #print("testing plotting...")
+    #plt.plot(xdata, ydata, label="test")
 
-    x_fit = np.linspace(0.8*min(xdata), 1.1*max(xdata))
+    x_fit = np.linspace(0.8*min(xdata), 1.1*max(xdata), 200)
 
-    plt.plot(x_fit, f(x_fit, *popt), '-', color="mediumorchid",
-         label=r'fit: A=%5.2f, $\sigma$=%5.2f' % tuple(popt))
+    plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
+         label=r'fit: A=%5.0f, $\sigma=$%5.2f' % tuple(np.abs(popt)))
 
 plt.legend()
 
