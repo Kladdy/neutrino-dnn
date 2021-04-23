@@ -107,7 +107,7 @@ elif run_name == "runF3.1":
 # Plot the Mollweide projection
 plot_title = f"Skymap for dataset {emission_model}, Mollweide projection,\nNoise realized, {n_noise_iterations} iterations\n"
 
-skymap.heatmap(hpx_map, cmap="magma", label="")
+fig, cb = skymap.heatmap(hpx_map, cmap="magma", label="")
 
 # do np.pi - theta as we need colatitude, and flip x-axis as x-axis is flipped
 plt.plot(-phi_truth_rad, np.pi/2 - theta_truth_rad, "*g")
@@ -140,17 +140,19 @@ print("phi_pred_rad_array:", phi_pred_rad_array)
 print("theta_pred_rad_array (deg):", theta_pred_rad_array /units.deg)
 print("phi_pred_rad_array (deg):", phi_pred_rad_array /units.deg)
 
-# # Plot skypatch
+# # Plot skypatch DOESNT WORK AS SKYPATCH cant take heatmaps :-(
 # ax = plt.gca()
+# print(ax.collections)
 # print(ax.collections[0])
 # print(type(ax.collections[0]))
 
 # mappable = ax.collections[0]
 
-# patch = skymap.PlotSkyPatch(lon_roi=np.deg2rad(30), lat_roi=np.deg2rad(0), r_roi=0.8, title='My SkyPatch')
+# patch = skymap.PlotSkyPatch(lon_roi=np.deg2rad(-30), lat_roi=np.deg2rad(0), r_roi=0.6, title='Skypatch')
 
 # patch.mark_roi()
 # patch.plot_grid()
+# patch.plot(theta_pred_rad_array, phi_pred_rad_array, ls='--')
 # patch.colorbar(mappable)
 # patch.savefig(f"plots/skymap_mollweide_astrotools_skypatch_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.png")
 # #skymap.PlotSkyPatch
