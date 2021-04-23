@@ -46,6 +46,46 @@ def load_file(i_file, norm=1e-6):
 
     return data, nu_direction
 
+# Loading data and label files and also other properties
+def load_file_all_properties(i_file, norm=1e-6):
+    t0 = time.time()
+    print(f"loading file {i_file}", flush=True)
+
+    # Load 500 MHz filter
+    filt = np.load("bandpass_filters/500MHz_filter.npy")
+
+    data = np.load(os.path.join(dataset.datapath, f"{dataset.data_filename}{i_file:04d}.npy"), allow_pickle=True)
+    data = np.fft.irfft(np.fft.rfft(data, axis=-1) * filt, axis=-1)
+    data = data[:, :, :, np.newaxis]
+    
+    labels_tmp = np.load(os.path.join(dataset.datapath, f"{dataset.label_filename}{i_file:04d}.npy"), allow_pickle=True)
+    print(f"finished loading file {i_file} in {time.time() - t0}s")
+    nu_zenith_data = np.array(labels_tmp.item()["nu_zenith"])
+    nu_azimuth_data = np.array(labels_tmp.item()["nu_azimuth"])
+    nu_direction_data = hp.spherical_to_cartesian(nu_zenith_data, nu_azimuth_data)
+
+    nu_energy_data = np.array(labels_tmp.item()["nu_energy"])
+    nu_flavor_data = np.array(labels_tmp.item()["nu_flavor"])
+    shower_energy_data = np.array(labels_tmp.item()["shower_energy"])
+
+    # check for nans and remove them
+    idx = ~(np.isnan(data))
+    idx = np.all(idx, axis=1)
+    idx = np.all(idx, axis=1)
+    idx = np.all(idx, axis=1)
+    data = data[idx, :, :, :]
+    data /= norm
+
+    nu_zenith_data = nu_zenith_data[idx]
+    nu_azimuth_data = nu_azimuth_data[idx]
+    nu_direction_data = nu_direction_data[idx]
+    nu_energy_data = nu_energy_data[idx]
+    nu_flavor_data = nu_flavor_data[idx]
+    shower_energy_data = shower_energy_data[idx]
+
+    return data, nu_direction_data, nu_zenith_data, nu_azimuth_data, nu_energy_data, nu_flavor_data, shower_energy_data
+
+
 def get_histogram2d(x=None, y=None, z=None,
                 bins=10, range=None,
                 xscale="linear", yscale="linear", cscale="linear",
