@@ -70,7 +70,7 @@ N = angle_difference_data.size
 angle_68 = calculate_percentage_interval(angle_difference_data, 0.68)
 
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
-fig, ax = php.get_histogram(angle_difference_data, bins=np.linspace(0, 40, 90),
+fig, ax = php.get_histogram(angle_difference_data, bins=np.linspace(0, 30, 90),
                             xlabel=r"Space angle difference $\Delta \Psi$ (°)", stats=False,
                             ylabel="Events", kwargs={'color':"lightsteelblue", 'ec':"k"})
  #                           ylabel="Events", kwargs={'color':"steelblue", 'ec':"steelblue"})

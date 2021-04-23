@@ -290,6 +290,7 @@ direction/tools/copy_file
 direction/analysis/models
 direction/analysis/figs
 data_plotting/direction/plot4/plots
+direction/analysis/resolution_plots/plots
 
 # models
 final_models/
