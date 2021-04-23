@@ -66,7 +66,7 @@ nu_direction_predict, nu_direction, angle_difference_data = get_pred_angle_diff_
 
 # Get true angles
 cartesian_truth = nu_direction[0]
-theta_truth_deg, phi_truth_deg = hp.cartesian_to_spherical(*cartesian_truth)
+theta_truth_rad, phi_truth_rad = hp.cartesian_to_spherical(*cartesian_truth)
 
 
 # Get predicted angles
@@ -87,8 +87,8 @@ for i in range(n_noise_iterations):
 # healpy plotting:
 npix = healpy.nside2npix(nside)
 
-# convert to HEALPix indices (-phi to flip the phi so pos on right)
-indices = healpy.ang2pix(nside, theta_pred_rad_array, -phi_pred_rad_array)
+# convert to HEALPix indices
+indices = healpy.ang2pix(nside, theta_pred_rad_array, phi_pred_rad_array)
 
 idx, counts = np.unique(indices, return_counts=True)
 
@@ -105,9 +105,12 @@ elif run_name == "runF3.1":
     emission_model = "ARZ2020 (had. + EM)"
 
 # Plot the Mollweide projection
-plot_title = f"Skymap for dataset {emission_model}, Mollweide projection,\n{n_noise_iterations} noise realizations\n"
+plot_title = f"Skymap for dataset {emission_model}, Mollweide projection,\nNoise realized, {n_noise_iterations} iterations\n"
 
 skymap.heatmap(hpx_map, cmap="magma", label="")
+
+# do np.pi - theta as we need colatitude, and flip x-axis as x-axis is flipped
+plt.plot(-phi_truth_rad, np.pi/2 - theta_truth_rad, "*g")
 
 plt.title(plot_title, fontsize=20)
 
@@ -122,6 +125,13 @@ if eps:
 else:  
     plt.savefig(f"plots/skymap_mollweide_astrotools_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}_nside_{nside}.png")
 #plt.savefig("static/moll_nside32_nest.png", dpi=DPI)
+
+print("theta_truth_rad:", theta_truth_rad)
+print("phi_truth_rad:", phi_truth_rad)
+
+
+print("theta_truth_deg:", theta_truth_rad/units.deg)
+print("phi_truth_deg:", phi_truth_rad/units.deg)
 
 print("theta_pred_rad_array:", theta_pred_rad_array)
 print("phi_pred_rad_array:", phi_pred_rad_array)
