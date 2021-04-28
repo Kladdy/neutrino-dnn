@@ -56,7 +56,6 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
         ax2_data_y = ax2_data_y[ind_count_not_0]
 
 
-
     lns1 = ax1.plot(x_data, ax1_data_y, "*", color=ax1_color, label = ax1_y_label)
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
@@ -64,10 +63,22 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
     ax2.set_ylabel(ax2_y_label) # we already handled the x-label with ax1
     lns2 = ax2.plot(x_data, ax2_data_y, "^", color=ax2_color, label = ax2_y_label)
 
-    plt.title(plot_title)
+    # Set axis limits so they are same on all plots
+    if file_name == "nu_energy":
+        ax1.set_ylim(0, 7)
+        ax2.set_ylim(-1000, 27000)
+    elif file_name == "nu_SNR":
+        pass # Remove this!!!
+        # ax1.set_ylim()
+        # ax2.set_ylim()
+    elif file_name == "nu_zenith":
+        ax1.set_ylim(0, 27)
+        ax2.set_ylim(-4000, 85000)
+    elif file_name == "nu_azimuth":
+        ax1.set_ylim(0, 3.7)
+        ax2.set_ylim(-1000, 20000)
 
-    if file_name == "nu_azimuth":
-        ax2.set_ylim(8000, 12700)
+    plt.title(plot_title)
 
     # added these three lines
     lns = lns1+lns2
@@ -120,10 +131,15 @@ if not os.path.exists(plots_dir):
     os.makedirs(plots_dir)
 
 plot_dir = f"{plots_dir}/{run_name}_plots"
+plot_dir_old = f"{plots_dir}/{run_name}_plots/old"
 
 # Make sure folder inside plot_folder exists for the plots
 if not os.path.exists(plot_dir):
     os.makedirs(plot_dir)
+
+# Make sure folder inside plot_folder exists for the plots
+if not os.path.exists(plot_dir_old):
+    os.makedirs(plot_dir_old)
 
 # Make sure predicted file exists, otherwise run evaluator
 prediction_file = f'{plots_dir}/model.{run_name}.h5_predicted.pkl'
@@ -179,7 +195,7 @@ ax.set_xscale('log')
 
 plt.title(fr"Mean value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy for dataset {emission_model}")
 fig_energy.tight_layout()
-fig_energy.savefig(f"{plot_dir}/{statistic}_resolution_nu_energy_{run_name}.png")
+fig_energy.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_energy_{run_name}.png")
 # ___________________________________
 
 # --------- Energy count plotting ---------
@@ -189,7 +205,7 @@ fig_energy_count = plt.figure()
 # Calculate binned statistics
 ax = fig_energy_count.add_subplot(1, 1, 1)
 binned_resolution_nu_energy_count = stats.binned_statistic(nu_energy, angle_difference_data, bins = nu_energy_bins_with_one_extra, statistic = "count")[0]
-
+ 
 ax.plot(nu_energy_bins, binned_resolution_nu_energy_count, "*")
 # ax.set_ylim(0, 0.4)
 ax.set_xlabel(r"True $\nu$ energy (eV)")
@@ -198,7 +214,7 @@ ax.set_xscale('log')
 
 plt.title(fr"Count of events inside $\nu$ energy bins for dataset {emission_model}")
 fig_energy_count.tight_layout()
-fig_energy_count.savefig(f"{plot_dir}/{statistic}_resolution_nu_energy_count_{run_name}.png")
+fig_energy_count.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_energy_count_{run_name}.png")
 # ___________________________________
 
 # Energy resolution & count on same axis
@@ -242,7 +258,7 @@ ax.set_ylabel("angular resolution (°)")
 
 plt.title(f"Mean resolution as a function of nu_azimuth for {run_name}")
 fig_azimuth.tight_layout()
-fig_azimuth.savefig(f"{plot_dir}/{statistic}_resolution_nu_azimuth_{run_name}.png")
+fig_azimuth.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_azimuth_{run_name}.png")
 # ___________________________________
 
 # --------- Azimuth count plotting ---------
@@ -262,7 +278,7 @@ ax.set_ylabel("count")
 
 plt.title(f"Count of events inside bins as a function of nu_azimuth for {run_name}")
 fig_azimuth_count.tight_layout()
-fig_azimuth_count.savefig(f"{plot_dir}/{statistic}_resolution_nu_azimuth_count_{run_name}.png")
+fig_azimuth_count.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_azimuth_count_{run_name}.png")
 # ___________________________________
 
 # Azimuth resolution & count on same axis
@@ -304,7 +320,7 @@ ax.set_ylabel("angular resolution (°)")
 
 plt.title(f"Mean resolution as a function of nu_zenith for {run_name}")
 fig_zenith.tight_layout()
-fig_zenith.savefig(f"{plot_dir}/{statistic}_resolution_nu_zenith_{run_name}.png")
+fig_zenith.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_zenith_{run_name}.png")
 # ___________________________________
 
 # --------- Zenith count plotting ---------
@@ -322,7 +338,7 @@ ax.set_ylabel("count")
 
 plt.title(f"Count of events inside bins as a function of nu_zenith for {run_name}")
 fig_zenith_count.tight_layout()
-fig_zenith_count.savefig(f"{plot_dir}/{statistic}_resolution_nu_zenith_count_{run_name}.png")
+fig_zenith_count.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_zenith_count_{run_name}.png")
 # ___________________________________
 
 # Zenith resolution & count on same axis
@@ -368,7 +384,7 @@ ax.set_ylabel("angular resolution (°)")
 
 plt.title(f"Mean resolution as a function of SNR for {run_name}")
 fig_SNR.tight_layout()
-fig_SNR.savefig(f"{plot_dir}/{statistic}_resolution_SNR_{run_name}.png")
+fig_SNR.savefig(f"{plot_dir_old}/{statistic}_resolution_SNR_{run_name}.png")
 # ___________________________________
 
 # --------- SNR count plotting ---------
@@ -387,7 +403,7 @@ ax.set_ylabel("count")
 
 plt.title(f"Count of events inside bins as a function of SNR for {run_name}")
 fig_SNR_count.tight_layout()
-fig_SNR_count.savefig(f"{plot_dir}/{statistic}_resolution_SNR_count_{run_name}.png")
+fig_SNR_count.savefig(f"{plot_dir_old}/{statistic}_resolution_SNR_count_{run_name}.png")
 # ___________________________________
 
 

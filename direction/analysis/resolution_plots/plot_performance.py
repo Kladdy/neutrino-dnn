@@ -13,6 +13,7 @@ import argparse
 from termcolor import colored
 from constants import datapath, data_filename, label_filename, plots_dir, dataset_run
 from scipy.optimize import curve_fit
+import matplotlib.patches as mpatches
 # -------
 
 # Parse arguments
@@ -51,7 +52,8 @@ N = angle_difference_data.size
 angle_68 = calculate_percentage_interval(angle_difference_data, 0.68)
 
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
-fig, ax = php.get_histogram(angle_difference_data, bins=np.linspace(0, 30, 90),
+bins = np.linspace(0, 30, 90)
+fig, ax = php.get_histogram(angle_difference_data, bins=bins,
                             xlabel=r"Space angle difference $\Delta \Psi$ (°)", stats=False,
                             ylabel="Events", kwargs={'color':"lightsteelblue", 'ec':"k"})
  #                           ylabel="Events", kwargs={'color':"steelblue", 'ec':"steelblue"})
@@ -97,10 +99,24 @@ if fit:
 
     x_fit = np.linspace(0.8*min(xdata), 1.1*max(xdata), 200)
 
-    plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
-         label=r'fit: A=%5.0f, $\sigma=$%5.2f' % tuple(np.abs(popt)))
+    popt_abs = np.abs(popt)
+    sigma_value = popt_abs[1]
 
-plt.legend()
+    plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
+         label=fr'fit: $\sigma={sigma_value:5.2f}$')
+
+# Get overflow
+overflow = np.sum(angle_difference_data > bins[-1])
+
+# Handle legend:
+handles, labels = plt.gca().get_legend_handles_labels() # get existing handles and labels
+overflow_legend_label = fr'Overflow: {(overflow*100.0/float(N)):.0f} %'
+empty_patch_overflow = mpatches.Patch(color='none', label=overflow_legend_label) # create a patch with no color
+
+handles.append(empty_patch_overflow)  # add new patches and labels to list
+labels.append(overflow_legend_label)
+
+plt.legend(handles, labels, loc="upper right") # apply new handles and labels to plot
 
 if eps:
     plt.savefig(f"{plots_dir}/angular_resolution_{run_name}.eps", format="eps")

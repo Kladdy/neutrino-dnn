@@ -16,7 +16,7 @@ popt
 x_fit = np.linspace(0.8*min(xdata), 1.1*max(xdata))
 
 plt.plot(x_fit * 10**5, func(x_fit, *popt), '-', color="mediumorchid",
-         label=r'fit $ f_1: a=%5.2f, b=%5.2f, c=%5.2f$' % tuple(popt))
+         label=r'fit: $a=%5.2f, b=%5.2f, c=%5.2f$' % tuple(popt))
 
 plt.xlabel(r'$N_{events}$')
 plt.ylabel(r'$\sigma_{68}$ (°)')
