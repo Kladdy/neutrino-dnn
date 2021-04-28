@@ -15,11 +15,12 @@ from termcolor import colored
 from generate_noise_realizations import load_one_file, realize_noise
 import healpy
 from astrotools import skymap
+import matplotlib.patches as mpatches
 
 def get_pred_angle_diff_data():
     prediction_file = f'plots/model.{run_name}.h5_predicted_file_{i_file}_{i_event}_{n_noise_iterations}.pkl'
     with open(prediction_file, "br") as fin:
-        nu_direction_predict, nu_direction = pickle.load(fin)
+        nu_direction_predict, nu_direction, nu_energy = pickle.load(fin)
 
     # Only pick first 100000 data
     # N = 100000
@@ -28,7 +29,7 @@ def get_pred_angle_diff_data():
 
     angle_difference_data = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[0]) for i in range(len(nu_direction_predict))]) / units.deg
 
-    return nu_direction_predict, nu_direction, angle_difference_data
+    return nu_direction_predict, nu_direction, nu_energy, angle_difference_data
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot data from antennas')
@@ -62,7 +63,7 @@ if not os.path.isfile(prediction_file):
 # Load data
 print("Loading data...")
 #data, nu_direction = load_one_file(i_file, i_event)
-nu_direction_predict, nu_direction, angle_difference_data = get_pred_angle_diff_data()
+nu_direction_predict, nu_direction, nu_energy, angle_difference_data = get_pred_angle_diff_data()
 
 # Get true angles
 cartesian_truth = nu_direction[0]
@@ -105,14 +106,46 @@ elif run_name == "runF3.1":
     emission_model = "ARZ2020 (had. + EM)"
 
 # Plot the Mollweide projection
+# fr"$\sigma{sigma_68_text}=${angle_68:.2f}"
+
+nu_energy = nu_energy[0]
+
+energy_string = "{:.1e}".format(nu_energy)
+print(energy_string)
+nu_energy_string = fr"$\E_\nu&" + f"{energy_string} eV"
 plot_title = f"Skymap for dataset {emission_model}, Mollweide projection,\nNoise realized, {n_noise_iterations} iterations\n"
 
-fig, cb = skymap.heatmap(hpx_map, cmap="magma", label="")
+fig, cb = skymap.heatmap(hpx_map, cmap="BuPu", label="", dark_grid=True)
 
 # do np.pi - theta as we need colatitude, and flip x-axis as x-axis is flipped
-plt.plot(-phi_truth_rad, np.pi/2 - theta_truth_rad, "*g")
+#plt.plot(-phi_truth_rad, np.pi/2 - theta_truth_rad, "+", markersize=20, color="darkorange")
+nu_text = r"_\nu"
+legend_text = fr"E${nu_text}$ = {energy_string} eV"
+plt.plot(-phi_truth_rad, (np.pi/2 - theta_truth_rad), "x", markersize=10, c="green", markeredgewidth=1, label=legend_text) # For legend
+plt.plot(-phi_truth_rad, (np.pi/2 - theta_truth_rad), "x", markersize=40, c="k", markeredgecolor="k", markeredgewidth=2)
+plt.plot(-phi_truth_rad, (np.pi/2 - theta_truth_rad), "x", markersize=40, c="lawngreen", markeredgewidth=1)
 
 plt.title(plot_title, fontsize=20)
+
+colat_deg = (np.pi/2 - theta_truth_rad) / units.deg
+lon_deg = phi_truth_rad / units.deg
+
+print(colat_deg)
+print(lon_deg)
+
+# Handle legend:
+handles, labels = plt.gca().get_legend_handles_labels() # get existing handles and labels
+colat_legend_label = fr'Colatitude: {colat_deg:.0f}°'
+lon_legend_label = fr'Longitude: {lon_deg:.0f}°'
+empty_patch_theta = mpatches.Patch(color='none', label=colat_legend_label) # create a patch with no color
+empty_patch_phi = mpatches.Patch(color='none', label=lon_legend_label) # create a patch with no color
+
+handles.append(empty_patch_theta)  # add new patches and labels to list
+handles.append(empty_patch_phi)  
+labels.append(colat_legend_label)
+labels.append(lon_legend_label)
+
+plt.legend(handles, labels, loc="upper right", prop={'size': 12}) # apply new handles and labels to plot
 
 #healpy.mollview(np.log10(hpx_map+1))
 #healpy.mollview(hpx_map, cmap="cividis", title=plot_title, xsize=3200, flip="geo")

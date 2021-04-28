@@ -19,7 +19,7 @@ import datasets
 import argparse
 from matplotlib import pyplot as plt
 from termcolor import colored
-from generate_noise_realizations import load_one_file, realize_noise
+from generate_noise_realizations import load_one_file_properties, realize_noise
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot data from antennas')
@@ -45,7 +45,7 @@ model = keras.models.load_model(f'../models/model.{run_name}.h5')
 
 # Load data and make noise realizations
 print("Loading data and making noise realizations...")
-data, nu_direction = load_one_file(i_file, i_event)
+data, nu_direction, nu_energy = load_one_file_properties(i_file, i_event)
 noise_realized_data, noise_realized_direction = realize_noise(data, nu_direction, n_noise_iterations)
 
 # Make predictions
@@ -59,7 +59,7 @@ print(normed_nu_direction)
 
 # Save predicted angles
 with open(f'plots/model.{run_name}.h5_predicted_file_{i_file}_{i_event}_{n_noise_iterations}.pkl', "bw") as fout:
-    pickle.dump([nu_direction_prediction_noisy, nu_direction, ], fout, protocol=4)
+    pickle.dump([nu_direction_prediction_noisy, nu_direction, nu_energy], fout, protocol=4)
 
 print(colored(f"Done evaluating skymap for {run_name}!", "green", attrs=["bold"]))
 print("")

@@ -12,12 +12,13 @@ from toolbox import calculate_percentage_interval
 import argparse
 from termcolor import colored
 from scipy.optimize import curve_fit
+import matplotlib.patches as mpatches
 # -------
 
 def get_pred_angle_diff_data():
     prediction_file = f'plots/model.{run_name}.h5_predicted_file_{i_file}_{i_event}_{n_noise_iterations}.pkl'
     with open(prediction_file, "br") as fin:
-        nu_direction_predict, nu_direction = pickle.load(fin)
+        nu_direction_predict, nu_direction, nu_energy = pickle.load(fin)
 
     # Only pick first 100000 data
     # N = 100000
@@ -26,7 +27,7 @@ def get_pred_angle_diff_data():
 
     angle_difference_data = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[0]) for i in range(len(nu_direction_predict))]) / units.deg
 
-    return nu_direction_predict, nu_direction, angle_difference_data
+    return nu_direction_predict, nu_direction, nu_energy, angle_difference_data
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot data from antennas')
@@ -61,7 +62,7 @@ if not os.path.isfile(prediction_file):
 # Load data
 print("Loading data...")
 #data, nu_direction = load_one_file(i_file, i_event)
-nu_direction_predict, nu_direction, angle_difference_data = get_pred_angle_diff_data()
+nu_direction_predict, nu_direction, nu_energy, angle_difference_data = get_pred_angle_diff_data()
 
 # Redefine N
 N = angle_difference_data.size
@@ -70,7 +71,8 @@ N = angle_difference_data.size
 angle_68 = calculate_percentage_interval(angle_difference_data, 0.68)
 
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
-fig, ax = php.get_histogram(angle_difference_data, bins=np.linspace(0, 30, 90),
+bins = np.linspace(0, 30, 90)
+fig, ax = php.get_histogram(angle_difference_data, bins=bins,
                             xlabel=r"Space angle difference $\Delta \Psi$ (°)", stats=False,
                             ylabel="Events", kwargs={'color':"lightsteelblue", 'ec':"k"})
  #                           ylabel="Events", kwargs={'color':"steelblue", 'ec':"steelblue"})
@@ -129,10 +131,25 @@ if fit:
 
     x_fit = np.linspace(0.8*min(xdata), 1.1*max(xdata), 200)
 
-    plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
-         label=r'fit: A=%5.0f, $\sigma=$%5.2f' % tuple(np.abs(popt)))
+    popt_abs = np.abs(popt)
+    sigma_value = popt_abs[1]
 
-plt.legend()
+    plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
+         label=fr'fit: $\sigma={sigma_value:5.2f}$')
+
+# Get overflow
+overflow = np.sum(angle_difference_data > bins[-1])
+
+# Handle legend:
+handles, labels = plt.gca().get_legend_handles_labels() # get existing handles and labels
+overflow_legend_label = fr'Overflow: {(overflow*100.0/float(n_noise_iterations)):.0f} %'
+empty_patch_overflow = mpatches.Patch(color='none', label=overflow_legend_label) # create a patch with no color
+
+handles.append(empty_patch_overflow)  # add new patches and labels to list
+labels.append(overflow_legend_label)
+
+plt.legend(handles, labels, loc="upper right") # apply new handles and labels to plot
+
 
 if eps:
     plt.savefig(f"plots/angular_resolution_{run_name}_file_{i_file}_event_{i_event}_realizations_{n_noise_iterations}.eps", format="eps")

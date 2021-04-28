@@ -93,6 +93,42 @@ def load_one_file(i_file, i_event, norm=1e-6):
 
     return data, nu_direction
 
+def load_one_file_properties(i_file, i_event, norm=1e-6):
+    # Load 500 MHz filter
+    filt = np.load("bandpass_filters/500MHz_filter.npy")
+
+    t0 = time.time()
+    print(f"loading file {i_file}", flush=True)
+    data = np.load(os.path.join(dataset.datapath, f"{dataset.data_filename}{i_file:04d}.npy"), allow_pickle=True, mmap_mode="r")
+    data = data[i_event:i_event+1, :, :]
+    
+    data = np.fft.irfft(np.fft.rfft(data, axis=-1) * filt, axis=-1)
+    data = data[:, :, :, np.newaxis]
+
+    labels_tmp = np.load(os.path.join(dataset.datapath, f"{dataset.label_filename}{i_file:04d}.npy"), allow_pickle=True)
+    print(f"finished loading file {i_file} in {time.time() - t0}s")
+
+    nu_zenith = np.array(labels_tmp.item()["nu_zenith"])
+    nu_azimuth = np.array(labels_tmp.item()["nu_azimuth"])
+    nu_direction = hp.spherical_to_cartesian(nu_zenith, nu_azimuth)
+
+    nu_energy = np.array(labels_tmp.item()["nu_energy"])
+
+    nu_direction = nu_direction[i_event:i_event+1,:]
+    nu_energy = nu_energy[i_event:i_event+1]
+
+    # check for nans and remove them
+    idx = ~(np.isnan(data))
+    idx = np.all(idx, axis=1)
+    idx = np.all(idx, axis=1)
+    idx = np.all(idx, axis=1)
+    data = data[idx, :, :, :]
+    nu_direction = nu_direction[idx]
+    nu_energy = nu_energy[idx]
+    data /= norm
+
+    return data, nu_direction, nu_energy
+
 
 def realize_noise(data, nu_direction, n_noise_iterations):
     print("Realizing noise...")
