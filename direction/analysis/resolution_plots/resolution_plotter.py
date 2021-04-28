@@ -43,7 +43,7 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
         ax1.set_xscale('log')
 
     # Remove last peices of data as their bins are weird for some azimuth
-    if file_name == "nu_energy" or file_name == "nu_azimuth":
+    if file_name == "nu_energy" or file_name == "nu_azimuth" or file_name == "nu_SNR":
         x_data = x_data[0:-1]
         ax1_data_y = ax1_data_y[0:-1]
         ax2_data_y = ax2_data_y[0:-1]
@@ -54,7 +54,6 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
         x_data = x_data[ind_count_not_0]
         ax1_data_y = ax1_data_y[ind_count_not_0]
         ax2_data_y = ax2_data_y[ind_count_not_0]
-
 
     lns1 = ax1.plot(x_data, ax1_data_y, "*", color=ax1_color, label = ax1_y_label)
 
@@ -68,7 +67,7 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
         ax1.set_ylim(0, 7)
         ax2.set_ylim(-1000, 27000)
     elif file_name == "nu_SNR":
-        pass # Remove this!!!
+        ax2.set_yscale('log')
         # ax1.set_ylim()
         # ax2.set_ylim()
     elif file_name == "nu_zenith":
@@ -364,7 +363,22 @@ plot_same(x_data, ax1_data_y, ax2_data_y)
 
 
 # --------- SNR plotting ---------
-max_LPDA = np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1)
+max_LPDA = np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1)
+
+print("data.shape:", data.shape)
+print("data:", data)
+
+print("data[:, :, 0:4].shape", data[:, 0:4, :].shape)
+print("data[:, :, 0:4]", data[:, 0:4, :])
+
+print("np.abs(data[:, :, 0:4]).shape", np.abs(data[:, 0:4, :]).shape)
+print("np.abs(data[:, :, 0:4])", np.abs(data[:, 0:4, :]))
+
+print("np.max(np.abs(data[:, :, 0:4]), axis=1).shape:", np.max(np.abs(data[:, 0:4, :]), axis=1).shape)
+print("np.max(np.abs(data[:, :, 0:4]), axis=1):", np.max(np.abs(data[:, 0:4, :]), axis=1))
+
+print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1).shape:", np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1).shape)
+print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1):", np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1))
 
 # Create figure
 fig_SNR = plt.figure()
@@ -372,8 +386,8 @@ fig_SNR = plt.figure()
 # Calculate binned statistics
 ax = fig_SNR.add_subplot(1, 1, 1)
 
-SNR_means = np.arange(0.5, 20.5, 2)
-SNR_bins = np.append(np.arange(0, 20, 2), [10000])
+SNR_means = np.arange(0.5, 30.5, 0.5)
+SNR_bins = np.append(np.arange(0, 30, 0.5), [10000])
 
 binned_resolution_SNR_mean = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins, statistic=statistic)[0]
 
@@ -418,8 +432,8 @@ ax1_data_y = binned_resolution_SNR_mean
 ax2_data_y = binned_resolution_SNR_mean_count
 
 file_name = "nu_SNR"
-plot_title_1 = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of $\nu$ event SNR"
-plot_title_2 = fr"count of events inside $\nu$ SNR bins for dataset {emission_model}"
+plot_title_1 = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of event SNR"
+plot_title_2 = fr"count of events inside SNR bins for dataset {emission_model}"
 plot_title = plot_title_1 + ", and\n" + plot_title_2
 legend_loc = "upper right"
 # Constants END
