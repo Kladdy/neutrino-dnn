@@ -176,6 +176,20 @@ def get_pred_angle_diff_data(run_name):
 
     return angle_difference_data
 
+def get_pred_angle_diff_data_and_angles(run_name):
+    prediction_file = f'{plots_dir}/model.{run_name}.h5_predicted.pkl'
+    with open(prediction_file, "br") as fin:
+        nu_direction_predict, nu_direction = pickle.load(fin)
+
+    # Only pick first 100000 data
+    # N = 100000
+    # nu_direction_predict = nu_direction_predict[:N]
+    # nu_direction = nu_direction[:N]
+
+    angle_difference_data = np.array([hp.get_angle(nu_direction_predict[i], nu_direction[i]) for i in range(len(nu_direction))]) / units.deg
+
+    return nu_direction_predict, nu_direction, angle_difference_data
+
 def calculate_percentage_interval(angle_difference_data, percentage=0.68):
     # Redefine N
     N = angle_difference_data.size

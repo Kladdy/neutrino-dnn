@@ -1,0 +1,11 @@
+F1:
+sed -i 's/dataset_run = "F..1"/dataset_run = "F1.1"/' constants.py
+python resolution_plotter.py --median --eps
+
+F2:
+sed -i 's/dataset_run = "F..1"/dataset_run = "F2.1"/' constants.py
+python resolution_plotter.py --median --eps
+
+F3:
+sed -i 's/dataset_run = "F..1"/dataset_run = "F3.1"/' constants.py
+python resolution_plotter.py --median --eps

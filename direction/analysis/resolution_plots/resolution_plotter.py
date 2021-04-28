@@ -68,8 +68,8 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
         ax2.set_ylim(-1000, 27000)
     elif file_name == "nu_SNR":
         ax2.set_yscale('log')
-        # ax1.set_ylim()
-        # ax2.set_ylim()
+        ax1.set_ylim(0, 13.5)
+        ax2.set_ylim(9, 2e5)
     elif file_name == "nu_zenith":
         ax1.set_ylim(0, 27)
         ax2.set_ylim(-4000, 85000)
@@ -363,22 +363,27 @@ plot_same(x_data, ax1_data_y, ax2_data_y)
 
 
 # --------- SNR plotting ---------
-max_LPDA = np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1)
+max_LPDA = np.max(np.max(np.abs(data[:, 0:4, :]), axis=2), axis=1)
+
+print(max_LPDA[:, 0])
+index_max_LPDA_big = max_LPDA[:, 0] * 10 > 300
+print(max_LPDA.index(index_max_LPDA_big[0]))
+
 
 print("data.shape:", data.shape)
-print("data:", data)
+#print("data:", data)
 
 print("data[:, :, 0:4].shape", data[:, 0:4, :].shape)
-print("data[:, :, 0:4]", data[:, 0:4, :])
+#print("data[:, :, 0:4]", data[:, 0:4, :])
 
 print("np.abs(data[:, :, 0:4]).shape", np.abs(data[:, 0:4, :]).shape)
-print("np.abs(data[:, :, 0:4])", np.abs(data[:, 0:4, :]))
+#print("np.abs(data[:, :, 0:4])", np.abs(data[:, 0:4, :]))
 
-print("np.max(np.abs(data[:, :, 0:4]), axis=1).shape:", np.max(np.abs(data[:, 0:4, :]), axis=1).shape)
-print("np.max(np.abs(data[:, :, 0:4]), axis=1):", np.max(np.abs(data[:, 0:4, :]), axis=1))
+print("np.max(np.abs(data[:, :, 0:4]), axis=1).shape:", np.max(np.abs(data[:, 0:4, :]), axis=2).shape)
+#print("np.max(np.abs(data[:, :, 0:4]), axis=1):", np.max(np.abs(data[:, 0:4, :]), axis=1))
 
-print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1).shape:", np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1).shape)
-print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1):", np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1))
+print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1).shape:", np.max(np.max(np.abs(data[:, 0:4, :]), axis=2), axis=1).shape)
+#print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1):", np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1))
 
 # Create figure
 fig_SNR = plt.figure()
@@ -386,8 +391,11 @@ fig_SNR = plt.figure()
 # Calculate binned statistics
 ax = fig_SNR.add_subplot(1, 1, 1)
 
-SNR_means = np.arange(0.5, 30.5, 0.5)
-SNR_bins = np.append(np.arange(0, 30, 0.5), [10000])
+SNR_means = np.linspace(2, 10, 30)
+SNR_bins = np.append(np.linspace(2, 10, 30), 10000)
+
+#SNR_means = np.arange(0.5, 300.5, 1)
+#SNR_bins = np.append(np.arange(0, 300, 1), [10000])
 
 binned_resolution_SNR_mean = stats.binned_statistic(max_LPDA[:, 0] / 10., angle_difference_data, bins=SNR_bins, statistic=statistic)[0]
 
@@ -423,7 +431,7 @@ fig_SNR_count.savefig(f"{plot_dir_old}/{statistic}_resolution_SNR_count_{run_nam
 
 # SNR resolution & count on same axis
 # Constants:
-x_label = r"$\nu$ event SNR"
+x_label = r"Event SNR"
 ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
