@@ -43,7 +43,7 @@ def fit_cauchy(xdata, ydata):
     xdata = [x + 40/90/2 for x in xdata]
     popt, pcov = curve_fit(f, xdata, ydata)
 
-    x_fit = np.linspace(0.8*min(xdata), 1.1*max(xdata), 200)
+    x_fit = np.linspace(1.1*min(xdata), 1.1*max(xdata), 200)
 
     x0_value = popt[1]
     gamma_value = popt[2]
@@ -79,6 +79,11 @@ print(colored(f"Plotting angles against eachother for {run_name}...", "yellow"))
 # Make sure plots folder exists
 if not os.path.exists(plots_dir):
     os.makedirs(plots_dir)
+
+# Make plotting in a deeper folder for easy download
+plot_dir = plots_dir + "/against_plots"
+if not os.path.exists(plot_dir):
+    os.makedirs(plot_dir)
 
 # Make sure predicted file exists, otherwise run evaluator
 prediction_file = f'{plots_dir}/model.{run_name}.h5_predicted.pkl'
@@ -134,9 +139,9 @@ axs[1].set_ylabel(r"$\theta_{pred.} - \theta_{true}$ (°)")
 plt.tight_layout()
 
 if eps:
-    plt.savefig(f"{plots_dir}/theta_against_eachother_{run_name}.eps", format="eps")
+    plt.savefig(f"{plot_dir}/theta_against_eachother_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plots_dir}/theta_against_eachother_{run_name}.png")
+    plt.savefig(f"{plot_dir}/theta_against_eachother_{run_name}.png", dpi=150)
 
 # Plot theta histograms
 bins = np.linspace(-20, 20, 90)
@@ -157,9 +162,9 @@ plt.legend()
 plt.tight_layout()
 
 if eps:
-    plt.savefig(f"{plots_dir}/theta_residuals_histogram_{run_name}.eps", format="eps")
+    plt.savefig(f"{plot_dir}/theta_residuals_histogram_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plots_dir}/theta_residuals_histogram_{run_name}.png")
+    plt.savefig(f"{plot_dir}/theta_residuals_histogram_{run_name}.png", dpi=150)
 
 # Clear plot
 plt.clf()
@@ -191,9 +196,9 @@ axs[1].set_ylabel(r"$\phi_{pred.} - \phi_{true}$ (°)")
 plt.tight_layout()
 
 if eps:
-    plt.savefig(f"{plots_dir}/phi_against_eachother_{run_name}.eps", format="eps")
+    plt.savefig(f"{plot_dir}/phi_against_eachother_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plots_dir}/phi_against_eachother_{run_name}.png")
+    plt.savefig(f"{plot_dir}/phi_against_eachother_{run_name}.png", dpi=150)
 
 # Plot phi histograms
 bins = np.linspace(-20, 20, 90)
@@ -213,9 +218,9 @@ plt.legend()
 plt.tight_layout()
 
 if eps:
-    plt.savefig(f"{plots_dir}/phi_residuals_histogram_{run_name}.eps", format="eps")
+    plt.savefig(f"{plot_dir}/phi_residuals_histogram_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plots_dir}/phi_residuals_histogram_{run_name}.png")
+    plt.savefig(f"{plot_dir}/phi_residuals_histogram_{run_name}.png", dpi=150)
 
 
 print(colored(f"Plotted angles against eachother for {run_name}!", "green", attrs=["bold"]))
