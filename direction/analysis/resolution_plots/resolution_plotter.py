@@ -365,9 +365,9 @@ plot_same(x_data, ax1_data_y, ax2_data_y)
 # --------- SNR plotting ---------
 max_LPDA = np.max(np.max(np.abs(data[:, 0:4, :]), axis=2), axis=1)
 
-print(max_LPDA[:, 0])
-index_max_LPDA_big = max_LPDA[:, 0] * 10 > 300
-print(max_LPDA.index(index_max_LPDA_big[0]))
+# print(max_LPDA[:, 0])
+# index_max_LPDA_big = max_LPDA[:, 0] * 10 > 300
+# print(max_LPDA.index(index_max_LPDA_big[0]))
 
 
 print("data.shape:", data.shape)
@@ -449,6 +449,24 @@ legend_loc = "upper right"
 plot_same(x_data, ax1_data_y, ax2_data_y)
 # ______________________________________
 
+
+# Save plotting data for plotting all at once
+with open(f'{plots_dir}/plotdata_{run_name}.npy', 'wb') as f:
+    np.save(f, nu_energy_bins)
+    np.save(f, binned_resolution_nu_energy)
+    np.save(f, binned_resolution_nu_energy_count)
+
+    np.save(f, nu_azimuth_bins / units.deg)
+    np.save(f, binned_resolution_nu_azimuth)
+    np.save(f, binned_resolution_nu_azimuth_count)
+
+    np.save(f, nu_zenith_bins / units.deg)
+    np.save(f, binned_resolution_nu_zenith)
+    np.save(f, binned_resolution_nu_zenith_count)
+
+    np.save(f, SNR_means)
+    np.save(f, binned_resolution_SNR_mean)
+    np.save(f, binned_resolution_SNR_mean_count)
 
 print(colored(f"Plotting angular resolution depending on properties for {run_name}!", "green", attrs=["bold"]))
 print("")
