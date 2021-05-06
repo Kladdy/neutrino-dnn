@@ -69,9 +69,9 @@ def plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data
     # lns2 = ax1.plot(x_data_2, ax1_data_y_2, "*", color=ax1_color, label = emission_models[1])
     # lns3 = ax1.plot(x_data_3, ax1_data_y_3, "*", color=ax1_color, label = emission_models[2])
 
-    lns1 = ax1.plot(x_data_1, ax1_data_y_1, "*", label = emission_models[0])
-    lns2 = ax1.plot(x_data_2, ax1_data_y_2, "*", label = emission_models[1])
-    lns3 = ax1.plot(x_data_3, ax1_data_y_3, "*", label = emission_models[2])
+    lns1 = ax1.plot(x_data_1, ax1_data_y_1, "*", label = emission_models[0], color=colours[0])
+    lns2 = ax1.plot(x_data_2, ax1_data_y_2, "*", label = emission_models[1], color=colours[1])
+    lns3 = ax1.plot(x_data_3, ax1_data_y_3, "*", label = emission_models[2], color=colours[2])
 
     # Set axis limits so they are same on all plots
     if file_name == "nu_energy":
@@ -107,6 +107,7 @@ eps = args.eps
 # Save the run name
 run_names = ["runF1.1", "runF2.1", "runF3.1"]
 emission_models = ["Alvarez2009 (had.)", "ARZ2020 (had.)", "ARZ2020 (had. + EM)"]
+colours = ["tab:green", "tab:red", "tab:purple"]
 
 print(colored(f"Plotting SAMEPLOTS resolution as function of neutrino properties for...", "yellow"))
 
@@ -238,9 +239,9 @@ x_label = r"True $\nu$ azimuth angle (°)"
 ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
-x_data_1 = nu_azimuth_bins_1 / units.deg
-x_data_2 = nu_azimuth_bins_2 / units.deg
-x_data_3 = nu_azimuth_bins_3 / units.deg
+x_data_1 = nu_azimuth_bins_1
+x_data_2 = nu_azimuth_bins_2
+x_data_3 = nu_azimuth_bins_3
 ax1_data_y_1 = binned_resolution_nu_azimuth_1
 ax1_data_y_2 = binned_resolution_nu_azimuth_2
 ax1_data_y_3 = binned_resolution_nu_azimuth_3
@@ -262,9 +263,9 @@ x_label = r"True $\nu$ zenith angle (°)"
 ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
-x_data_1 = nu_zenith_bins_1 / units.deg
-x_data_2 = nu_zenith_bins_2 / units.deg
-x_data_3 = nu_zenith_bins_3 / units.deg
+x_data_1 = nu_zenith_bins_1
+x_data_2 = nu_zenith_bins_2
+x_data_3 = nu_zenith_bins_3
 ax1_data_y_1 = binned_resolution_nu_zenith_1
 ax1_data_y_2 = binned_resolution_nu_zenith_2
 ax1_data_y_3 = binned_resolution_nu_zenith_3
