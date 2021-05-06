@@ -8,7 +8,7 @@ import pickle
 from scipy import stats
 from radiotools import helper as hp
 from NuRadioReco.utilities import units
-from toolbox import load_file, calculate_percentage_interval, get_pred_angle_diff_data_and_angles
+from toolbox import load_file, calculate_percentage_interval, get_pred_angle_diff_data_and_angles, get_histogram2d
 import argparse
 from termcolor import colored
 from constants import datapath, data_filename, label_filename, plots_dir, dataset_run
@@ -22,24 +22,29 @@ def fit_gaussian(xdata, ydata):
         return A * 1/(sigma*np.sqrt(2*np.pi)) * np.exp(-1/2*((x-mu)/sigma)**2)
 
 
-    popt, pcov = curve_fit(f, xdata, ydata)
+    #popt, pcov = curve_fit(f, xdata, ydata)
+    # TODO REMOVE THIS!
+    # Shift x-data values to adapt for binning
+    xdata = [x + 40/90/2 for x in xdata]
+    popt, pcov = curve_fit(f, xdata, ydata, p0=[30000, 0, 1])
 
-    x_fit = np.linspace(0.8*min(xdata), 1.1*max(xdata), 200)
+    x_fit = np.linspace(1.1*min(xdata), 1.1*max(xdata), 200)
 
     mu_value = popt[1]
     sigma_value = popt[2]
 
-    plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
-         label=fr'fit: $\mu={mu_value:5.2f}$, $\sigma={sigma_value:5.2f}$')
+    plt.plot(x_fit, f(x_fit, *popt), '--', color="tab:red",
+         label=fr'Gaussian fit: $\mu$={mu_value:5.2f}, $\sigma$={sigma_value:5.2f}')
 
 def fit_cauchy(xdata, ydata):
-    print("Fitting gaussian...")
+    print("Fitting cauchy...")
     def f(x, A, x0, gamma):
         return A * 1/(np.pi*gamma*(1+((x-x0)/gamma)**2))
 
 
     #popt, pcov = curve_fit(f, xdata, ydata)
     # TODO REMOVE THIS!
+    # Shift x-data values to adapt for binning
     xdata = [x + 40/90/2 for x in xdata]
     popt, pcov = curve_fit(f, xdata, ydata)
 
@@ -49,7 +54,7 @@ def fit_cauchy(xdata, ydata):
     gamma_value = popt[2]
 
     plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
-         label=fr'fit: $x_0$={x0_value:5.2f}, $\gamma$={gamma_value:5.2f}')
+         label=fr'Cauchy fit: $x_0$={x0_value:5.2f}, $\gamma$={gamma_value:5.2f}')
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot performance data')
@@ -63,6 +68,9 @@ args = parser.parse_args()
 run= args.run
 eps = args.eps
 fit = args.fit
+
+# Set colormap
+cmap="magma"
 
 # Save the run name and filename
 run_name = f"run{run}"
@@ -120,19 +128,21 @@ phi_pred_deg = phi_pred_rad / units.deg
 # Plot theta against eachother
 print("Plot theta...")
 
-fig, axs = plt.subplots(2, 1, gridspec_kw={'height_ratios': [2, 1]})
+fig, axs = plt.subplots(2, 1, gridspec_kw={'height_ratios': [1, 1]}, sharex=True)
 
 
-axs[0].plot(theta_truth_deg, theta_pred_deg, ',')
-axs[0].set_title(f"Predicted against true neutrino zenith angle\nfor dataset {emission_model}")
-axs[0].set_xlabel(r"$\theta_{true}$ (°)")
+#axs[0].plot(theta_truth_deg, theta_pred_deg, ',')
+get_histogram2d(theta_truth_deg, theta_pred_deg, bins = 90, cscale="log", cmap=cmap, ax1=axs[0],cbi_kwargs={'orientation': 'vertical'})
+axs[0].set_title(f"Predicted against true neutrino zenith angle and\nresidual for dataset {emission_model}")
+#axs[0].set_xlabel(r"$\theta_{true}$ (°)")
 axs[0].set_ylabel(r"$\theta_{pred.}$ (°)")
 
 # Get residuals
 theta_residuals = theta_truth_deg - theta_pred_deg
 
-axs[1].plot(theta_truth_deg, theta_residuals, ',')
-axs[1].set_title(f"Residual of predicted against true neutrino zenith angle\nfor dataset {emission_model}")
+#axs[1].plot(theta_truth_deg, theta_residuals, ',')
+get_histogram2d(theta_truth_deg, theta_residuals, bins = 90, cscale="log", cmap=cmap, ax1=axs[1],cbi_kwargs={'orientation': 'vertical'})
+#axs[1].set_title(f"Residual of predicted against true neutrino zenith angle\nfor dataset {emission_model}")
 axs[1].set_xlabel(r"$\theta_{true}$ (°)")
 axs[1].set_ylabel(r"$\theta_{pred.} - \theta_{true}$ (°)")
 
@@ -141,7 +151,7 @@ plt.tight_layout()
 if eps:
     plt.savefig(f"{plot_dir}/theta_against_eachother_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plot_dir}/theta_against_eachother_{run_name}.png", dpi=150)
+    plt.savefig(f"{plot_dir}/theta_against_eachother_{run_name}.png", dpi=600)
 
 # Plot theta histograms
 bins = np.linspace(-20, 20, 90)
@@ -155,7 +165,9 @@ p = ax.patches
 
 x_data = [patch.get_x() for patch in p]
 y_data = [patch.get_height() for patch in p]
-fit_cauchy(x_data, y_data)
+if fit:
+    fit_gaussian(x_data, y_data)
+    fit_cauchy(x_data, y_data)
 
 ax.set_title(fr"Histogram of $\theta$ residuals for dataset {emission_model}")
 plt.legend()
@@ -164,7 +176,7 @@ plt.tight_layout()
 if eps:
     plt.savefig(f"{plot_dir}/theta_residuals_histogram_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plot_dir}/theta_residuals_histogram_{run_name}.png", dpi=150)
+    plt.savefig(f"{plot_dir}/theta_residuals_histogram_{run_name}.png", dpi=600)
 
 # Clear plot
 plt.clf()
@@ -172,12 +184,12 @@ plt.clf()
 # Plot phi against eachother
 print("Plot phi...")
 
-fig, axs = plt.subplots(2, 1, gridspec_kw={'height_ratios': [2, 1]})
+fig, axs = plt.subplots(2, 1, gridspec_kw={'height_ratios': [1, 1]}, sharex=True)
 
-
-axs[0].plot(phi_truth_deg, phi_pred_deg, ',')
-axs[0].set_title(f"Predicted against true neutrino azimuth angle\nfor dataset {emission_model}")
-axs[0].set_xlabel(r"$\phi_{true}$ (°)")
+get_histogram2d(phi_truth_deg, phi_pred_deg, bins = 90, cscale="log", cmap=cmap, ax1=axs[0],cbi_kwargs={'orientation': 'vertical'})
+#axs[0].plot(phi_truth_deg, phi_pred_deg, ',')
+axs[0].set_title(f"Predicted against true neutrino azimuth angle and\nresidual for dataset {emission_model}")
+#axs[0].set_xlabel(r"$\phi_{true}$ (°)")
 axs[0].set_ylabel(r"$\phi_{pred.}$ (°)")
 
 # Get residuals
@@ -188,8 +200,9 @@ phi_residuals_under_minus180_idx = phi_residuals < -180
 phi_residuals[phi_residuals_above_180_idx] = -360 + phi_residuals[phi_residuals_above_180_idx]
 phi_residuals[phi_residuals_under_minus180_idx] = 360 + phi_residuals[phi_residuals_under_minus180_idx]
 
-axs[1].plot(phi_truth_deg, phi_residuals, ',')
-axs[1].set_title(f"Residual of predicted against true neutrino azimuth angle\nfor dataset {emission_model}")
+get_histogram2d(phi_truth_deg, phi_residuals, bins = 90, cscale="log", cmap=cmap, ax1=axs[1],cbi_kwargs={'orientation': 'vertical'})
+#axs[1].plot(phi_truth_deg, phi_residuals, ',')
+#axs[1].set_title(f"Residual of predicted against true neutrino azimuth angle\nfor dataset {emission_model}")
 axs[1].set_xlabel(r"$\phi_{true}$ (°)")
 axs[1].set_ylabel(r"$\phi_{pred.} - \phi_{true}$ (°)")
 
@@ -198,7 +211,7 @@ plt.tight_layout()
 if eps:
     plt.savefig(f"{plot_dir}/phi_against_eachother_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plot_dir}/phi_against_eachother_{run_name}.png", dpi=150)
+    plt.savefig(f"{plot_dir}/phi_against_eachother_{run_name}.png", dpi=600)
 
 # Plot phi histograms
 bins = np.linspace(-20, 20, 90)
@@ -211,7 +224,9 @@ p = ax.patches
 
 x_data = [patch.get_x() for patch in p]
 y_data = [patch.get_height() for patch in p]
-fit_cauchy(x_data, y_data)
+if fit:
+    fit_gaussian(x_data, y_data)
+    fit_cauchy(x_data, y_data)
 
 ax.set_title(fr"Histogram of $\phi$ residuals for dataset {emission_model}")
 plt.legend()
@@ -220,7 +235,7 @@ plt.tight_layout()
 if eps:
     plt.savefig(f"{plot_dir}/phi_residuals_histogram_{run_name}.eps", format="eps")
 else:  
-    plt.savefig(f"{plot_dir}/phi_residuals_histogram_{run_name}.png", dpi=150)
+    plt.savefig(f"{plot_dir}/phi_residuals_histogram_{run_name}.png", dpi=600)
 
 
 print(colored(f"Plotted angles against eachother for {run_name}!", "green", attrs=["bold"]))

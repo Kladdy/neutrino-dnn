@@ -2,11 +2,14 @@
 import os
 import numpy as np
 import time
+import matplotlib
+import matplotlib as mpl
 from constants import dataset, plots_dir
 from radiotools import helper as hp
 from radiotools import stats
 from NuRadioReco.utilities import units
 import pickle
+import copy
 # -------
 
 # Imports for histogram2d
@@ -143,13 +146,16 @@ def get_histogram2d(x=None, y=None, z=None,
         else:
             sys.exit("Normalisation %s is not known.")
 
+    my_cmap = copy.copy(matplotlib.cm.get_cmap(cmap)) # copy the default cmap
+    my_cmap.set_bad(my_cmap.colors[0])
+
     color_norm = mpl.colors.LogNorm() if cscale == "log" else None
     vmin, vmax = clim
-    im = ax.pcolormesh(xedges, yedges, z, shading=shading, vmin=vmin, vmax=vmax, norm=color_norm, cmap=cmap)
+    im = ax.pcolormesh(xedges, yedges, z, shading=shading, vmin=vmin, vmax=vmax, norm=color_norm, cmap=my_cmap)
 
     if colorbar is not None:
-        cbi = plt.colorbar(im, **cbi_kwargs)
-        cbi.ax.tick_params(axis='both', **{"labelsize": 30})
+        cbi = plt.colorbar(im, ax=ax, **cbi_kwargs)
+        cbi.ax.tick_params(axis='both', **{"labelsize": 15})
         cbi.set_label(clabel)
 
     ax.set_xlabel(xlabel)
@@ -160,7 +166,7 @@ def get_histogram2d(x=None, y=None, z=None,
 
     ax.set_title(title)
 
-    return fig, ax, im
+    #return fig, ax, im
 
 def get_pred_angle_diff_data(run_name):
     prediction_file = f'{plots_dir}/model.{run_name}.h5_predicted.pkl'
