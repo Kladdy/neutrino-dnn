@@ -352,6 +352,10 @@ runF7:
     base: runF1
     Aim: Code cleanup (use datasets)
 
+runF8:
+    base: runF7
+    Aim: Test RMSE error (https://stackoverflow.com/questions/43855162/rmse-rmsle-loss-function-in-keras)
+
 base_v4:
     Add progress from run6 and run7, add Weights and Biases support
 

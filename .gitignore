@@ -295,3 +295,9 @@ direction/analysis/resolution_plots/plots
 # models
 final_models/
 direction/analysis/skymap/plots
+
+# wandb
+wandb/
+
+# saved models
+saved_models/
