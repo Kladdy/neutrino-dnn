@@ -24,6 +24,10 @@ from toolbox import load_file
 from constants import datapath, data_filename, label_filename, test_file_ids
 # -------
 
+# Create custom loss function (RMSE)
+def root_mean_squared_error(y_true, y_pred):
+        return K.sqrt(K.mean(K.square(y_pred - y_true)))
+
 # Parse arguments
 parser = argparse.ArgumentParser(description='Evaluate angular resolution')
 parser.add_argument("run_id", type=str ,help="the id of the run, eg '3.2' for run3.2")
@@ -38,7 +42,7 @@ filename = f"model_history_log_{run_name}.csv"
 print(colored(f"Evaluating angular resolution for {run_name}...", "yellow"))
 
 # Load the model
-model = keras.models.load_model(f'saved_models/model.{run_name}.h5')
+model = keras.models.load_model(f'saved_models/model.{run_name}.h5', custom_objects={'root_mean_squared_error': root_mean_squared_error})
 
 # Load test file data and make predictions
     # Load first file

@@ -28,6 +28,11 @@ from tensorflow import keras
 from radiotools import helper as hp
 # -------
 
+# Create custom loss function (RMSE)
+def root_mean_squared_error(y_true, y_pred):
+        return K.sqrt(K.mean(K.square(y_pred - y_true)))
+
+
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot resolution as a function of different parameters')
 parser.add_argument("run_id", type=str ,help="the id of the run to be analyzed, eg '3.2' for run3.2")
@@ -55,7 +60,7 @@ if not os.path.exists(plots_dir):
 
 
 # Load the model
-model = keras.models.load_model(f'{saved_model_dir}/model.{run_name}.h5')
+model = keras.models.load_model(f'{saved_model_dir}/model.{run_name}.h5', custom_objects={'root_mean_squared_error': root_mean_squared_error})
 
 # Load test file data and make predictions
     # Load first file
