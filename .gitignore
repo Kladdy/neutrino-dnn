@@ -301,3 +301,5 @@ wandb/
 
 # saved models
 saved_models/
+
+direction/runs/runF8/plots/

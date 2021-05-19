@@ -69,19 +69,19 @@ def plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data
     # lns2 = ax1.plot(x_data_2, ax1_data_y_2, "*", color=ax1_color, label = emission_models[1])
     # lns3 = ax1.plot(x_data_3, ax1_data_y_3, "*", color=ax1_color, label = emission_models[2])
 
-    lns1 = ax1.plot(x_data_1, ax1_data_y_1, "*", label = emission_models[0], color=colours[0])
-    lns2 = ax1.plot(x_data_2, ax1_data_y_2, "*", label = emission_models[1], color=colours[1])
-    lns3 = ax1.plot(x_data_3, ax1_data_y_3, "*", label = emission_models[2], color=colours[2])
+    lns1 = ax1.plot(x_data_1, ax1_data_y_1, point_format[0], label = emission_models[0], color=colours[0])
+    lns2 = ax1.plot(x_data_2, ax1_data_y_2, point_format[1], label = emission_models[1], color=colours[1])
+    lns3 = ax1.plot(x_data_3, ax1_data_y_3, point_format[2], label = emission_models[2], color=colours[2])
 
     # Set axis limits so they are same on all plots
     if file_name == "nu_energy":
-        ax1.set_ylim(0, 7)
-    elif file_name == "nu_SNR":
         ax1.set_ylim(0, 13.5)
+    elif file_name == "nu_SNR":
+        ax1.set_ylim(0, 22.5)
     elif file_name == "nu_zenith":
-        ax1.set_ylim(0, 27)
+        ax1.set_ylim(0, 40)
     elif file_name == "nu_azimuth":
-        ax1.set_ylim(0, 3.7)
+        ax1.set_ylim(0, 8)
 
     plt.title(plot_title)
 
@@ -91,9 +91,9 @@ def plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data
 
     #plt.subplots_adjust(top=0.88)
     if eps:
-        fig_same.savefig(f"{plot_dir}/sigma68_SAMEPLOT_{file_name}_same_statistic_{statistic}.eps", format="eps", bbox_inches='tight')
+        fig_same.savefig(f"{plot_dir}/sigma68_SAMEPLOT_{file_name}_same_statistic_{statistic_string}.eps", format="eps", bbox_inches='tight')
     else:
-        fig_same.savefig(f"{plot_dir}/sigma68_SAMEPLOT_{file_name}_same_statistic_{statistic}.png", bbox_inches='tight')
+        fig_same.savefig(f"{plot_dir}/sigma68_SAMEPLOT_{file_name}_same_statistic_{statistic_string}.png", bbox_inches='tight')
 
 
 # Parse arguments
@@ -108,13 +108,14 @@ eps = args.eps
 run_names = ["runF1.1", "runF2.1", "runF3.1"]
 emission_models = ["Alvarez2009 (had.)", "ARZ2020 (had.)", "ARZ2020 (had. + EM)"]
 colours = ["tab:green", "tab:red", "tab:purple"]
+point_format = ["v", "P", "p"]
+
 
 print(colored(f"Plotting SAMEPLOTS resolution as function of neutrino properties for...", "yellow"))
 
 # See which statistic to calculate...
-statistic = "median"
-statistic_string = "Median"
-print(f"Calulating with statistic {statistic}...")
+statistic_string = "SIXTYEIGHT"
+print(f"Calulating with statistic {statistic_string}...")
 
 
 # Make sure plots folder exists
@@ -128,7 +129,7 @@ if not os.path.exists(plot_dir):
     os.makedirs(plot_dir)
 
 # Make sure same_data file exists, otherwise run evaluator
-same_data_file = f'{plots_dir}/plotdata_{run_names[0]}.npy'
+same_data_file = f'{plots_dir}/plotdata_SIXTYEIGHT_{run_names[0]}.npy'
 if not os.path.isfile(same_data_file):
     print("Same datafile does not exist!")
     raise Exception
@@ -152,7 +153,7 @@ with open(same_data_file, 'rb') as f:
     binned_resolution_SNR_mean_count_1 = np.load(f)
 
 # Make sure same_data file exists, otherwise run evaluator
-same_data_file = f'{plots_dir}/plotdata_{run_names[1]}.npy'
+same_data_file = f'{plots_dir}/plotdata_SIXTYEIGHT_{run_names[1]}.npy'
 if not os.path.isfile(same_data_file):
     print("Same datafile does not exist!")
     raise Exception
@@ -178,7 +179,7 @@ with open(same_data_file, 'rb') as f:
 
 
 # Make sure same_data file exists, otherwise run evaluator
-same_data_file = f'{plots_dir}/plotdata_{run_names[2]}.npy'
+same_data_file = f'{plots_dir}/plotdata_SIXTYEIGHT_{run_names[2]}.npy'
 if not os.path.isfile(same_data_file):
     print("Same datafile does not exist!")
     raise Exception
@@ -213,7 +214,7 @@ ax2_data_y_3 = binned_resolution_nu_zenith_count_3
 ax1_color = 'tab:blue'
 ax2_color = 'tab:orange'
 x_label = r"True $\nu$ energy (eV)"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data_1 = nu_energy_bins_1
@@ -225,7 +226,7 @@ ax1_data_y_3 = binned_resolution_nu_energy_3
 
 
 file_name = "nu_energy"
-plot_title = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy"
+plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy"
 legend_loc = "upper center"
 # Constants END
 
@@ -236,7 +237,7 @@ plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data_y_3
 # Azimuth resolution & count on same axis
 # Constants:
 x_label = r"True $\nu$ azimuth angle (°)"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data_1 = nu_azimuth_bins_1
@@ -248,8 +249,8 @@ ax1_data_y_3 = binned_resolution_nu_azimuth_3
 
 
 file_name = "nu_azimuth"
-plot_title = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of $\nu$ azimuth angle"
-legend_loc = "upper center"
+plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ azimuth angle"
+legend_loc = "upper right"
 # Constants END
 
 plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data_y_3, ax2_data_y_1, ax2_data_y_2, ax2_data_y_3)
@@ -260,7 +261,7 @@ plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data_y_3
 # Zenith resolution & count on same axis
 # Constants:
 x_label = r"True $\nu$ zenith angle (°)"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data_1 = nu_zenith_bins_1
@@ -272,7 +273,7 @@ ax1_data_y_3 = binned_resolution_nu_zenith_3
 
 
 file_name = "nu_zenith"
-plot_title = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of $\nu$ zenith angle"
+plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ zenith angle"
 legend_loc = "upper left"
 # Constants END
 
@@ -283,7 +284,7 @@ plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data_y_3
 # SNR resolution & count on same axis
 # Constants:
 x_label = r"Event SNR"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data_1 = SNR_means_1
@@ -295,7 +296,7 @@ ax1_data_y_3 = binned_resolution_SNR_mean_3
 
 
 file_name = "nu_SNR"
-plot_title = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of event SNR"
+plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of event SNR"
 legend_loc = "upper right"
 # Constants END
 

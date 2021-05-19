@@ -20,6 +20,7 @@ import time
 import pickle
 from NuRadioReco.utilities import units
 from scipy import stats
+from radiotools import stats as rtSTATS
 from termcolor import colored
 from mpl_toolkits.mplot3d import Axes3D
 from itertools import product, combinations
@@ -64,18 +65,19 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
 
     # Set axis limits so they are same on all plots
     if file_name == "nu_energy":
-        ax1.set_ylim(0, 7)
-        ax2.set_ylim(-1000, 27000)
+        ax1.set_ylim(0, 13.5)
+        ax2.set_ylim(0, 27000)
     elif file_name == "nu_SNR":
         ax2.set_yscale('log')
-        ax1.set_ylim(0, 13.5)
+        ax1.set_ylim(0, 22.5)
         ax2.set_ylim(9, 2e5)
     elif file_name == "nu_zenith":
-        ax1.set_ylim(0, 27)
-        ax2.set_ylim(-4000, 85000)
+        ax2.set_yscale('log')
+        ax1.set_ylim(0, 40)
+        ax2.set_ylim(1.1, 300000)
     elif file_name == "nu_azimuth":
-        ax1.set_ylim(0, 3.7)
-        ax2.set_ylim(-1000, 20000)
+        ax1.set_ylim(0, 8)
+        ax2.set_ylim(0, 13500)
 
     plt.title(plot_title)
 
@@ -88,21 +90,25 @@ def plot_same(x_data, ax1_data_y, ax2_data_y):
 
     #plt.subplots_adjust(top=0.88)
     if eps:
-        fig_same.savefig(f"{plot_dir}/sigma68_{file_name}_same_{run_name}_statistic_{statistic}.eps", format="eps", bbox_inches='tight')
+        fig_same.savefig(f"{plot_dir}/sigma68_{file_name}_same_{run_name}_statistic_{statistic_string}.eps", format="eps", bbox_inches='tight')
     else:
-        fig_same.savefig(f"{plot_dir}/sigma68_{file_name}_same_{run_name}_statistic_{statistic}.png", bbox_inches='tight')
+        fig_same.savefig(f"{plot_dir}/sigma68_{file_name}_same_{run_name}_statistic_{statistic_string}.png", bbox_inches='tight')
 
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Plot performance data')
 parser.add_argument('--eps', dest='eps', action='store_true', help="flag to image as .eps instead of .png")
 parser.add_argument('--median', dest='median', action='store_true', help="flag to do median instead of mean")
+parser.add_argument('--sixtyeight', dest='sixtyeight', action='store_true', help="flag to do 68 percent interval")
 parser.set_defaults(eps=False)
 parser.set_defaults(median=False)
+parser.set_defaults(sixtyeight=False)
+
 
 args = parser.parse_args()
 eps = args.eps
 median = args.median
+sixtyeight = args.sixtyeight
 
 # Save the run name
 run_name = f"run{dataset_run}"
@@ -115,14 +121,32 @@ elif run_name == "runF3.1":
 
 print(colored(f"Plotting resolution as function of neutrino properties for {run_name}...", "yellow"))
 
+# Define 68 % interval statistic function
+def calculate_percentage_interval(angle_difference_data):
+    percentage=0.68
+    N = angle_difference_data.size
+    weights = np.ones(N)
+
+    angle = rtSTATS.quantile_1d(angle_difference_data, weights, percentage)
+
+    return angle
+
+
 # See which statistic to calculate...
 if median:
+    print("ITS MEDIAN!")
     statistic = "median"
     statistic_string = "Median"
-else:
-    statistic = "mean"
-    statistic_string = "Mean"
-print(f"Calulating with statistic {statistic}...")
+# else:
+#     statistic = "mean"
+#     statistic_string = "Mean"
+
+if sixtyeight:
+    print("ITS SIXTYEIGHT!")
+    statistic = calculate_percentage_interval
+    statistic_string = "SIXTYEIGHT"
+
+print(f"Calulating with statistic {statistic_string}...")
 
 
 # Make sure plots folder exists
@@ -194,7 +218,7 @@ ax.set_xscale('log')
 
 plt.title(fr"Mean value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy for dataset {emission_model}")
 fig_energy.tight_layout()
-fig_energy.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_energy_{run_name}.png")
+fig_energy.savefig(f"{plot_dir_old}/{statistic_string}_resolution_nu_energy_{run_name}.png")
 # ___________________________________
 
 # --------- Energy count plotting ---------
@@ -213,7 +237,7 @@ ax.set_xscale('log')
 
 plt.title(fr"Count of events inside $\nu$ energy bins for dataset {emission_model}")
 fig_energy_count.tight_layout()
-fig_energy_count.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_energy_count_{run_name}.png")
+fig_energy_count.savefig(f"{plot_dir_old}/{statistic_string}_resolution_nu_energy_count_{run_name}.png")
 # ___________________________________
 
 # Energy resolution & count on same axis
@@ -221,7 +245,7 @@ fig_energy_count.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_energy_count
 ax1_color = 'tab:blue'
 ax2_color = 'tab:orange'
 x_label = r"True $\nu$ energy (eV)"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data = nu_energy_bins
@@ -229,7 +253,7 @@ ax1_data_y = binned_resolution_nu_energy
 ax2_data_y = binned_resolution_nu_energy_count
 
 file_name = "nu_energy"
-plot_title_1 = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy"
+plot_title_1 = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy"
 plot_title_2 = fr"count of events inside $\nu$ energy bins for dataset {emission_model}"
 plot_title = plot_title_1 + ", and\n" + plot_title_2
 legend_loc = "upper center"
@@ -257,7 +281,7 @@ ax.set_ylabel("angular resolution (°)")
 
 plt.title(f"Mean resolution as a function of nu_azimuth for {run_name}")
 fig_azimuth.tight_layout()
-fig_azimuth.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_azimuth_{run_name}.png")
+fig_azimuth.savefig(f"{plot_dir_old}/{statistic_string}_resolution_nu_azimuth_{run_name}.png")
 # ___________________________________
 
 # --------- Azimuth count plotting ---------
@@ -277,13 +301,13 @@ ax.set_ylabel("count")
 
 plt.title(f"Count of events inside bins as a function of nu_azimuth for {run_name}")
 fig_azimuth_count.tight_layout()
-fig_azimuth_count.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_azimuth_count_{run_name}.png")
+fig_azimuth_count.savefig(f"{plot_dir_old}/{statistic_string}_resolution_nu_azimuth_count_{run_name}.png")
 # ___________________________________
 
 # Azimuth resolution & count on same axis
 # Constants:
 x_label = r"True $\nu$ azimuth angle (°)"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data = nu_azimuth_bins / units.deg
@@ -291,10 +315,10 @@ ax1_data_y = binned_resolution_nu_azimuth
 ax2_data_y = binned_resolution_nu_azimuth_count
 
 file_name = "nu_azimuth"
-plot_title_1 = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of $\nu$ azimuth angle"
+plot_title_1 = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ azimuth angle"
 plot_title_2 = fr"count of events inside $\nu$ azimuth angle bins for dataset {emission_model}"
 plot_title = plot_title_1 + ", and\n" + plot_title_2
-legend_loc = "upper center"
+legend_loc = "upper left"
 # Constants END
 
 plot_same(x_data, ax1_data_y, ax2_data_y)
@@ -319,7 +343,7 @@ ax.set_ylabel("angular resolution (°)")
 
 plt.title(f"Mean resolution as a function of nu_zenith for {run_name}")
 fig_zenith.tight_layout()
-fig_zenith.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_zenith_{run_name}.png")
+fig_zenith.savefig(f"{plot_dir_old}/{statistic_string}_resolution_nu_zenith_{run_name}.png")
 # ___________________________________
 
 # --------- Zenith count plotting ---------
@@ -337,13 +361,13 @@ ax.set_ylabel("count")
 
 plt.title(f"Count of events inside bins as a function of nu_zenith for {run_name}")
 fig_zenith_count.tight_layout()
-fig_zenith_count.savefig(f"{plot_dir_old}/{statistic}_resolution_nu_zenith_count_{run_name}.png")
+fig_zenith_count.savefig(f"{plot_dir_old}/{statistic_string}_resolution_nu_zenith_count_{run_name}.png")
 # ___________________________________
 
 # Zenith resolution & count on same axis
 # Constants:
 x_label = r"True $\nu$ zenith angle (°)"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data = nu_zenith_bins / units.deg
@@ -351,7 +375,7 @@ ax1_data_y = binned_resolution_nu_zenith
 ax2_data_y = binned_resolution_nu_zenith_count
 
 file_name = "nu_zenith"
-plot_title_1 = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of $\nu$ zenith angle"
+plot_title_1 = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ zenith angle"
 plot_title_2 = fr"count of events inside $\nu$ zenith angle bins for dataset {emission_model}"
 plot_title = plot_title_1 + ", and\n" + plot_title_2
 legend_loc = "upper left"
@@ -370,20 +394,20 @@ max_LPDA = np.max(np.max(np.abs(data[:, 0:4, :]), axis=2), axis=1)
 # print(max_LPDA.index(index_max_LPDA_big[0]))
 
 
-print("data.shape:", data.shape)
-#print("data:", data)
+# print("data.shape:", data.shape)
+# #print("data:", data)
 
-print("data[:, :, 0:4].shape", data[:, 0:4, :].shape)
-#print("data[:, :, 0:4]", data[:, 0:4, :])
+# print("data[:, :, 0:4].shape", data[:, 0:4, :].shape)
+# #print("data[:, :, 0:4]", data[:, 0:4, :])
 
-print("np.abs(data[:, :, 0:4]).shape", np.abs(data[:, 0:4, :]).shape)
-#print("np.abs(data[:, :, 0:4])", np.abs(data[:, 0:4, :]))
+# print("np.abs(data[:, :, 0:4]).shape", np.abs(data[:, 0:4, :]).shape)
+# #print("np.abs(data[:, :, 0:4])", np.abs(data[:, 0:4, :]))
 
-print("np.max(np.abs(data[:, :, 0:4]), axis=1).shape:", np.max(np.abs(data[:, 0:4, :]), axis=2).shape)
-#print("np.max(np.abs(data[:, :, 0:4]), axis=1):", np.max(np.abs(data[:, 0:4, :]), axis=1))
+# print("np.max(np.abs(data[:, :, 0:4]), axis=1).shape:", np.max(np.abs(data[:, 0:4, :]), axis=2).shape)
+# #print("np.max(np.abs(data[:, :, 0:4]), axis=1):", np.max(np.abs(data[:, 0:4, :]), axis=1))
 
-print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1).shape:", np.max(np.max(np.abs(data[:, 0:4, :]), axis=2), axis=1).shape)
-#print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1):", np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1))
+# print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1).shape:", np.max(np.max(np.abs(data[:, 0:4, :]), axis=2), axis=1).shape)
+# #print("np.max(np.max(np.abs(data[:, :, 0:4]), axis=1), axis=1):", np.max(np.max(np.abs(data[:, 0:4, :]), axis=1), axis=1))
 
 # Create figure
 fig_SNR = plt.figure()
@@ -406,7 +430,7 @@ ax.set_ylabel("angular resolution (°)")
 
 plt.title(f"Mean resolution as a function of SNR for {run_name}")
 fig_SNR.tight_layout()
-fig_SNR.savefig(f"{plot_dir_old}/{statistic}_resolution_SNR_{run_name}.png")
+fig_SNR.savefig(f"{plot_dir_old}/{statistic_string}_resolution_SNR_{run_name}.png")
 # ___________________________________
 
 # --------- SNR count plotting ---------
@@ -425,14 +449,14 @@ ax.set_ylabel("count")
 
 plt.title(f"Count of events inside bins as a function of SNR for {run_name}")
 fig_SNR_count.tight_layout()
-fig_SNR_count.savefig(f"{plot_dir_old}/{statistic}_resolution_SNR_count_{run_name}.png")
+fig_SNR_count.savefig(f"{plot_dir_old}/{statistic_string}_resolution_SNR_count_{run_name}.png")
 # ___________________________________
 
 
 # SNR resolution & count on same axis
 # Constants:
 x_label = r"Event SNR"
-ax1_y_label = fr"{statistic_string} $\sigma{sigma_68_string}$ in bin (°)"
+ax1_y_label = fr"$\sigma{sigma_68_string}$ in bin (°)"
 ax2_y_label = "Events"
 
 x_data = SNR_means
@@ -440,7 +464,7 @@ ax1_data_y = binned_resolution_SNR_mean
 ax2_data_y = binned_resolution_SNR_mean_count
 
 file_name = "nu_SNR"
-plot_title_1 = fr"{statistic_string} value of $\sigma{sigma_68_string}$ as a function of event SNR"
+plot_title_1 = fr"Value of $\sigma{sigma_68_string}$ as a function of event SNR"
 plot_title_2 = fr"count of events inside SNR bins for dataset {emission_model}"
 plot_title = plot_title_1 + ", and\n" + plot_title_2
 legend_loc = "upper right"
@@ -451,7 +475,7 @@ plot_same(x_data, ax1_data_y, ax2_data_y)
 
 
 # Save plotting data for plotting all at once
-with open(f'{plots_dir}/plotdata_{run_name}.npy', 'wb') as f:
+with open(f'{plots_dir}/plotdata_{statistic_string}_{run_name}.npy', 'wb') as f:
     np.save(f, nu_energy_bins)
     np.save(f, binned_resolution_nu_energy)
     np.save(f, binned_resolution_nu_energy_count)

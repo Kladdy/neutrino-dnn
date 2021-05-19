@@ -147,7 +147,9 @@ def get_histogram2d(x=None, y=None, z=None,
             sys.exit("Normalisation %s is not known.")
 
     my_cmap = copy.copy(matplotlib.cm.get_cmap(cmap)) # copy the default cmap
-    my_cmap.set_bad(my_cmap.colors[0])
+    #my_cmap.set_bad(my_cmap.colors[0])
+    my_cmap.set_bad(color = 'w')
+    
 
     color_norm = mpl.colors.LogNorm() if cscale == "log" else None
     vmin, vmax = clim

@@ -70,7 +70,12 @@ eps = args.eps
 fit = args.fit
 
 # Set colormap
-cmap="magma"
+#cmap="magma"
+cmap="BuPu"
+
+# set binnings
+azimuth_binning_amount = 90
+zenith_binning_amount = 90
 
 # Save the run name and filename
 run_name = f"run{run}"
@@ -132,7 +137,7 @@ fig, axs = plt.subplots(2, 1, gridspec_kw={'height_ratios': [1, 1]}, sharex=True
 
 
 #axs[0].plot(theta_truth_deg, theta_pred_deg, ',')
-get_histogram2d(theta_truth_deg, theta_pred_deg, bins = 90, cscale="log", cmap=cmap, ax1=axs[0],cbi_kwargs={'orientation': 'vertical'})
+get_histogram2d(theta_truth_deg, theta_pred_deg, bins = zenith_binning_amount, cscale="log", cmap=cmap, ax1=axs[0],cbi_kwargs={'orientation': 'vertical'})
 axs[0].set_title(f"Predicted against true neutrino zenith angle and\nresidual for dataset {emission_model}")
 #axs[0].set_xlabel(r"$\theta_{true}$ (°)")
 axs[0].set_ylabel(r"$\theta_{pred.}$ (°)")
@@ -141,7 +146,7 @@ axs[0].set_ylabel(r"$\theta_{pred.}$ (°)")
 theta_residuals = theta_truth_deg - theta_pred_deg
 
 #axs[1].plot(theta_truth_deg, theta_residuals, ',')
-get_histogram2d(theta_truth_deg, theta_residuals, bins = 90, cscale="log", cmap=cmap, ax1=axs[1],cbi_kwargs={'orientation': 'vertical'})
+get_histogram2d(theta_truth_deg, theta_residuals, bins = zenith_binning_amount, cscale="log", cmap=cmap, ax1=axs[1],cbi_kwargs={'orientation': 'vertical'})
 #axs[1].set_title(f"Residual of predicted against true neutrino zenith angle\nfor dataset {emission_model}")
 axs[1].set_xlabel(r"$\theta_{true}$ (°)")
 axs[1].set_ylabel(r"$\theta_{pred.} - \theta_{true}$ (°)")
@@ -160,6 +165,10 @@ fig, ax = php.get_histogram(theta_residuals, bins=bins,
                             ylabel="Events", kwargs={'color':"lightsteelblue", 'ec':"k"})
  #                           ylabel="Events", kwargs={'color':"steelblue", 'ec':"steelblue"})
 
+# Get mean, median and std
+theta_mean = np.mean(theta_residuals)
+theta_median = np.median(theta_residuals)
+theta_std = np.std(theta_residuals)
 
 p = ax.patches
 
@@ -172,6 +181,8 @@ if fit:
 ax.set_title(fr"Histogram of $\theta$ residuals for dataset {emission_model}")
 plt.legend()
 plt.tight_layout()
+
+plt.text(19,int(np.max(y_data)*3/4),f"Mean: {theta_mean:.1e}°\nMedian: {theta_median:.1e}°\nSTD: {theta_std:.1f}°", ha="right")
 
 if eps:
     plt.savefig(f"{plot_dir}/theta_residuals_histogram_{run_name}.eps", format="eps")
@@ -186,7 +197,7 @@ print("Plot phi...")
 
 fig, axs = plt.subplots(2, 1, gridspec_kw={'height_ratios': [1, 1]}, sharex=True)
 
-get_histogram2d(phi_truth_deg, phi_pred_deg, bins = 90, cscale="log", cmap=cmap, ax1=axs[0],cbi_kwargs={'orientation': 'vertical'})
+get_histogram2d(phi_truth_deg, phi_pred_deg, bins = azimuth_binning_amount, cscale="log", cmap=cmap, ax1=axs[0],cbi_kwargs={'orientation': 'vertical'})
 #axs[0].plot(phi_truth_deg, phi_pred_deg, ',')
 axs[0].set_title(f"Predicted against true neutrino azimuth angle and\nresidual for dataset {emission_model}")
 #axs[0].set_xlabel(r"$\phi_{true}$ (°)")
@@ -200,7 +211,7 @@ phi_residuals_under_minus180_idx = phi_residuals < -180
 phi_residuals[phi_residuals_above_180_idx] = -360 + phi_residuals[phi_residuals_above_180_idx]
 phi_residuals[phi_residuals_under_minus180_idx] = 360 + phi_residuals[phi_residuals_under_minus180_idx]
 
-get_histogram2d(phi_truth_deg, phi_residuals, bins = 90, cscale="log", cmap=cmap, ax1=axs[1],cbi_kwargs={'orientation': 'vertical'})
+get_histogram2d(phi_truth_deg, phi_residuals, bins = azimuth_binning_amount, cscale="log", cmap=cmap, ax1=axs[1],cbi_kwargs={'orientation': 'vertical'})
 #axs[1].plot(phi_truth_deg, phi_residuals, ',')
 #axs[1].set_title(f"Residual of predicted against true neutrino azimuth angle\nfor dataset {emission_model}")
 axs[1].set_xlabel(r"$\phi_{true}$ (°)")
@@ -231,6 +242,13 @@ if fit:
 ax.set_title(fr"Histogram of $\phi$ residuals for dataset {emission_model}")
 plt.legend()
 plt.tight_layout()
+
+# Get mean, median and std
+phi_mean = np.mean(phi_residuals)
+phi_median = np.median(phi_residuals)
+phi_std = np.std(phi_residuals)
+plt.text(19,int(np.max(y_data)*3/4),f"Mean: {phi_mean:.1e}°\nMedian: {phi_median:.1e}°\nSTD: {phi_std:.1f}°", ha="right")
+
 
 if eps:
     plt.savefig(f"{plot_dir}/phi_residuals_histogram_{run_name}.eps", format="eps")
