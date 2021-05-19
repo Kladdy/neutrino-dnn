@@ -13,7 +13,7 @@ import pickle
 import math
 import os
 from matplotlib import colors as mcolors
-
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 # -----------------------
@@ -109,7 +109,7 @@ def get_histogram2d(x=None, y=None, z=None,
 
     if colorbar is not None:
         cbi = plt.colorbar(im, **cbi_kwargs)
-        cbi.ax.tick_params(axis='both', **{"labelsize": 30})
+        cbi.ax.tick_params(axis='both', **{"labelsize": 14})
         cbi.set_label(clabel)
 
     ax.set_xlabel(xlabel)
