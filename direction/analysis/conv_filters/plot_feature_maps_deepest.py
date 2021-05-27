@@ -44,9 +44,13 @@ model.load_weights(f'/Users/sigge/Dropbox/Universitetet/Kurser/Kandidatarbete/An
 data, nu_direction = load_file(i_file)
 
 # redefine model to output right after the first hidden layer
-print(model.layers)
-sys.exit()
-#model = Sequential(inputs=model.inputs, outputs=model.layers[0].output)
+# print(model.layers)
+# i = 0
+# for layer in model.layers[0:16]:
+#     print(i, layer)
+#     i += 1
+# sys.exit()
+model = Sequential(model.layers[0:15])
 
 # Load a clean event
 event = load_event(45015)
@@ -72,7 +76,7 @@ feature_maps = model.predict(event)
 n_filters_to_show = 5
 
 # Find biases and get the index of the top highest
-biases = get_biases(1)
+biases = get_biases(14)
 ind_flipped = find_highest_biases(biases)
 
 # plot first n filters
@@ -84,7 +88,7 @@ for _ in range(n_filters_to_show):
 	ax.set_xticks([])
 	ax.set_yticks([])
 	# plot filter channel in grayscale
-	pyplot.imshow(feature_maps[0, :, :, ind_flipped[ix]], cmap='gray', aspect=100, interpolation="none")
+	pyplot.imshow(feature_maps[0, :, :, ind_flipped[ix]], cmap='gray', aspect=0.1, interpolation="none")
 	ix += 1
 
 # show the figure

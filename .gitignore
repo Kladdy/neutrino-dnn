@@ -299,6 +299,9 @@ direction/analysis/skymap/plots
 # wandb
 wandb/
 
+# figs
+figs/
+
 # saved models
 saved_models/
 

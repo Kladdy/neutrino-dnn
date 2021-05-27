@@ -66,7 +66,7 @@ feature_maps = model.predict(event)
 # 		ix += 1
 
 # Variables
-n_filters_to_show = 5
+n_filters_to_show = 9
 
 # Find biases and get the index of the top highest
 biases = get_biases(1)
@@ -76,13 +76,25 @@ ind_flipped = find_highest_biases(biases)
 ix = 0
 for _ in range(n_filters_to_show):
 
+	if ix < 3:
+		ax = pyplot.subplot(3, 3, 3*ix+1)
+	elif ix < 6:
+		ax = pyplot.subplot(3, 3, 3*ix-7)
+	else:
+		ax = pyplot.subplot(3, 3, 3*ix-15)
+
 	# specify subplot and turn of axis
-	ax = pyplot.subplot(n_filters_to_show, 1, ix+1)
+	
 	ax.set_xticks([])
 	ax.set_yticks([])
 	# plot filter channel in grayscale
 	pyplot.imshow(feature_maps[0, :, :, ind_flipped[ix]], cmap='gray', aspect=100, interpolation="none")
 	ix += 1
 
+	pyplot.text(-0.2, 0.5, rf'$F_{ix}$', horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, size=12)
+
+pyplot.subplots_adjust(wspace=0.1, hspace=0.2)
+
 # show the figure
-pyplot.show()
+pyplot.margins(0,0)
+pyplot.savefig(f"/Users/sigge/Dropbox/Universitetet/Kurser/Kandidatarbete/Analysis/neutrino-dnn/direction/analysis/conv_filters/figs/{run_name}_features.png", dpi=1000, bbox_inches = 'tight')
