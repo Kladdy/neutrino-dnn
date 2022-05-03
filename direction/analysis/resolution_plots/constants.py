@@ -8,7 +8,7 @@ import datasets
 #         True / False (default)
 #     noise:
 #         True (default) / False
-dataset_run = "F3.1"
+dataset_run = "F1.1"
 
 if dataset_run == "F1.1":
     dataset_name = "ALVAREZ"

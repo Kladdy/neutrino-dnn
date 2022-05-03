@@ -84,6 +84,7 @@ def plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data
         ax1.set_ylim(0, 8)
 
     plt.title(plot_title)
+    plt.grid(True, which="both")
 
     ax1.legend()
 
@@ -91,9 +92,9 @@ def plot_same(x_data_1, x_data_2, x_data_3, ax1_data_y_1, ax1_data_y_2, ax1_data
 
     #plt.subplots_adjust(top=0.88)
     if eps:
-        fig_same.savefig(f"{plot_dir}/sigma68_SAMEPLOT_{file_name}_same_statistic_{statistic_string}.eps", format="eps", bbox_inches='tight')
+        fig_same.savefig(f"{plot_dir}/SAMEPLOT_{file_name}_same_statistic_{statistic_string}.eps", format="eps", bbox_inches='tight')
     else:
-        fig_same.savefig(f"{plot_dir}/sigma68_SAMEPLOT_{file_name}_same_statistic_{statistic_string}.png", bbox_inches='tight')
+        fig_same.savefig(f"{plot_dir}/SAMEPLOT_{file_name}_same_statistic_{statistic_string}.png", bbox_inches='tight')
 
 
 # Parse arguments
@@ -226,7 +227,8 @@ ax1_data_y_3 = binned_resolution_nu_energy_3
 
 
 file_name = "nu_energy"
-plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy"
+# plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ energy"
+plot_title = ""
 legend_loc = "upper center"
 # Constants END
 
@@ -249,7 +251,8 @@ ax1_data_y_3 = binned_resolution_nu_azimuth_3
 
 
 file_name = "nu_azimuth"
-plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ azimuth angle"
+# plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ azimuth angle"
+plot_title = ""
 legend_loc = "upper right"
 # Constants END
 
@@ -273,7 +276,8 @@ ax1_data_y_3 = binned_resolution_nu_zenith_3
 
 
 file_name = "nu_zenith"
-plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ zenith angle"
+# plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of $\nu$ zenith angle"
+plot_title = ""
 legend_loc = "upper left"
 # Constants END
 
@@ -296,7 +300,8 @@ ax1_data_y_3 = binned_resolution_SNR_mean_3
 
 
 file_name = "nu_SNR"
-plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of event SNR"
+# plot_title = fr"Value of $\sigma{sigma_68_string}$ as a function of event SNR"
+plot_title = ""
 legend_loc = "upper right"
 # Constants END
 
