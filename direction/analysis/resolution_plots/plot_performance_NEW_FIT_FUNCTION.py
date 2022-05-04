@@ -51,10 +51,10 @@ angle_68 = calculate_percentage_interval(angle_difference_data, 0.68)
 
 # fig, ax = php.get_histogram(predicted_nu_energy[:, 0], bins=np.arange(17, 20.1, 0.05), xlabel="predicted energy")
 bins = np.linspace(0, 20, 90)
-plt.rcParams["figure.figsize"] = (4.8,4.8)
+plt.rcParams["figure.figsize"] = (3.0,3.0)
 fig, ax = php.get_histogram(angle_difference_data, bins=bins,
                             xlabel=r"Space angle difference $\Delta \Psi$ (°)", stats=False,
-                            ylabel="Events", kwargs={'color':"lightsteelblue", 'ec':"k"})
+                            ylabel="Events", kwargs={'color':"lightsteelblue", 'ec':"k", 'linewidth':0.2})
  #                           ylabel="Events", kwargs={'color':"steelblue", 'ec':"steelblue"})
 # ax.plot(xl, N*stats.rayleigh(scale=scale, loc=loc).pdf(xl))
 
@@ -111,7 +111,7 @@ if fit:
     print(A)
 
     plt.plot(x_fit, f(x_fit, *popt), '-', color="darkorange",
-         label='Moffat/King fit\n' fr'$\sigma={sigma_value:5.2f}$, $\gamma={gamma_value:5.2f}$')
+         label='Moffat/King fit\n' fr'$\sigma={sigma_value:5.2f}$' '\n' fr'$\gamma={gamma_value:5.2f}$')
 
 # Get overflow
 overflow = np.sum(angle_difference_data > bins[-1])

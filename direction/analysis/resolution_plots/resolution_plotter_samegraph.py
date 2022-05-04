@@ -114,6 +114,9 @@ point_format = ["v", "P", "p"]
 
 print(colored(f"Plotting SAMEPLOTS resolution as function of neutrino properties for...", "yellow"))
 
+# Set the figsize in order to get larger text in image
+plt.rcParams["figure.figsize"] = (4.0,3.0)
+
 # See which statistic to calculate...
 statistic_string = "SIXTYEIGHT"
 print(f"Calulating with statistic {statistic_string}...")
