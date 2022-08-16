@@ -1,26 +1,30 @@
+import datasets
+
 project_name = "nu-dir-reco"
-run_version = "runF3"
+run_version = "runF1"
 dataset_name = "SouthPole"
 
-# F1
-# test_file_ids = [80, 81, 82]
-# datapath = "/mnt/md0/data/SouthPole/single_surface_4LPDA_PA_15m_RNOG_fullsim.json/Alvarez2009_had_noise.yaml/G03generate_events_full_surface_sim/v2/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/"
-# data_filename = "data_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
-# label_filename = "labels_1-3_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
+# Dataset setup
+# Call Dataset(dataset_name, em, noise) with
+#     dataset_name:
+#         ALVAREZ (only had + noise) / ARZ
+#     em:
+#         True / False (default)
+#     noise:
+#         True (default) / False
+dataset_name = "ARZ"
+dataset_em = True
+dataset_noise = True
 
-# # F2
-# test_file_ids = [38, 39, 40]
-# datapath = "/mnt/md0/data/SouthPole/single_surface_4LPDA_PA_15m_RNOG_fullsim.json/ARZ2020_emhad_noise.yaml/G03generate_events_full_surface_sim/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/em_had_separately/"
-# data_filename = "data_had_emhad_1-3_had_1_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
-# label_filename = "labels_had_emhad_1-3_had_1_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
+dataset = datasets.Dataset(dataset_name, dataset_em, dataset_noise)
 
-# # F3
-test_file_ids = [47, 48, 49]
-datapath = "/mnt/md0/data/SouthPole/single_surface_4LPDA_PA_15m_RNOG_fullsim.json/ARZ2020_emhad_noise.yaml/G03generate_events_full_surface_sim/LPDA_2of4_100Hz/4LPDA_1dipole_fullband/em_had_separately/"
-data_filename = "data_emhad_emhad_1-3_had_1_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
-label_filename = "labels_emhad_emhad_1-3_had_1_LPDA_2of4_100Hz_4LPDA_1dipole_fullband_"
+test_file_ids = dataset.test_file_ids
+datapath = dataset.datapath
+data_filename = dataset.data_filename
+label_filename = dataset.label_filename
+n_files = dataset.n_files
+n_files_val = dataset.n_files_val
 
+# Directories
 plots_dir = "plots"
 saved_model_dir = "saved_models"
-
-# This must be a list of ids (even if only testing on 1 file)
